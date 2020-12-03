@@ -1,0 +1,76 @@
+package it.polimi.db2.entities;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "review", schema = "db2_project_schema")
+public class ReviewEntity {
+    private int idreview;
+    private Object reviewText;
+    private byte stars;
+    private int relatedProduct;
+
+    @Id
+    @Column(name = "idreview", nullable = false)
+    public int getIdreview() {
+        return idreview;
+    }
+
+    public void setIdreview(int idreview) {
+        this.idreview = idreview;
+    }
+
+    @Basic
+    @Column(name = "reviewText", nullable = false, length = -1)
+    public Object getReviewText() {
+        return reviewText;
+    }
+
+    public void setReviewText(Object reviewText) {
+        this.reviewText = reviewText;
+    }
+
+    @Basic
+    @Column(name = "stars", nullable = false)
+    public byte getStars() {
+        return stars;
+    }
+
+    public void setStars(byte stars) {
+        this.stars = stars;
+    }
+
+    @Basic
+    @Column(name = "relatedProduct", nullable = false)
+    public int getRelatedProduct() {
+        return relatedProduct;
+    }
+
+    public void setRelatedProduct(int relatedProduct) {
+        this.relatedProduct = relatedProduct;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ReviewEntity that = (ReviewEntity) o;
+
+        if (idreview != that.idreview) return false;
+        if (stars != that.stars) return false;
+        if (relatedProduct != that.relatedProduct) return false;
+        if (reviewText != null ? !reviewText.equals(that.reviewText) : that.reviewText != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = idreview;
+        result = 31 * result + (reviewText != null ? reviewText.hashCode() : 0);
+        result = 31 * result + (int) stars;
+        result = 31 * result + relatedProduct;
+        return result;
+    }
+}
