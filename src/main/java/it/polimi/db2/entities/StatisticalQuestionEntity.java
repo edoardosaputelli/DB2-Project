@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "statistical_question", schema = "db2_project_schema")
 public class StatisticalQuestionEntity {
     private int idStatisticalQuestion;
-    private Object questionText;
+    private String questionText;
 
     @Id
     @Column(name = "idStatisticalQuestion", nullable = false)
@@ -20,11 +20,11 @@ public class StatisticalQuestionEntity {
 
     @Basic
     @Column(name = "questionText", nullable = false, length = -1)
-    public Object getQuestionText() {
+    public String getQuestionText() {
         return questionText;
     }
 
-    public void setQuestionText(Object questionText) {
+    public void setQuestionText(String questionText) {
         this.questionText = questionText;
     }
 

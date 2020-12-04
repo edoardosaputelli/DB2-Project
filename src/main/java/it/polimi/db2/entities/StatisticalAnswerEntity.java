@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class StatisticalAnswerEntity {
     private int idstatisticalAnswer;
     private int associatedStatisticalQuestion;
-    private Object answerText;
+    private String answerText;
     private int targetUser;
     private int targetQuestionnaire;
 
@@ -33,11 +33,11 @@ public class StatisticalAnswerEntity {
 
     @Basic
     @Column(name = "answerText", nullable = true, length = -1)
-    public Object getAnswerText() {
+    public String getAnswerText() {
         return answerText;
     }
 
-    public void setAnswerText(Object answerText) {
+    public void setAnswerText(String answerText) {
         this.answerText = answerText;
     }
 

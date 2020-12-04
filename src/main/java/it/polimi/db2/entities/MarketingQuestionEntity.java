@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class MarketingQuestionEntity {
     private int idMarketingQuestion;
     private int associatedQuestionnaire;
-    private Object questionText;
+    private String questionText;
 
     @Id
     @Column(name = "idMarketingQuestion", nullable = false)
@@ -31,11 +31,11 @@ public class MarketingQuestionEntity {
 
     @Basic
     @Column(name = "questionText", nullable = false, length = -1)
-    public Object getQuestionText() {
+    public String getQuestionText() {
         return questionText;
     }
 
-    public void setQuestionText(Object questionText) {
+    public void setQuestionText(String questionText) {
         this.questionText = questionText;
     }
 

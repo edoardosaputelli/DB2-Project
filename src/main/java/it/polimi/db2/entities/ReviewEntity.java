@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "review", schema = "db2_project_schema")
 public class ReviewEntity {
     private int idreview;
-    private Object reviewText;
+    private String reviewText;
     private byte stars;
     private int relatedProduct;
 
@@ -22,11 +22,11 @@ public class ReviewEntity {
 
     @Basic
     @Column(name = "reviewText", nullable = false, length = -1)
-    public Object getReviewText() {
+    public String getReviewText() {
         return reviewText;
     }
 
-    public void setReviewText(Object reviewText) {
+    public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
     }
 

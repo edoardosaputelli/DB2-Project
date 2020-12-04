@@ -8,7 +8,7 @@ public class MarketingAnswerEntity {
     private int idMarketingAnswer;
     private int associatedMarketingQuestion;
     private int associatedUser;
-    private Object answerText;
+    private String answerText;
 
     @Id
     @Column(name = "idMarketing_answer", nullable = false)
@@ -42,11 +42,11 @@ public class MarketingAnswerEntity {
 
     @Basic
     @Column(name = "answerText", nullable = false, length = -1)
-    public Object getAnswerText() {
+    public String getAnswerText() {
         return answerText;
     }
 
-    public void setAnswerText(Object answerText) {
+    public void setAnswerText(String answerText) {
         this.answerText = answerText;
     }
 
