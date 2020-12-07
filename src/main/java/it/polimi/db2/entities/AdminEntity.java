@@ -11,6 +11,7 @@ public class AdminEntity implements Serializable {
     private String adminPassword;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "adminName", nullable = false, length = 45)
     public String getAdminName() {
         return adminName;

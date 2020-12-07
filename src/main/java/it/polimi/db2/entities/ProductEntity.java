@@ -14,6 +14,7 @@ public class ProductEntity implements Serializable {
     private Timestamp date;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idProduct", nullable = false)
     public int getIdProduct() {
         return idProduct;

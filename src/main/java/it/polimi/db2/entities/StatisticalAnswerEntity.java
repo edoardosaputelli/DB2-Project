@@ -13,6 +13,7 @@ public class StatisticalAnswerEntity implements Serializable {
     private int targetQuestionnaire;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idstatistical_answer", nullable = false)
     public int getIdstatisticalAnswer() {
         return idstatisticalAnswer;

@@ -10,6 +10,7 @@ public class StatisticalQuestionEntity implements Serializable {
     private String questionText;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idStatisticalQuestion", nullable = false)
     public int getIdStatisticalQuestion() {
         return idStatisticalQuestion;

@@ -41,3 +41,7 @@ H
 0src/main/java/it/polimi/db2/ejb/UserManager.java,9\1\9172401d312a4f8c762f98e7bfff87d558e337fe
 k
 ;src/main/java/it/polimi/db2/servlets/CheckLoginServlet.java,a\8\a8bde60e7f9a432903cfc875374165ec5e7fd136
+\
+,.idea/artifacts/DB2_Project_war_exploded.xml,b\b\bb573fcc9fa4e4c870229f5e3d64b920722285e5
+H
+src/main/webapp/home.jsp,6\8\6853166b9553bb500860233db274f93560c021c5

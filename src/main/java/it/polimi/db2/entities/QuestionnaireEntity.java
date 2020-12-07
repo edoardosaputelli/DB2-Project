@@ -10,6 +10,7 @@ public class QuestionnaireEntity implements Serializable {
     private int associatedProduct;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idQuestionnaire", nullable = false)
     public int getIdQuestionnaire() {
         return idQuestionnaire;

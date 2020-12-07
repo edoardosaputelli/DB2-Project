@@ -12,6 +12,7 @@ public class ReviewEntity implements Serializable {
     private int relatedProduct;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idreview", nullable = false)
     public int getIdreview() {
         return idreview;
