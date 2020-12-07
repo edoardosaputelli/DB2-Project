@@ -1,11 +1,14 @@
 package it.polimi.db2.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
 @Table(name = "user", schema = "db2_project_schema")
-public class UserEntity {
+@NamedQuery(name = "UserEntity.checkLogin", query = "SELECT r FROM UserEntity r  WHERE r.userName = ?1 and r.userPassword = ?2")
+public class UserEntity implements Serializable {
+
     private int idUser;
     private String userName;
     private String userPassword;
@@ -15,6 +18,7 @@ public class UserEntity {
     private Timestamp dateLastLogin;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idUser", nullable = false)
     public int getIdUser() {
         return idUser;

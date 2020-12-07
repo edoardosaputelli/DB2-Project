@@ -17,12 +17,14 @@
 
 <form action="CheckLoginServlet" method="post">
 
-    <input type="text" placeholder="username" name="username" required>
-    <input type="password" placeholder="password" name="password" required>
-    <input type="submit" value="Login">
+    <input type="text" placeholder="username" name="username" required> <br>
+    <input type="password" placeholder="password" name="password" required> <br>
+    <input type="submit" value="Sign Up!">
 
 </form>
 
+
+<a href="signUp.jsp">No account? Sign up!</a>
 
 
 </body>

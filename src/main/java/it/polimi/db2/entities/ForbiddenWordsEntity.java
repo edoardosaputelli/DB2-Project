@@ -4,10 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "forbidden_words", schema = "db2_project_schema")
-public class ForbiddenWordsEntity {
+public class ForbiddenWordsEntity implements Serializable {
     private String forbiddenWord;
 
     @Id

@@ -1,10 +1,11 @@
 package it.polimi.db2.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "bridge user-questionnaire", schema = "db2_project_schema")
-public class BridgeUserQuestionnaireEntity {
+public class BridgeUserQuestionnaireEntity implements Serializable {
     private byte flagCancelled;
     private int idBridge;
 

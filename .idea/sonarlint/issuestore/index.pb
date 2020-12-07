@@ -19,9 +19,25 @@ s
 Csrc/main/java/it/polimi/db2/entities/StatisticalQuestionEntity.java,a\9\a995168d00ac7f9e164c0647280f3a6068b4f924
 d
 4src/main/java/it/polimi/db2/entities/UserEntity.java,8\9\89c9635c8e1be72fa3d1e461083a6c6edd2873b0
-[
-+src/main/resources/META-INF/persistence.xml,3\b\3be4f79b5828b3982f3f6a62bf8fc67b3adedf58
 ?
 DB2_Project.iml,d\9\d99af739767c5d85512d56fd44a6892b6ea05a79
 f
 6src/main/java/it/polimi/db2/entities/ReviewEntity.java,8\5\855b97ce3977528914a9fad1e8e194bab4e68fe4
+l
+<src/main/java/it/polimi/db2/servlets/CheckSignUpServlet.java,c\c\cc8ba8c48e2f93661bd2d5477fd48c54ae804061
+I
+src/main/webapp/index.jsp,8\e\8e6d3b70c9f5b02570779b0441540d45eceb0ded
+J
+src/main/webapp/signUp.jsp,7\b\7b0c32abc225a368002b6348bd3471d95d4d582a
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+O
+src/main/webapp/WEB-INF/web.xml,2\e\2e22b6edd746fa3dc40ad7276c87c8d87d72a392
+X
+(src/main/webapp/WEB-INF/faces-config.xml,9\2\921ab541b29cd2aba50bbba38a0af79890ebe16a
+H
+src/main/webapp/Home.jsp,1\0\1072c71c1af743be3435c593bbd4e970c7aa2eae
+`
+0src/main/java/it/polimi/db2/ejb/UserManager.java,9\1\9172401d312a4f8c762f98e7bfff87d558e337fe
+k
+;src/main/java/it/polimi/db2/servlets/CheckLoginServlet.java,a\8\a8bde60e7f9a432903cfc875374165ec5e7fd136

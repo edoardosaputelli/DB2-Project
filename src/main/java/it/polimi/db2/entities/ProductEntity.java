@@ -1,12 +1,13 @@
 package it.polimi.db2.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
 @Entity
 @Table(name = "product", schema = "db2_project_schema")
-public class ProductEntity {
+public class ProductEntity implements Serializable {
     private int idProduct;
     private String productName;
     private byte[] productImage;

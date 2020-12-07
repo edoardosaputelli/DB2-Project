@@ -1,10 +1,11 @@
 package it.polimi.db2.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "admin", schema = "db2_project_schema")
-public class AdminEntity {
+public class AdminEntity implements Serializable {
     private String adminName;
     private String adminPassword;
 

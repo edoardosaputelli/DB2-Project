@@ -1,10 +1,11 @@
 package it.polimi.db2.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "statistical_answer", schema = "db2_project_schema")
-public class StatisticalAnswerEntity {
+public class StatisticalAnswerEntity implements Serializable {
     private int idstatisticalAnswer;
     private int associatedStatisticalQuestion;
     private String answerText;

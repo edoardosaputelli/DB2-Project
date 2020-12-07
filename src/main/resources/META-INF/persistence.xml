@@ -3,6 +3,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
+
     <persistence-unit name="projectPersistenceUnit">
 
         <class>it.polimi.db2.entities.AdminEntity</class>
@@ -16,15 +17,15 @@
         <class>it.polimi.db2.entities.StatisticalAnswerEntity</class>
         <class>it.polimi.db2.entities.StatisticalQuestionEntity</class>
         <class>it.polimi.db2.entities.UserEntity</class>
+
+
         <properties>
-            <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306"/>
-            <property name="toplink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306"/>
-            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
-            <property name="openjpa.ConnectionURL" value="jdbc:mysql://localhost:3306"/>
-            <property name="openjpa.ConnectionDriverName" value="com.mysql.cj.jdbc.Driver"/>
+
             <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306"/>
             <property name="eclipselink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+
         </properties>
+
+
     </persistence-unit>
 </persistence>

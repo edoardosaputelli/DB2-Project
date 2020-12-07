@@ -1,0 +1,28 @@
+
+]	java:S125"<This block of commented-out lines of code should be removed.(ì´•¬ûÿÿÿÿ8™ß”ã.
+M
+java:S1128"0Remove this unused import 'java.io.PrintWriter'.(ÓÞÏÛ8Ó”Ö”ã.
+i
+java:S1128"GRemove this unused import 'javax.persistence.NonUniqueResultException'.(ï¬Áðùÿÿÿÿ8©öñ”ã.
+X	java:S1254"<This block of commented-out lines of code should be removed.(’ðÐÐ8ê¦×”ã.
+_
+java:S1854M"BRemove this useless assignment to local variable "servletContext".(ØÉ›ª8¥Æƒ•ã.
+m
+java:S19895"PHandle the following exception that could be thrown by "sendError": IOException.(ÚÿéÇ8ê¦×”ã.
+^
+java:S1075S"ARefactor your code to get this URI from a customizable parameter.(ñ¿ØÈ8Ýœ„•ã.
+]	java:S125N"<This block of commented-out lines of code should be removed.(„“¹’úÿÿÿÿ8¥Æƒ•ã.
+u
+java:S1989T"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8»±•ã.
+]
+java:S2441W"@Make "UserEntity" serializable or don't store it in the session.(úÆè“8Óùâ”ã.
+u
+java:S1989Y"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8ê¦×”ã.
+P
+java:S1481M"3Remove this unused "servletContext" local variable.(ØÉ›ª8¥Æƒ•ã.
+b	java:S1120"FDefine and throw a dedicated exception instead of using a generic one.(üæÂã8ê¦×”ã.
+m
+java:S1989C"PHandle the following exception that could be thrown by "sendError": IOException.(Þ´Å»8ê¦×”ã.
+Z	java:S106>"9Replace this use of System.out or System.err by a logger.(Šâ”Õúÿÿÿÿ8ö®¹•ã.
+\
+java:S1161&":Add the "@Override" annotation above this method signature(þ³‚”ûÿÿÿÿ8ê¦×”ã.
