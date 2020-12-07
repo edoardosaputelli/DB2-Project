@@ -39,4 +39,13 @@ public class UserManager {
 
     }
 
+    //TBD, don't even know if really needed
+    private void registerUser(String username, String password, String email) throws Exception {
+
+    }
+
+    //TBD
+    //when he uses offensive words
+    public void banUser (UserEntity user) {}
+
 }

@@ -1,13 +1,11 @@
 package it.polimi.db2.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "forbidden_words", schema = "db2_project_schema")
+@NamedQuery(name = "ForbiddenWordsRetrieval", query = "SELECT i from ForbiddenWordsEntity i")
 public class ForbiddenWordsEntity implements Serializable {
     private String forbiddenWord;
 
