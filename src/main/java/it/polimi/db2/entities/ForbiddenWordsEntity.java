@@ -7,10 +7,10 @@ import java.io.Serializable;
 @Table(name = "forbidden_words", schema = "db2_project_schema")
 @NamedQuery(name = "ForbiddenWordsRetrieval", query = "SELECT i from ForbiddenWordsEntity i")
 public class ForbiddenWordsEntity implements Serializable {
-    private String forbiddenWord;
-
     @Id
     @Column(name = "forbidden_word", nullable = false, length = 45)
+    private String forbiddenWord;
+
     public String getForbiddenWord() {
         return forbiddenWord;
     }
@@ -18,6 +18,7 @@ public class ForbiddenWordsEntity implements Serializable {
     public void setForbiddenWord(String forbiddenWord) {
         this.forbiddenWord = forbiddenWord;
     }
+
 
     @Override
     public boolean equals(Object o) {

@@ -2,6 +2,7 @@ package it.polimi.db2.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "statistical_question", schema = "db2_project_schema")

@@ -6,14 +6,17 @@ import java.io.Serializable;
 @Entity
 @Table(name = "review", schema = "db2_project_schema")
 public class ReviewEntity implements Serializable {
-    private int idreview;
-    private String reviewText;
-    private byte stars;
-    private int relatedProduct;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idreview", nullable = false)
+    private int idreview;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "relatedProduct"
+    )
+    private ProductEntity product;
+
     public int getIdreview() {
         return idreview;
     }
@@ -21,6 +24,15 @@ public class ReviewEntity implements Serializable {
     public void setIdreview(int idreview) {
         this.idreview = idreview;
     }
+
+    /*
+    private String reviewText;
+    private byte stars;
+    private int relatedProduct;
+
+
+
+
 
     @Basic
     @Column(name = "reviewText", nullable = false, length = -1)
@@ -74,5 +86,5 @@ public class ReviewEntity implements Serializable {
         result = 31 * result + (int) stars;
         result = 31 * result + relatedProduct;
         return result;
-    }
+    }*/
 }

@@ -4,18 +4,26 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Table(name = "product", schema = "db2_project_schema")
 public class ProductEntity implements Serializable {
-    private int idProduct;
-    private String productName;
-    private byte[] productImage;
-    private Timestamp date;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idProduct", nullable = false)
+    private int idProduct;
+
+    @OneToOne(
+            mappedBy = "productoftheday"
+    )
+    private QuestionnaireEntity questionnaire;
+
+    @OneToMany(mappedBy = "product")
+    private List<ReviewEntity> rList;
+
+
+
     public int getIdProduct() {
         return idProduct;
     }
@@ -23,6 +31,13 @@ public class ProductEntity implements Serializable {
     public void setIdProduct(int idProduct) {
         this.idProduct = idProduct;
     }
+
+    /*
+    private String productName;
+    private byte[] productImage;
+    private Timestamp date;
+
+
 
     @Basic
     @Column(name = "productName", nullable = false, length = 45)
@@ -76,5 +91,5 @@ public class ProductEntity implements Serializable {
         result = 31 * result + Arrays.hashCode(productImage);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
-    }
+    }*/
 }

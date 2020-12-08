@@ -6,15 +6,40 @@ import java.io.Serializable;
 @Entity
 @Table(name = "statistical_answer", schema = "db2_project_schema")
 public class StatisticalAnswerEntity implements Serializable {
-    private int idstatisticalAnswer;
-    private int associatedStatisticalQuestion;
-    private String answerText;
-    private int targetUser;
-    private int targetQuestionnaire;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idstatistical_answer", nullable = false)
+    private int idstatisticalAnswer;
+
+
+    @ManyToOne
+    @JoinColumn(
+            name = "associatedStatisticalQuestion"
+    )
+    private StatisticalQuestionEntity question;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "targetUser"
+    )
+    private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "targetQuestionnaire"
+    )
+    private QuestionnaireEntity questionnaire;
+
+
+    public StatisticalQuestionEntity getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(StatisticalQuestionEntity question) {
+        this.question = question;
+    }
+
+
     public int getIdstatisticalAnswer() {
         return idstatisticalAnswer;
     }
@@ -23,8 +48,7 @@ public class StatisticalAnswerEntity implements Serializable {
         this.idstatisticalAnswer = idstatisticalAnswer;
     }
 
-    @Basic
-    @Column(name = "associatedStatisticalQuestion", nullable = false)
+/*
     public int getAssociatedStatisticalQuestion() {
         return associatedStatisticalQuestion;
     }
@@ -33,8 +57,7 @@ public class StatisticalAnswerEntity implements Serializable {
         this.associatedStatisticalQuestion = associatedStatisticalQuestion;
     }
 
-    @Basic
-    @Column(name = "answerText", nullable = true, length = -1)
+
     public String getAnswerText() {
         return answerText;
     }
@@ -43,8 +66,7 @@ public class StatisticalAnswerEntity implements Serializable {
         this.answerText = answerText;
     }
 
-    @Basic
-    @Column(name = "targetUser", nullable = false)
+
     public int getTargetUser() {
         return targetUser;
     }
@@ -53,8 +75,7 @@ public class StatisticalAnswerEntity implements Serializable {
         this.targetUser = targetUser;
     }
 
-    @Basic
-    @Column(name = "targetQuestionnaire", nullable = false)
+
     public int getTargetQuestionnaire() {
         return targetQuestionnaire;
     }
@@ -87,5 +108,5 @@ public class StatisticalAnswerEntity implements Serializable {
         result = 31 * result + targetUser;
         result = 31 * result + targetQuestionnaire;
         return result;
-    }
+    }*/
 }

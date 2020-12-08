@@ -2,16 +2,28 @@ package it.polimi.db2.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "marketing_question", schema = "db2_project_schema")
 public class MarketingQuestionEntity implements Serializable {
-    private int idMarketingQuestion;
-    private int associatedQuestionnaire;
-    private String questionText;
-
     @Id
     @Column(name = "idMarketingQuestion", nullable = false)
+    private int idMarketingQuestion;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "associatedQuestionnaire"
+    )
+    private QuestionnaireEntity questionnaire;
+
+    @OneToMany(
+            mappedBy = "mQuestion"
+    )
+    private List<MarketingAnswerEntity> mList;
+
+
+
     public int getIdMarketingQuestion() {
         return idMarketingQuestion;
     }
@@ -19,6 +31,14 @@ public class MarketingQuestionEntity implements Serializable {
     public void setIdMarketingQuestion(int idMarketingQuestion) {
         this.idMarketingQuestion = idMarketingQuestion;
     }
+
+
+    /*
+    private int associatedQuestionnaire;
+    private String questionText;
+
+
+
 
     @Basic
     @Column(name = "associatedQuestionnaire", nullable = false)
@@ -60,5 +80,5 @@ public class MarketingQuestionEntity implements Serializable {
         result = 31 * result + associatedQuestionnaire;
         result = 31 * result + (questionText != null ? questionText.hashCode() : 0);
         return result;
-    }
+    }*/
 }

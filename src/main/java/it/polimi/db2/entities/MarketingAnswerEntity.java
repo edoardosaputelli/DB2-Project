@@ -6,13 +6,22 @@ import java.io.Serializable;
 @Entity
 @Table(name = "marketing_answer", schema = "db2_project_schema")
 public class MarketingAnswerEntity implements Serializable {
-    private int idMarketingAnswer;
-    private int associatedMarketingQuestion;
-    private int associatedUser;
-    private String answerText;
-
     @Id
     @Column(name = "idMarketing_answer", nullable = false)
+    private int idMarketingAnswer;
+
+
+    @ManyToOne
+    @JoinColumn(
+            name = "associatedMarketingQuestion"
+    )
+    private MarketingQuestionEntity mQuestion;
+
+    @ManyToOne
+    @JoinColumn (name = "associatedUser")
+    private UserEntity user;
+
+
     public int getIdMarketingAnswer() {
         return idMarketingAnswer;
     }
@@ -20,6 +29,13 @@ public class MarketingAnswerEntity implements Serializable {
     public void setIdMarketingAnswer(int idMarketingAnswer) {
         this.idMarketingAnswer = idMarketingAnswer;
     }
+
+    /*
+    private int associatedMarketingQuestion;
+    private int associatedUser;
+    private String answerText;
+
+
 
     @Basic
     @Column(name = "associatedMarketingQuestion", nullable = false)
@@ -73,5 +89,5 @@ public class MarketingAnswerEntity implements Serializable {
         result = 31 * result + associatedUser;
         result = 31 * result + (answerText != null ? answerText.hashCode() : 0);
         return result;
-    }
+    }*/
 }

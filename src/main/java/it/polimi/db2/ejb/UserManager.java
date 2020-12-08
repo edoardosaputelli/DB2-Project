@@ -54,16 +54,23 @@ public class UserManager {
     }
 
     //TBD, don't even know if really needed
-    private void registerUser(String username, String password, String email) throws Exception {
+    private UserEntity registerUser(String username, String password, String email) throws Exception {
 
-        UserEntity user = checkCredentials(username, password);
+        if (checkCredentials(username, password) != null) {
+            return null;
+        }
 
-        //TBD
+        UserEntity user = new UserEntity(username, password, email);
 
+        try {
+            em.persist(user);
+        } catch(PersistenceException e) {
+            e.printStackTrace();
 
+            throw new Exception("Wasn't able to register new user");
+        }
 
-
-
+        return user;
     }
 
     //TBD
