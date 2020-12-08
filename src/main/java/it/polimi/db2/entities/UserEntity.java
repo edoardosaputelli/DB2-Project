@@ -10,9 +10,6 @@ import java.sql.Timestamp;
 @Table(name = "user", schema = "db2_project_schema")
 @NamedQuery(name = "UserEntity.checkLogin", query = "SELECT r FROM UserEntity r  WHERE r.userName = ?1 and r.userPassword = ?2")
 public class UserEntity implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUser", nullable = false)
     private int idUser;
     private String userName;
     private String userPassword;
@@ -20,6 +17,8 @@ public class UserEntity implements Serializable {
     private int points;
     private byte flagStatus;
     private Timestamp dateLastLogin;
+
+    public UserEntity(){}
 
     public UserEntity(String userName, String userPassword, String email) {
         this.userName = userName;
@@ -31,7 +30,9 @@ public class UserEntity implements Serializable {
         this.dateLastLogin = new Timestamp(date.getTime());
     }
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUser", nullable = false)
     public int getIdUser() {
         return idUser;
     }
