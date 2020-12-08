@@ -4,17 +4,16 @@ import it.polimi.db2.entities.ForbiddenWordsEntity;
 import it.polimi.db2.entities.MarketingAnswerEntity;
 import it.polimi.db2.entities.StatisticalAnswerEntity;
 import it.polimi.db2.entities.UserEntity;
+
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
+import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Stateless
+@Stateful
 public class QuestionnaireManager {
-    @PersistenceContext(unitName = "projectPersistenceUnit")
+    @PersistenceContext(unitName = "projectPersistenceUnit", type = PersistenceContextType.EXTENDED)
     private EntityManager em;
 
     public QuestionnaireManager () {}

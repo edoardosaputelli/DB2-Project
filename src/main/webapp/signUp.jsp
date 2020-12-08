@@ -20,7 +20,7 @@
     <input type="text" placeholder="email" name="email" required>   <br>
     <input type="text" placeholder="username" name="username" required> <br>
     <input type="password" placeholder="password" name="password" required> <br>
-    <input type="submit" value="Login">
+    <input type="submit" value="Register">
 
 </form>
 

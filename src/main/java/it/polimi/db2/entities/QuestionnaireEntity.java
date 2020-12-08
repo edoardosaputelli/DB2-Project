@@ -24,6 +24,9 @@ public class QuestionnaireEntity implements Serializable {
     )
     private List<MarketingQuestionEntity> mList;
 
+    @OneToMany(mappedBy = "questionnaire")
+    private List<QuestionnaireResponseEntity> qRlist;
+
 
     public int getIdQuestionnaire() {
         return idQuestionnaire;

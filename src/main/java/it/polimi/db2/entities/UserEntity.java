@@ -5,22 +5,40 @@ import java.io.Serializable;
 import java.util.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "user", schema = "db2_project_schema")
 @NamedQuery(name = "UserEntity.checkLogin", query = "SELECT r FROM UserEntity r  WHERE r.userName = ?1 and r.userPassword = ?2")
 public class UserEntity implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUser", nullable = false)
     private int idUser;
+    @Basic
+    @Column(name = "userName", nullable = false, length = 45)
     private String userName;
+    @Basic
+    @Column(name = "userPassword", nullable = false, length = 45)
     private String userPassword;
+    @Basic
+    @Column(name = "email", nullable = false, length = 45)
     private String email;
+    @Basic
+    @Column(name = "points", nullable = false)
     private int points;
+    @Basic
+    @Column(name = "flagStatus", nullable = false)
     private byte flagStatus;
+    @Basic
+    @Column(name = "dateLastLogin", nullable = false)
     private Timestamp dateLastLogin;
 
     public UserEntity(){}
 
     public UserEntity(String userName, String userPassword, String email) {
+        //this.idUser = getIdUser();
         this.userName = userName;
         this.userPassword = userPassword;
         this.email = email;
@@ -30,9 +48,12 @@ public class UserEntity implements Serializable {
         this.dateLastLogin = new Timestamp(date.getTime());
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idUser", nullable = false)
+
+    @OneToMany(mappedBy = "user")
+    private List<QuestionnaireResponseEntity> qRlist;
+
+
+
     public int getIdUser() {
         return idUser;
     }
@@ -41,8 +62,7 @@ public class UserEntity implements Serializable {
         this.idUser = idUser;
     }
 
-    @Basic
-    @Column(name = "userName", nullable = false, length = 45)
+
     public String getUserName() {
         return userName;
     }
@@ -51,8 +71,7 @@ public class UserEntity implements Serializable {
         this.userName = userName;
     }
 
-    @Basic
-    @Column(name = "userPassword", nullable = false, length = 45)
+
     public String getUserPassword() {
         return userPassword;
     }
@@ -61,8 +80,7 @@ public class UserEntity implements Serializable {
         this.userPassword = userPassword;
     }
 
-    @Basic
-    @Column(name = "email", nullable = false, length = 45)
+
     public String getEmail() {
         return email;
     }
@@ -71,8 +89,7 @@ public class UserEntity implements Serializable {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "points", nullable = false)
+
     public int getPoints() {
         return points;
     }
@@ -81,8 +98,7 @@ public class UserEntity implements Serializable {
         this.points = points;
     }
 
-    @Basic
-    @Column(name = "flagStatus", nullable = false)
+
     public byte getFlagStatus() {
         return flagStatus;
     }
@@ -91,8 +107,7 @@ public class UserEntity implements Serializable {
         this.flagStatus = flagStatus;
     }
 
-    @Basic
-    @Column(name = "dateLastLogin", nullable = false)
+
     public Timestamp getDateLastLogin() {
         return dateLastLogin;
     }

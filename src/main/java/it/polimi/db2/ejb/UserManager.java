@@ -54,8 +54,9 @@ public class UserManager {
     }
 
     //TBD, don't even know if really needed
-    private UserEntity registerUser(String username, String password, String email) throws Exception {
+    public UserEntity registerUser(String username, String password, String email) throws Exception {
 
+        //if the user is already present we return null
         if (checkCredentials(username, password) != null) {
             return null;
         }
@@ -64,6 +65,8 @@ public class UserManager {
 
         try {
             em.persist(user);
+            em.flush();
+
         } catch(PersistenceException e) {
             e.printStackTrace();
 

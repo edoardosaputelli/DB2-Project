@@ -7,7 +7,7 @@
     <persistence-unit name="projectPersistenceUnit">
 
         <class>it.polimi.db2.entities.AdminEntity</class>
-        <class>it.polimi.db2.entities.BridgeUserQuestionnaireEntity</class>
+        <class>it.polimi.db2.entities.QuestionnaireResponseEntity</class>
         <class>it.polimi.db2.entities.ForbiddenWordsEntity</class>
         <class>it.polimi.db2.entities.MarketingAnswerEntity</class>
         <class>it.polimi.db2.entities.MarketingQuestionEntity</class>

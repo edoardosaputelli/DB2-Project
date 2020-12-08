@@ -4,13 +4,26 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "bridge user-questionnaire", schema = "db2_project_schema")
-public class BridgeUserQuestionnaireEntity implements Serializable {
-    private byte flagCancelled;
-    private int idBridge;
-
+@Table(name = "questionnaire_response", schema = "db2_project_schema")
+public class QuestionnaireResponseEntity implements Serializable {
     @Basic
     @Column(name = "flagCancelled", nullable = false)
+    private byte flagCancelled;
+
+    @Id
+    @Column(name = "idBridge", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idBridge;
+
+    @ManyToOne
+    @JoinColumn(name ="relatedQuestionnaire")
+    private QuestionnaireEntity questionnaire;
+
+    @ManyToOne
+    @JoinColumn(name ="relatedUser")
+    private UserEntity user;
+
+
     public byte getFlagCancelled() {
         return flagCancelled;
     }
@@ -19,8 +32,6 @@ public class BridgeUserQuestionnaireEntity implements Serializable {
         this.flagCancelled = flagCancelled;
     }
 
-    @Id
-    @Column(name = "idBridge", nullable = false)
     public int getIdBridge() {
         return idBridge;
     }
@@ -34,7 +45,7 @@ public class BridgeUserQuestionnaireEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        BridgeUserQuestionnaireEntity that = (BridgeUserQuestionnaireEntity) o;
+        QuestionnaireResponseEntity that = (QuestionnaireResponseEntity) o;
 
         if (flagCancelled != that.flagCancelled) return false;
         if (idBridge != that.idBridge) return false;

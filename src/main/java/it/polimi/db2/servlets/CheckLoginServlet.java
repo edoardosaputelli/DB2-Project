@@ -72,14 +72,13 @@ public class CheckLoginServlet extends HttpServlet {
         String path;
 
         if (user == null) {
-            ServletContext servletContext = getServletContext();
-            /*final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-            ctx.setVariable("errorMsg", "Incorrect username or password");
-            path = "/index.jsp";
-            templateEngine.process(path, ctx, response.getWriter());*/
 
-            path = "/index.jsp";
+
+            //AGGIUGERE NOTA PER UTENTE NON PRESENTE
+            ServletContext servletContext = getServletContext();
+            path = getServletContext().getContextPath() + "/index.jsp";
             response.sendRedirect(path);
+
         } else {
 
             request.getSession().setAttribute("user", user);

@@ -12,14 +12,14 @@
 </head>
 <body>
 
-<h1>Welcome to the null pointer exception</h1>
+<h1>Welcome to the Marketing Quiz!</h1>
 
 
 <form action="CheckLoginServlet" method="post">
 
     <input type="text" placeholder="username" name="username" required> <br>
     <input type="password" placeholder="password" name="password" required> <br>
-    <input type="submit" value="Sign Up!">
+    <input type="submit" value="Login">
 
 </form>
 
