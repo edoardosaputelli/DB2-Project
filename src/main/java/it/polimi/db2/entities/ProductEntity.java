@@ -50,6 +50,18 @@ public class ProductEntity implements Serializable {
 
 
 
+    public ProductEntity(){}
+
+    public ProductEntity(String productName, java.sql.Date date, byte[] productImage){
+
+        this.productName = productName;
+        this.date = date;
+        this.productImage = productImage;
+
+    }
+
+
+
 
     public String getProductName() {
         return productName;
