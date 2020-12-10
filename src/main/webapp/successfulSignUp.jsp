@@ -8,13 +8,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Success</title>
 </head>
 <body>
 
 <h1>You have been registered successfully!</h1>
 
-<a href="index.jsp">Go to the login page</a>
+<a href="index.jsp"> Go to the login page</a>
 
 
 </body>

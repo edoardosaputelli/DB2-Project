@@ -1,13 +1,12 @@
 package it.polimi.db2.ejb;
 
-import it.polimi.db2.entities.ForbiddenWordsEntity;
-import it.polimi.db2.entities.MarketingAnswerEntity;
-import it.polimi.db2.entities.StatisticalAnswerEntity;
-import it.polimi.db2.entities.UserEntity;
+import it.polimi.db2.entities.*;
 
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.*;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

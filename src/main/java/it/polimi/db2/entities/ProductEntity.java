@@ -4,10 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "product", schema = "db2_project_schema")
+@NamedQuery(name = "ProductEntity.checkIdQuestionnaireOfTheDay", query = "SELECT r.questionnaire.idQuestionnaire FROM ProductEntity r  WHERE r.date = ?1")
+
 public class ProductEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,15 +35,22 @@ public class ProductEntity implements Serializable {
         this.idProduct = idProduct;
     }
 
-    /*
-    private String productName;
-    private byte[] productImage;
-    private Timestamp date;
-
-
 
     @Basic
     @Column(name = "productName", nullable = false, length = 45)
+    private String productName;
+
+    @Basic
+    @Column(name = "productImage", nullable = false)
+    private byte[] productImage;
+
+    @Basic
+    @Column(name = "date", nullable = false)
+    private Date date;
+
+
+
+
     public String getProductName() {
         return productName;
     }
@@ -49,8 +59,7 @@ public class ProductEntity implements Serializable {
         this.productName = productName;
     }
 
-    @Basic
-    @Column(name = "productImage", nullable = false)
+
     public byte[] getProductImage() {
         return productImage;
     }
@@ -59,9 +68,8 @@ public class ProductEntity implements Serializable {
         this.productImage = productImage;
     }
 
-    @Basic
-    @Column(name = "date", nullable = false)
-    public Timestamp getDate() {
+
+    public Date getDate() {
         return date;
     }
 
@@ -91,5 +99,6 @@ public class ProductEntity implements Serializable {
         result = 31 * result + Arrays.hashCode(productImage);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
-    }*/
+    }
+
 }
