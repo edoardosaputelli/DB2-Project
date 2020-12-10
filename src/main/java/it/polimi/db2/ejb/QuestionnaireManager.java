@@ -1,23 +1,44 @@
 package it.polimi.db2.ejb;
 
-import it.polimi.db2.entities.ForbiddenWordsEntity;
-import it.polimi.db2.entities.MarketingAnswerEntity;
-import it.polimi.db2.entities.StatisticalAnswerEntity;
-import it.polimi.db2.entities.UserEntity;
+import it.polimi.db2.entities.*;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.Local;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
-import java.util.Arrays;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Stateful
+@Stateless
 public class QuestionnaireManager {
-    @PersistenceContext(unitName = "projectPersistenceUnit", type = PersistenceContextType.EXTENDED)
+
+    @PersistenceContext(unitName = "projectPersistenceUnit")
     private EntityManager em;
 
+    private List<MarketingQuestionEntity> marketingQuestionEntityList;
+    private List<StatisticalQuestionEntity> statisticalQuestionEntityList;
+
     public QuestionnaireManager () {}
+
+
+    @PostConstruct
+    public void init(){
+
+        this.marketingQuestionEntityList = retrieveMarketingQuestions();
+        this.statisticalQuestionEntityList = retrieveStatisticalQuestions();
+
+    }
+
+
+    public List<StatisticalQuestionEntity> getStatisticalQuestionEntityList() {
+        return statisticalQuestionEntityList;
+    }
 
     //TBD
     //to tell database that the user has started completing the questionnaire
@@ -91,6 +112,72 @@ public class QuestionnaireManager {
     //TBD
     //to correct the statement that questionnaire was going to be completed
     public void cancelQuestionnaireCompletion (int userId) {}
+
+
+    public List<MarketingQuestionEntity> getMarketingQuestionEntityList() {
+        return marketingQuestionEntityList;
+    }
+
+    private List<MarketingQuestionEntity> retrieveMarketingQuestions(){
+
+
+        Date today = Date.valueOf(LocalDate.now());
+
+        try{
+            //da aggiungere eccezione se ritorna più prodotti
+            /*List<ProductEntity> listOfProduct = em.createNamedQuery("ProductEntity.getProductOfTheDay", ProductEntity.class)
+                    .setParameter("today",today, TemporalType.DATE).getResultList();*/
+
+
+
+            List<ProductEntity> listOfProduct = em.createQuery("SELECT r FROM ProductEntity r")
+                    .getResultList();
+
+
+            List<MarketingQuestionEntity> listMQ = listOfProduct.get(0).getQuestionnaire().getmList();
+
+
+            if(listOfProduct.size() != 1){
+                //eccezione da tirare
+            }
+
+
+            else{
+
+                return listMQ;
+
+            }
+
+        }catch (PersistenceException ex){
+
+            ex.printStackTrace();
+        }
+
+
+        return null;
+
+
+    }
+
+    private List<StatisticalQuestionEntity> retrieveStatisticalQuestions(){
+
+        try{
+
+            List<StatisticalQuestionEntity> listOfQuestions = em.createQuery("SELECT r FROM StatisticalQuestionEntity r")
+                    .getResultList();
+
+            return listOfQuestions;
+
+
+        }catch (PersistenceException ex){
+
+            ex.printStackTrace();
+        }
+
+
+        return null;
+
+    }
 
 
     //support method for checkForOffensiveWords

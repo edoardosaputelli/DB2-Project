@@ -6,7 +6,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "marketing_question", schema = "db2_project_schema")
-@NamedQuery(name = "MarketingQuestionEntity.findQuestionByQuest", query = "SELECT r FROM MarketingQuestionEntity r  WHERE r.questionnaire.idQuestionnaire = ?1")
 public class MarketingQuestionEntity implements Serializable {
     @Id
     @Column(name = "idMarketingQuestion", nullable = false)
@@ -23,7 +22,18 @@ public class MarketingQuestionEntity implements Serializable {
     )
     private List<MarketingAnswerEntity> mList;
 
+    /*@Basic
+    @Column(name = "associatedQuestionnaire", nullable = false)
+    private int associatedQuestionnaire;*/
 
+    @Basic
+    @Column(name = "questionText", nullable = false, length = -1)
+    private String questionText;
+
+
+    public QuestionnaireEntity getQuestionnaire() {
+        return questionnaire;
+    }
 
     public int getIdMarketingQuestion() {
         return idMarketingQuestion;
@@ -34,25 +44,16 @@ public class MarketingQuestionEntity implements Serializable {
     }
 
 
-    /*
-    @Basic
-    @Column(name = "associatedQuestionnaire", nullable = false)
-    private int associatedQuestionnaire;
-    @Basic
-    @Column(name = "questionText", nullable = false, length = -1)
-    private String questionText;
 
-
-
-
-
-    public int getAssociatedQuestionnaire() {
+    /*public int getAssociatedQuestionnaire() {
         return associatedQuestionnaire;
-    }
+    }*/
 
-    public void setAssociatedQuestionnaire(int associatedQuestionnaire) {
+
+
+    /*public void setAssociatedQuestionnaire(int associatedQuestionnaire) {
         this.associatedQuestionnaire = associatedQuestionnaire;
-    }
+    }*/
 
 
     public String getQuestionText() {
@@ -63,7 +64,7 @@ public class MarketingQuestionEntity implements Serializable {
         this.questionText = questionText;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -75,9 +76,9 @@ public class MarketingQuestionEntity implements Serializable {
         if (questionText != null ? !questionText.equals(that.questionText) : that.questionText != null) return false;
 
         return true;
-    }
+    }*/
 
-    @Override
+    /*@Override
     public int hashCode() {
         int result = idMarketingQuestion;
         result = 31 * result + associatedQuestionnaire;

@@ -1,4 +1,7 @@
-<%@ page import="it.polimi.db2.entities.UserEntity" %><%--
+<%@ page import="it.polimi.db2.entities.UserEntity" %>
+<%@ page import="java.util.List" %>
+<%@ page import="it.polimi.db2.entities.MarketingQuestionEntity" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 10/12/2020
@@ -12,13 +15,27 @@
 </head>
 <body>
 
+<h1>Questionnaire</h1>
 
-<% Object user = session.getAttribute("user");
-    String username = ((UserEntity) user).toString();
+<% String questionsTable = "<form action=\"QuestionnaireServlet\" method=\"post\">";
+
+   List<MarketingQuestionEntity> questionEntityList = (List<MarketingQuestionEntity>)request.getAttribute("questions");
+
+   int i = 0;
+
+   for(MarketingQuestionEntity mq : questionEntityList){
+       questionsTable = questionsTable +"\n" + mq.getQuestionText() +": "
+               +"<input type=\"text\""  +"name=" +"\"question" +i +"\"" +"required> <br>";
+
+       i++;
+   }
+
+   questionsTable = questionsTable +"\n" +"<input type=\"submit\" value=\"Submit\">" +"</form>";
 
 %>
 
-<h3><%=username%></h3>
+<%=questionsTable%>
+
 
 
 

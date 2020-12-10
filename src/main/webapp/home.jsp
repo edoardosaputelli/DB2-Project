@@ -22,7 +22,7 @@
 <h3>Welcome: <%=username%>, let's start!</h3>
 
 
-<form action="QuestionnaireServlet" method="post">
+<form action="QuestionnaireServlet" method="get">
     <button type="submit" >Go to questionnaire</button>
 </form>
 

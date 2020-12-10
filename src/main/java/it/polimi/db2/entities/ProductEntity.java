@@ -2,14 +2,14 @@ package it.polimi.db2.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "product", schema = "db2_project_schema")
-@NamedQuery(name = "ProductEntity.checkIdQuestionnaireOfTheDay", query = "SELECT r.questionnaire.idQuestionnaire FROM ProductEntity r  WHERE r.date = ?1")
+@NamedQuery(name = "ProductEntity.getProductOfTheDay", query = "SELECT r FROM ProductEntity r  WHERE r.date = :today ")
 
 public class ProductEntity implements Serializable {
     @Id
@@ -24,17 +24,6 @@ public class ProductEntity implements Serializable {
 
     @OneToMany(mappedBy = "product")
     private List<ReviewEntity> rList;
-
-
-
-    public int getIdProduct() {
-        return idProduct;
-    }
-
-    public void setIdProduct(int idProduct) {
-        this.idProduct = idProduct;
-    }
-
 
     @Basic
     @Column(name = "productName", nullable = false, length = 45)
@@ -80,12 +69,28 @@ public class ProductEntity implements Serializable {
         this.productImage = productImage;
     }
 
+    public QuestionnaireEntity getQuestionnaire() {
+        return questionnaire;
+    }
+
+    public List<ReviewEntity> getrList() {
+        return rList;
+    }
+
+    public int getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(int idProduct) {
+        this.idProduct = idProduct;
+    }
+
 
     public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

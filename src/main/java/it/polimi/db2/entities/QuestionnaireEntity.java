@@ -36,6 +36,31 @@ public class QuestionnaireEntity implements Serializable {
         this.idQuestionnaire = idQuestionnaire;
     }
 
+    public ProductEntity getProductoftheday() {
+        return productoftheday;
+    }
+
+    public void setProductoftheday(ProductEntity productoftheday) {
+        this.productoftheday = productoftheday;
+    }
+
+    public List<MarketingQuestionEntity> getmList() {
+        return mList;
+    }
+
+    public void setmList(List<MarketingQuestionEntity> mList) {
+        this.mList = mList;
+    }
+
+    public List<QuestionnaireResponseEntity> getqRlist() {
+        return qRlist;
+    }
+
+    public void setqRlist(List<QuestionnaireResponseEntity> qRlist) {
+        this.qRlist = qRlist;
+    }
+
+
     /*
     private int associatedProduct;
 
