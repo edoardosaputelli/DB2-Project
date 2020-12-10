@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -21,6 +22,23 @@ public class ProductEntity implements Serializable {
 
     @OneToMany(mappedBy = "product")
     private List<ReviewEntity> rList;
+    @Basic
+    @Column(name = "date", nullable = false)
+    private Date date;
+    @Basic
+    @Column(name = "productName", nullable = false, length = 45)
+    private String productName;
+    @Basic
+    @Column(name = "productImage", nullable = false)
+    private byte[] productImage;
+
+    public ProductEntity () {}
+
+    public ProductEntity(String name, Date date ,byte[] productImage) {
+        this.productName = name;
+        this.date = date;
+        this.productImage = productImage;
+    }
 
 
 
@@ -32,15 +50,24 @@ public class ProductEntity implements Serializable {
         this.idProduct = idProduct;
     }
 
-    /*
-    private String productName;
-    private byte[] productImage;
-    private Timestamp date;
 
 
 
-    @Basic
-    @Column(name = "productName", nullable = false, length = 45)
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+
+
+
+
+
+
+
     public String getProductName() {
         return productName;
     }
@@ -49,8 +76,7 @@ public class ProductEntity implements Serializable {
         this.productName = productName;
     }
 
-    @Basic
-    @Column(name = "productImage", nullable = false)
+
     public byte[] getProductImage() {
         return productImage;
     }
@@ -59,15 +85,8 @@ public class ProductEntity implements Serializable {
         this.productImage = productImage;
     }
 
-    @Basic
-    @Column(name = "date", nullable = false)
-    public Timestamp getDate() {
-        return date;
-    }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -91,5 +110,5 @@ public class ProductEntity implements Serializable {
         result = 31 * result + Arrays.hashCode(productImage);
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
-    }*/
+    }
 }

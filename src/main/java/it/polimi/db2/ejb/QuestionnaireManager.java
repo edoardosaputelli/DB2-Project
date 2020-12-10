@@ -8,6 +8,7 @@ import it.polimi.db2.entities.UserEntity;
 import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,36 @@ public class QuestionnaireManager {
     //to be used together with UserManager's banUser!
     //returns true if the text of an answer contains one of the forbidden words
     public boolean checkForOffensiveWords(int userId, String answerText) {
+        List<String> ansWords = Arrays.asList(answerText.split(" ").clone());
+        int numOfForbidden = 0;
+        ForbiddenWordsEntity currentForbidden;
+
+        try {
+             numOfForbidden = em.createNamedQuery("ForbiddenWordsCount", ForbiddenWordsEntity.class).getFirstResult();
+
+        }catch (PersistenceException e) {
+            e.printStackTrace();
+        }
+
+
+
+        for(int i=0;i<numOfForbidden; i++){
+
+            try {
+                 currentForbidden = em.createNamedQuery("ForbiddenWordN", ForbiddenWordsEntity.class)
+                 .setParameter(1, i-1).getSingleResult();
+
+            }catch (PersistenceException e) {
+                e.printStackTrace();
+            }
+
+            for (String s: ansWords) {
+                s.toUpperCase().equals(currentForbidden.getForbiddenWord());
+            }
+
+        }
+
+        /*
         List<ForbiddenWordsEntity> fWList = null;
 
         try {
@@ -47,10 +78,13 @@ public class QuestionnaireManager {
         List<String> sList = convertToStringList(fWList);
 
         for (String s: sList) {
-            if (answerText.contains(s)) {
-                return true;
-            }
+                if (answerText.contains(s)) {
+                    return true;
+                }
         }
+
+         */
+
         return false;
     }
 
@@ -60,6 +94,7 @@ public class QuestionnaireManager {
 
 
     //support method for checkForOffensiveWords
+    //probably won't be needed for all
     public List<String> convertToStringList (List<ForbiddenWordsEntity> fWList) {
         List<String> sList = null;
         sList = fWList.stream().map(obj -> obj.getForbiddenWord()).collect(Collectors.toList());

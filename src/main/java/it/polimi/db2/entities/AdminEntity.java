@@ -5,7 +5,10 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "admin", schema = "db2_project_schema")
-@NamedQuery(name = "AdminEntity.checkLogin", query = "SELECT r FROM AdminEntity r  WHERE r.adminName = ?1 and r.adminPassword = ?2")
+@NamedQueries({@NamedQuery(name = "AdminEntity.checkLogin", query = "SELECT r FROM AdminEntity r  WHERE r.adminName = ?1 and r.adminPassword = ?2"),
+        @NamedQuery(name = "AdminEntity.checkIfDayIsFree", query ="SELECT i FROM ProductEntity i WHERE i.date = ?1")
+})
+
 public class AdminEntity implements Serializable {
     private String adminName;
     private String adminPassword;

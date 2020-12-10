@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Stateless
@@ -43,7 +45,28 @@ public class AdminManager {
     }
 
     //TBD
-    public void createProductQuestionnaire () {}
+    public boolean addProduct (String productName, Date chosenDay, byte[] image) throws Exception {
+        ProductEntity productOfTheDAy = new ProductEntity(productName, chosenDay, image);
+
+        if (em.createNamedQuery("AdminEntity.checkIfDayIsFree", AdminEntity.class).setParameter(1, chosenDay).getResultList().isEmpty()) {
+            return false;
+        }
+        
+        try {
+            em.persist(productOfTheDAy);
+            em.flush();
+
+        }catch (PersistenceException e) {
+            e.printStackTrace();
+            System.out.println("The product was not added");
+        }
+
+        return true;
+    }
+
+    public void addMarketingQuestion(String product, MarketingQuestionEntity question) {
+
+    }
 
     //TBD, maybe as argument we could put date? dunno
     public void deleteQuestionnaireData (ProductEntity product) {}
