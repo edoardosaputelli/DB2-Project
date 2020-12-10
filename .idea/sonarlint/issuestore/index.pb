@@ -1,8 +1,6 @@
 
 e
 5src/main/java/it/polimi/db2/entities/AdminEntity.java,2\e\2eecb66c59c262761f9d72ff667b99e080b2954c
-w
-Gsrc/main/java/it/polimi/db2/entities/BridgeUserQuestionnaireEntity.java,f\2\f26c98576bd196add4944791b933ba28981b4e71
 n
 >src/main/java/it/polimi/db2/entities/ForbiddenWordsEntity.java,5\b\5b48fc9dae64c3ad3e0a1badc930ba968975a090
 o
@@ -45,3 +43,13 @@ k
 ,.idea/artifacts/DB2_Project_war_exploded.xml,b\b\bb573fcc9fa4e4c870229f5e3d64b920722285e5
 H
 src/main/webapp/home.jsp,6\8\6853166b9553bb500860233db274f93560c021c5
+a
+1src/main/java/it/polimi/db2/ejb/AdminManager.java,c\3\c38da5c032c2acb1cf8fc9dc4279d9356cbcaad1
+Z
+*src/main/webapp/marketingQuestionnaire.jsp,9\6\96f2cb33a62629aa9e03ec98960e342d634ec464
+T
+$src/main/webapp/successfulSignUp.jsp,1\7\1793300017d571417a1211f519fce81ad9b72ddd
+n
+>src/main/java/it/polimi/db2/servlets/QuestionnaireServlet.java,9\c\9cd12607e366f53af87db390593b78fcd67c6633
+i
+9src/main/java/it/polimi/db2/ejb/QuestionnaireManager.java,a\c\ac3babbc2e961726c89aaca8f628234814c55840

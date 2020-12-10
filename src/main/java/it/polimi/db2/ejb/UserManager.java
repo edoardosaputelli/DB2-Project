@@ -42,8 +42,6 @@ public class UserManager {
 
             Timestamp today = new Timestamp(date.getTime());
 
-            System.out.println("\n\n\n" +today);
-
             UserEntity user = uList.get(0);
 
             user.setDateLastLogin(today);

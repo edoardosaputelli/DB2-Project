@@ -75,15 +75,16 @@ public class CheckLoginServlet extends HttpServlet {
 
 
             //AGGIUGERE NOTA PER UTENTE NON PRESENTE
-            ServletContext servletContext = getServletContext();
-            path = getServletContext().getContextPath() + "/index.jsp";
-            response.sendRedirect(path);
+
+            request.getSession().setAttribute("user", null);
+            request.getRequestDispatcher("index.jsp").forward(request,response);
+
+
 
         } else {
 
             request.getSession().setAttribute("user", user);
-            path = getServletContext().getContextPath() + "/home.jsp";
-            response.sendRedirect(path);
+            request.getRequestDispatcher("home.jsp").forward(request,response);
         }
 
     }

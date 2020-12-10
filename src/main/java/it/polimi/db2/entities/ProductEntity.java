@@ -4,11 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "product", schema = "db2_project_schema")
+@NamedQuery(name = "ProductEntity.checkIdQuestionnaireOfTheDay", query = "SELECT r.questionnaire.idQuestionnaire FROM ProductEntity r  WHERE r.date = ?1")
+
 public class ProductEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,23 +24,6 @@ public class ProductEntity implements Serializable {
 
     @OneToMany(mappedBy = "product")
     private List<ReviewEntity> rList;
-    @Basic
-    @Column(name = "date", nullable = false)
-    private Date date;
-    @Basic
-    @Column(name = "productName", nullable = false, length = 45)
-    private String productName;
-    @Basic
-    @Column(name = "productImage", nullable = false)
-    private byte[] productImage;
-
-    public ProductEntity () {}
-
-    public ProductEntity(String name, Date date ,byte[] productImage) {
-        this.productName = name;
-        this.date = date;
-        this.productImage = productImage;
-    }
 
 
 
@@ -51,19 +36,17 @@ public class ProductEntity implements Serializable {
     }
 
 
+    @Basic
+    @Column(name = "productName", nullable = false, length = 45)
+    private String productName;
 
+    @Basic
+    @Column(name = "productImage", nullable = false)
+    private byte[] productImage;
 
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-
-
-
+    @Basic
+    @Column(name = "date", nullable = false)
+    private Date date;
 
 
 
@@ -86,7 +69,13 @@ public class ProductEntity implements Serializable {
     }
 
 
+    public Date getDate() {
+        return date;
+    }
 
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -111,4 +100,5 @@ public class ProductEntity implements Serializable {
         result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
     }
+
 }

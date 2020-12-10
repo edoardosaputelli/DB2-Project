@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "marketing_question", schema = "db2_project_schema")
+@NamedQuery(name = "MarketingQuestionEntity.findQuestionByQuest", query = "SELECT r FROM MarketingQuestionEntity r  WHERE r.questionnaire.idQuestionnaire = ?1")
 public class MarketingQuestionEntity implements Serializable {
     @Id
     @Column(name = "idMarketingQuestion", nullable = false)
@@ -34,14 +35,17 @@ public class MarketingQuestionEntity implements Serializable {
 
 
     /*
+    @Basic
+    @Column(name = "associatedQuestionnaire", nullable = false)
     private int associatedQuestionnaire;
+    @Basic
+    @Column(name = "questionText", nullable = false, length = -1)
     private String questionText;
 
 
 
 
-    @Basic
-    @Column(name = "associatedQuestionnaire", nullable = false)
+
     public int getAssociatedQuestionnaire() {
         return associatedQuestionnaire;
     }
@@ -50,8 +54,7 @@ public class MarketingQuestionEntity implements Serializable {
         this.associatedQuestionnaire = associatedQuestionnaire;
     }
 
-    @Basic
-    @Column(name = "questionText", nullable = false, length = -1)
+
     public String getQuestionText() {
         return questionText;
     }

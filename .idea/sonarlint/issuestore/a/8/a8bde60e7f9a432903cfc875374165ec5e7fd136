@@ -1,25 +1,20 @@
 
+~
+java:S1989W"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(‹âŒõ8„°ú„‰.
 m
 java:S1989A"PHandle the following exception that could be thrown by "sendError": IOException.(ﬁ¥≈ª8êıÌÊ„.
-M
-java:S1128"0Remove this unused import 'java.io.PrintWriter'.(”ﬁœ€8”î÷î„.
-]	java:S125"<This block of commented-out lines of code should be removed.(Ï¥ï¨˚ˇˇˇˇ8ôçﬂî„.
-X	java:S1254"<This block of commented-out lines of code should be removed.(í––8Í¶◊î„.
-u
-java:S1989R"SHandle the following exception that could be thrown by "sendRedirect": IOException.(€—Èß˛ˇˇˇˇ8êıÌÊ„.
-P
-java:S1481K"3Remove this unused "servletContext" local variable.(ÿ…õ™8êıÌÊ„.
-]	java:S125L"<This block of commented-out lines of code should be removed.(Ñìπí˙ˇˇˇˇ8êıÌÊ„.
-_
-java:S1854K"BRemove this useless assignment to local variable "servletContext".(ÿ…õ™8êıÌÊ„.
-u
-java:S1989W"SHandle the following exception that could be thrown by "sendRedirect": IOException.(€—Èß˛ˇˇˇˇ8êıÌÊ„.
-b	java:S1120"FDefine and throw a dedicated exception instead of using a generic one.(¸Ê¬„8Í¶◊î„.
-^
-java:S1075Q"ARefactor your code to get this URI from a customizable parameter.(Òøÿ»8êıÌÊ„.
-i
-java:S1128"GRemove this unused import 'javax.persistence.NonUniqueResultException'.(Ô¨¡˘ˇˇˇˇ8©ˆÒî„.
-m
-java:S19895"PHandle the following exception that could be thrown by "sendError": IOException.(⁄ˇÈ«8Í¶◊î„.
 \
 java:S1161&":Add the "@Override" annotation above this method signature(˛≥Çî˚ˇˇˇˇ8Í¶◊î„.
+]	java:S125"<This block of commented-out lines of code should be removed.(Ï¥ï¨˚ˇˇˇˇ8ôçﬂî„.
+F
+java:S1481H")Remove this unused "path" local variable.(…„ÖÕ8ˆì†„‰.
+X	java:S1254"<This block of commented-out lines of code should be removed.(í––8Í¶◊î„.
+m
+java:S19895"PHandle the following exception that could be thrown by "sendError": IOException.(⁄ˇÈ«8Í¶◊î„.
+É
+java:S1989P"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ä”ø¯ˇˇˇˇ8÷œù„‰.
+i
+java:S1128"GRemove this unused import 'javax.persistence.NonUniqueResultException'.(Ô¨¡˘ˇˇˇˇ8©ˆÒî„.
+M
+java:S1128"0Remove this unused import 'java.io.PrintWriter'.(”ﬁœ€8”î÷î„.
+b	java:S1120"FDefine and throw a dedicated exception instead of using a generic one.(¸Ê¬„8Í¶◊î„.
