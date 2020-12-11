@@ -53,3 +53,9 @@ n
 >src/main/java/it/polimi/db2/servlets/QuestionnaireServlet.java,9\c\9cd12607e366f53af87db390593b78fcd67c6633
 i
 9src/main/java/it/polimi/db2/ejb/QuestionnaireManager.java,a\c\ac3babbc2e961726c89aaca8f628234814c55840
+y
+Isrc/main/java/it/polimi/db2/servlets/StatisticalQuestionnaireServlet.java,1\3\131c23c3607f157b4e2b8b2218e7388c315717c9
+\
+,src/main/webapp/statisticalQuestionnaire.jsp,0\6\06696446a64f90c0e9e59c34eeef00c63001ac89
+Y
+)src/main/webapp/successMarketingQuest.jsp,d\4\d4317e2da9507b54be54dc5097d7f4b31ed3d678

@@ -1,4 +1,5 @@
-<%@ page import="it.polimi.db2.entities.UserEntity" %><%--
+<%@ page import="it.polimi.db2.entities.UserEntity" %>
+<%@ page import="it.polimi.db2.entities.ProductEntity" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 05/12/2020
@@ -20,6 +21,11 @@
 %>
 
 <h3>Welcome: <%=username%>, let's start!</h3>
+
+
+<h1>Product of the day: tbd</h1>
+
+
 
 
 <form action="QuestionnaireServlet" method="get">

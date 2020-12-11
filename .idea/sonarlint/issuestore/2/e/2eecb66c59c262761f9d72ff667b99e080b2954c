@@ -1,3 +1,5 @@
 
 c
-java:S1126*"AReplace this if-then-else statement by a single return statement.(Äˆ¢öøÿÿÿÿ8…êİ¼ã.
+java:S1126-"AReplace this if-then-else statement by a single return statement.(Äˆ¢öøÿÿÿÿ8…êİ¼ã.
+^
+java:S1710"<Remove the 'NamedQueries' wrapper from this annotation group(—´‡ßıÿÿÿÿ8€¾æêä.

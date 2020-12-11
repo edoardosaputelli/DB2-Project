@@ -1,7 +1,8 @@
 <%@ page import="it.polimi.db2.entities.UserEntity" %>
 <%@ page import="java.util.List" %>
 <%@ page import="it.polimi.db2.entities.MarketingQuestionEntity" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.HashMap" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 10/12/2020
@@ -17,20 +18,59 @@
 
 <h1>Questionnaire</h1>
 
-<% String questionsTable = "<form action=\"QuestionnaireServlet\" method=\"post\">";
+<%
 
-   List<MarketingQuestionEntity> questionEntityList = (List<MarketingQuestionEntity>)request.getAttribute("questions");
+    String questionsTable = "error";
 
-   int i = 0;
+    if(request.getSession().getAttribute("mapMarketingAnsQuest") == null) {
 
-   for(MarketingQuestionEntity mq : questionEntityList){
-       questionsTable = questionsTable +"\n" + mq.getQuestionText() +": "
-               +"<input type=\"text\""  +"name=" +"\"question" +i +"\"" +"required> <br>";
+        questionsTable = "<form action=\"QuestionnaireServlet\" method=\"post\">";
 
-       i++;
+        List<MarketingQuestionEntity> questionEntityList = (List<MarketingQuestionEntity>) request.getAttribute("marketingQuestions");
+
+        int i = 0;
+
+        for (MarketingQuestionEntity mq : questionEntityList) {
+            questionsTable = questionsTable + "\n" + mq.getQuestionText() + ": "
+                    + "<input type=\"text\"" + "name=" + "\"question" + i + "\"" + "required> <br>";
+
+            i++;
+        }
+
+        questionsTable = questionsTable + "\n" + "<input type=\"submit\" value=\"Submit\">" + "</form>";
    }
 
-   questionsTable = questionsTable +"\n" +"<input type=\"submit\" value=\"Submit\">" +"</form>";
+    else{
+
+        questionsTable = "<form action=\"QuestionnaireServlet\" method=\"post\">";
+
+        List<MarketingQuestionEntity> questionEntityList = (List<MarketingQuestionEntity>) request.getAttribute("marketingQuestions");
+
+        HashMap<Integer, String> mapMarkAnsQuest = (HashMap<Integer, String>) request.getSession().getAttribute("mapMarketingAnsQuest");
+
+        int i = 0;
+
+        for (MarketingQuestionEntity mq : questionEntityList) {
+            questionsTable = questionsTable + "\n" + mq.getQuestionText() + ": "
+                    + "<input type=\"text\"" +"value= " +"\"" +mapMarkAnsQuest.get(mq.getIdMarketingQuestion()) +"\""
+                    +" name=" + "\"question" + i + "\"" + "required> <br>";
+
+            i++;
+        }
+
+
+
+        questionsTable = questionsTable + "\n" + "<input type=\"submit\" value=\"Submit\">" + "</form>";
+
+
+
+
+
+    }
+
+
+
+
 
 %>
 

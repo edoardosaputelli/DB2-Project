@@ -13,26 +13,50 @@
 </head>
 <body>
 
-<% String questionsTable = "<form action=\"StatisticalQuestionnaireServlet\" method=\"post\">";
+<%
+    String questionsTable;
 
-    List<StatisticalQuestionEntity> questionEntityList = (List<StatisticalQuestionEntity>)request
-            .getAttribute("statisticalQuestions");
 
-    int i = 0;
+    if(request.getSession().getAttribute("mapStatAnsQuest") == null) {
 
-    for(StatisticalQuestionEntity mq : questionEntityList){
-        questionsTable = questionsTable +"\n" + mq.getQuestionText() +": "
-                +"<input type=\"radio\""  +"name=" +"\"statQuestion" +i +"\"" +"> <br>";
 
-        i++;
+        questionsTable = "<form action=\"StatisticalQuestionnaireServlet\" method=\"post\">";
+
+        List<StatisticalQuestionEntity> questionEntityList = (List<StatisticalQuestionEntity>) request
+                .getAttribute("statisticalQuestions");
+
+        int i = 0;
+
+        for (StatisticalQuestionEntity mq : questionEntityList) {
+            questionsTable = questionsTable + "\n" + mq.getQuestionText() + ": "
+                    + "<input type=\"text\"" + "name=" + "\"statQuestion" + i + "\"" + "> <br>";
+
+            i++;
+        }
+
+        questionsTable = questionsTable + "\n" + "<input type=\"submit\" value=\"Submit\">" + "</form>";
     }
 
-    questionsTable = questionsTable +"\n" +"<input type=\"submit\" value=\"Submit\">" +"</form>";
+
+    else{
+
+
+        questionsTable = "vedi nell'else";
+
+    }
+
+
 
 %>
 
 <%=questionsTable%>
 
+
+<form action="QuestionnaireServlet" method="get">
+
+    <input type="submit" value="Go Back to Marketing Questionnaire">
+
+</form>
 
 
 

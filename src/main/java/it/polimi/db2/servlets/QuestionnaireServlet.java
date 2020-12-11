@@ -1,7 +1,6 @@
 package it.polimi.db2.servlets;
 
 import it.polimi.db2.ejb.QuestionnaireManager;
-import it.polimi.db2.ejb.UserManager;
 import it.polimi.db2.entities.MarketingQuestionEntity;
 
 import javax.ejb.EJB;
@@ -11,10 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 
 @WebServlet(name = "QuestionnaireServlet", urlPatterns = {"/QuestionnaireServlet"})
@@ -36,7 +32,7 @@ public class QuestionnaireServlet extends HttpServlet {
 
         }
 
-        request.getSession().setAttribute("mapAnswerQuestions", mapAnsQuest);
+        request.getSession().setAttribute("mapMarketingAnsQuest", mapAnsQuest);
         request.getRequestDispatcher("successMarketingQuest.jsp").forward(request, response);
 
 
@@ -47,7 +43,7 @@ public class QuestionnaireServlet extends HttpServlet {
 
         List<MarketingQuestionEntity> mQuestionList = questionnaireManager.getMarketingQuestionEntityList();
 
-        request.setAttribute("questions", mQuestionList);
+        request.setAttribute("marketingQuestions", mQuestionList);
         request.getRequestDispatcher("marketingQuestionnaire.jsp").forward(request,response);
 
 

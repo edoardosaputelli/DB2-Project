@@ -40,17 +40,7 @@ public class QuestionnaireManager {
         return statisticalQuestionEntityList;
     }
 
-    //TBD
-    //to tell database that the user has started completing the questionnaire
-    public void declareQuestionnaireCompletion (int userId) {}
 
-    //TBD
-    //CAUTION is it okay like this or the argument must be a list?
-    //REMEMBER that if the user cancels no answer should be put in database!
-    public void FillMarketingQuestion (int userId, MarketingAnswerEntity answer) {}
-
-    //TBD
-    public void FillStatisticalQuestion (int userId,StatisticalAnswerEntity answer) {}
 
     //TBD
     //to be used together with UserManager's banUser!
@@ -108,11 +98,6 @@ public class QuestionnaireManager {
 
         return false;
     }
-
-    //TBD
-    //to correct the statement that questionnaire was going to be completed
-    public void cancelQuestionnaireCompletion (int userId) {}
-
 
     public List<MarketingQuestionEntity> getMarketingQuestionEntityList() {
         return marketingQuestionEntityList;
@@ -176,6 +161,21 @@ public class QuestionnaireManager {
 
 
         return null;
+
+    }
+
+
+    //bisogna scrivere un eccezione (banale) da tirare nel caso in cui trovi offensive words
+    public void persistQuestionnaireAndCheck(int userId, HashMap<Integer, String> mapMarkAnsQuest, HashMap<Integer, String> mapStatAnsQuest){
+
+
+
+
+
+
+
+
+
 
     }
 

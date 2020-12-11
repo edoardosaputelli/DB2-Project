@@ -26,15 +26,6 @@ public class CheckLoginServlet extends HttpServlet {
         super();
     }
 
-    /*public void init() throws ServletException {
-        ServletContext servletContext = getServletContext();
-        ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(servletContext);
-        templateResolver.setTemplateMode(TemplateMode.HTML);
-        this.templateEngine = new TemplateEngine();
-        this.templateEngine.setTemplateResolver(templateResolver);
-        templateResolver.setSuffix(".html");
-    }*/
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // obtain and escape params
@@ -82,6 +73,8 @@ public class CheckLoginServlet extends HttpServlet {
 
 
         } else {
+
+
 
             request.getSession().setAttribute("user", user);
             request.getRequestDispatcher("home.jsp").forward(request,response);
