@@ -17,6 +17,7 @@
         <class>it.polimi.db2.entities.StatisticalAnswerEntity</class>
         <class>it.polimi.db2.entities.StatisticalQuestionEntity</class>
         <class>it.polimi.db2.entities.UserEntity</class>
+        <class>it.polimi.db2.entities.StatQuestionAlternativesEntity</class>
 
 
         <properties>

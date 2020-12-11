@@ -1,5 +1,7 @@
 <%@ page import="it.polimi.db2.entities.StatisticalQuestionEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="it.polimi.db2.entities.StatQuestionAlternativesEntity" %>
+<%@ page import="java.util.HashMap" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 10/12/2020
@@ -16,36 +18,33 @@
 <%
     String questionsTable;
 
+    questionsTable = "<form action=\"StatisticalQuestionnaireServlet\" method=\"post\">";
 
-    if(request.getSession().getAttribute("mapStatAnsQuest") == null) {
+    HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > questionEntityList =
+            (HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > )
+            request.getAttribute("statisticalQuestions");
 
 
-        questionsTable = "<form action=\"StatisticalQuestionnaireServlet\" method=\"post\">";
+    for(StatisticalQuestionEntity sqe : questionEntityList.keySet()){
 
-        List<StatisticalQuestionEntity> questionEntityList = (List<StatisticalQuestionEntity>) request
-                .getAttribute("statisticalQuestions");
+        questionsTable = questionsTable +sqe.getQuestionText() +"<br>";
 
-        int i = 0;
+        for(StatQuestionAlternativesEntity sqa : questionEntityList.get(sqe)) {
 
-        for (StatisticalQuestionEntity mq : questionEntityList) {
-            questionsTable = questionsTable + "\n" + mq.getQuestionText() + ": "
-                    + "<input type=\"text\"" + "name=" + "\"statQuestion" + i + "\"" + "> <br>";
+            questionsTable = questionsTable + "<br>" + sqa.getAlternativeText() + ": "
+                    + "<input type=\"radio\"" +" id = " +"\"" +sqa.getAlternativeText() +"\""
+                    +"value=" +"\"" +sqa.getAlternativeText() +"\"" +"name=" +"\"" +sqe.getQuestionText() +"\" " + "> <br>";
 
-            i++;
+
         }
 
-        questionsTable = questionsTable + "\n" + "<input type=\"submit\" value=\"Submit\">" + "</form>";
-    }
+        questionsTable = questionsTable +"<br>";
 
-
-    else{
-
-
-        questionsTable = "vedi nell'else";
 
     }
 
 
+    questionsTable = questionsTable + "\n" + "<input type=\"submit\" value=\"Submit\">" + "</form>";
 
 %>
 

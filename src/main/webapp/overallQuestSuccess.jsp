@@ -1,4 +1,5 @@
-<%--
+<%@ page import="it.polimi.db2.entities.MarketingQuestionEntity" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 11/12/2020
@@ -22,6 +23,9 @@
 <h1><%=mapMark%></h1>
 
 <h2><%=mapStat%></h2>
+
+
+
 
 
 

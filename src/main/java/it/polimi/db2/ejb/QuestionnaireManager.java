@@ -3,14 +3,10 @@ package it.polimi.db2.ejb;
 import it.polimi.db2.entities.*;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Local;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
-import javax.enterprise.context.SessionScoped;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +18,7 @@ public class QuestionnaireManager {
     private EntityManager em;
 
     private List<MarketingQuestionEntity> marketingQuestionEntityList;
-    private List<StatisticalQuestionEntity> statisticalQuestionEntityList;
+    private HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> >  statisticalQuestionEntityList;
 
     public QuestionnaireManager () {}
 
@@ -36,7 +32,7 @@ public class QuestionnaireManager {
     }
 
 
-    public List<StatisticalQuestionEntity> getStatisticalQuestionEntityList() {
+    public HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> >  getStatisticalQuestionEntityList() {
         return statisticalQuestionEntityList;
     }
 
@@ -45,7 +41,7 @@ public class QuestionnaireManager {
     //TBD
     //to be used together with UserManager's banUser!
     //returns true if the text of an answer contains one of the forbidden words
-    public boolean checkForOffensiveWords(int userId, String answerText) {
+    private boolean checkForOffensiveWords(int userId, String answerText) {
         /*List<String> ansWords = Arrays.asList(answerText.split(" ").clone());
         int numOfForbidden = 0;
         ForbiddenWordsEntity currentForbidden;
@@ -103,6 +99,8 @@ public class QuestionnaireManager {
         return marketingQuestionEntityList;
     }
 
+
+    //la query sul prodotto non ha where sulla data!!!!!
     private List<MarketingQuestionEntity> retrieveMarketingQuestions(){
 
 
@@ -112,7 +110,6 @@ public class QuestionnaireManager {
             //da aggiungere eccezione se ritorna più prodotti
             /*List<ProductEntity> listOfProduct = em.createNamedQuery("ProductEntity.getProductOfTheDay", ProductEntity.class)
                     .setParameter("today",today, TemporalType.DATE).getResultList();*/
-
 
 
             List<ProductEntity> listOfProduct = em.createQuery("SELECT r FROM ProductEntity r")
@@ -144,14 +141,29 @@ public class QuestionnaireManager {
 
     }
 
-    private List<StatisticalQuestionEntity> retrieveStatisticalQuestions(){
+    private HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > retrieveStatisticalQuestions(){
 
         try{
+
+            HashMap<StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > mapStatQuestAlternatives = new HashMap<>();
 
             List<StatisticalQuestionEntity> listOfQuestions = em.createQuery("SELECT r FROM StatisticalQuestionEntity r")
                     .getResultList();
 
-            return listOfQuestions;
+
+            for(StatisticalQuestionEntity sqe : listOfQuestions){
+
+
+              List<StatQuestionAlternativesEntity>  listOfAlt = em.createQuery("SELECT u FROM StatQuestionAlternativesEntity u WHERE u.statisticalQuestion.idStatisticalQuestion = ?1")
+                        .setParameter(1, sqe.getIdStatisticalQuestion()).getResultList();
+
+
+              mapStatQuestAlternatives.put(sqe, listOfAlt);
+
+
+            }
+
+            return mapStatQuestAlternatives;
 
 
         }catch (PersistenceException ex){
@@ -166,14 +178,7 @@ public class QuestionnaireManager {
 
 
     //bisogna scrivere un eccezione (banale) da tirare nel caso in cui trovi offensive words
-    public void persistQuestionnaireAndCheck(int userId, HashMap<Integer, String> mapMarkAnsQuest, HashMap<Integer, String> mapStatAnsQuest){
-
-
-
-
-
-
-
+    public void persistQuestionnaireAndCheck(int userId, HashMap<Integer, String> mapMarkAnsQuest, HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > mapStatAnsQuest){
 
 
 

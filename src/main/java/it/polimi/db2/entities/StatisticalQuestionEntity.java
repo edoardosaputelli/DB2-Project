@@ -7,12 +7,17 @@ import java.util.List;
 @Entity
 @Table(name = "statistical_question", schema = "db2_project_schema")
 public class StatisticalQuestionEntity implements Serializable {
-    private int idStatisticalQuestion;
-    private String questionText;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idStatisticalQuestion", nullable = false)
+    private int idStatisticalQuestion;
+
+    @Basic
+    @Column(name = "questionText", nullable = false, length = -1)
+    private String questionText;
+
+
     public int getIdStatisticalQuestion() {
         return idStatisticalQuestion;
     }
@@ -21,8 +26,7 @@ public class StatisticalQuestionEntity implements Serializable {
         this.idStatisticalQuestion = idStatisticalQuestion;
     }
 
-    @Basic
-    @Column(name = "questionText", nullable = false, length = -1)
+
     public String getQuestionText() {
         return questionText;
     }

@@ -1,6 +1,7 @@
 package it.polimi.db2.servlets;
 
 import it.polimi.db2.ejb.QuestionnaireManager;
+import it.polimi.db2.entities.StatQuestionAlternativesEntity;
 import it.polimi.db2.entities.StatisticalQuestionEntity;
 
 import javax.ejb.EJB;
@@ -24,20 +25,18 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
         HashMap<Integer, String> mapStatAnsQuest = new HashMap<>();
 
-        List<StatisticalQuestionEntity> statQList = questionnaireManager.getStatisticalQuestionEntityList();
+        HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> >  statQList = questionnaireManager.getStatisticalQuestionEntityList();
 
-        for(int i = 0; i < statQList.size(); i++){
+        for(StatisticalQuestionEntity sqe : statQList.keySet()) {
 
-            mapStatAnsQuest.put(statQList.get(i).getIdStatisticalQuestion(), request.getParameter("statQuestion" +i));
+            mapStatAnsQuest.put(sqe.getIdStatisticalQuestion(), request.getParameter(sqe.getQuestionText()));
 
         }
 
-
         request.getSession().setAttribute("mapStatAnsQuest", mapStatAnsQuest);
 
-
-
         //assolutamente va fatta un'eccezione più specifica se trova forbidden words
+
         try{
 
                 //metodo del questionnaire manager per fare persist
@@ -46,6 +45,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
         }catch(Exception ex){
 
             //deve fare tutta la robetta che si fa nel caso in cui ci siano forbidden words
+            //come ad esempio fare redirect su di una pagina di errore e resettare gli attributi nella session
 
         }
 
@@ -59,9 +59,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-
-
-        List<StatisticalQuestionEntity> statisticalQuestionEntityList = questionnaireManager.getStatisticalQuestionEntityList();
+        HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> >  statisticalQuestionEntityList = questionnaireManager.getStatisticalQuestionEntityList();
 
         request.setAttribute("statisticalQuestions", statisticalQuestionEntityList);
         request.getRequestDispatcher("statisticalQuestionnaire.jsp").forward(request,response);
@@ -71,4 +69,5 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
 
     }
+
 }
