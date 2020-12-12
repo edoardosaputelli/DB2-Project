@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.*;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,10 +42,10 @@ public class QuestionnaireManager {
     //TBD
     //to be used together with UserManager's banUser!
     //returns true if the text of an answer contains one of the forbidden words
-    private boolean checkForOffensiveWords(int userId, String answerText) {
-        /*List<String> ansWords = Arrays.asList(answerText.split(" ").clone());
+    public boolean checkForOffensiveWords(String answerText) {
+        List<String> ansWords = Arrays.asList(answerText.split(" ").clone());
         int numOfForbidden = 0;
-        ForbiddenWordsEntity currentForbidden;
+        ForbiddenWordsEntity currentForbidden = new ForbiddenWordsEntity();
 
         try {
              numOfForbidden = em.createNamedQuery("ForbiddenWordsCount", ForbiddenWordsEntity.class).getFirstResult();
@@ -55,11 +56,11 @@ public class QuestionnaireManager {
 
 
 
-        for(int i=0;i<numOfForbidden; i++){
+        for(int i=0; i<numOfForbidden; i++){
 
             try {
                  currentForbidden = em.createNamedQuery("ForbiddenWordN", ForbiddenWordsEntity.class)
-                 .setParameter(1, i-1).getSingleResult();
+                 .setParameter(1, i).getSingleResult();
 
             }catch (PersistenceException e) {
                 e.printStackTrace();
@@ -69,7 +70,7 @@ public class QuestionnaireManager {
                 s.toUpperCase().equals(currentForbidden.getForbiddenWord());
             }
 
-        }*/
+        }
 
         /*
         List<ForbiddenWordsEntity> fWList = null;
