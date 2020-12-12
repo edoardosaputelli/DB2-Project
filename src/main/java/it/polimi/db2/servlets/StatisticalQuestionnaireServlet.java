@@ -35,7 +35,20 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
         request.getSession().setAttribute("mapStatAnsQuest", mapStatAnsQuest);
 
-        //assolutamente va fatta un'eccezione più specifica se trova forbidden words
+
+
+        /*//check, on the submitting of the questionnaire, if the user inserted forbidden words
+        String path;
+        if( questionnaireManager.checkForOffensiveWords( ) ){
+
+            response.setContentType( "text/html" );
+
+            path = getServletContext().getContextPath() + "/index.jsp?errorString=bannedUser";
+            response.sendRedirect(path);
+
+        }*/
+
+
 
         try{
 
