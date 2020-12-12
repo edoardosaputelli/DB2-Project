@@ -10,7 +10,6 @@ public class MarketingAnswerEntity implements Serializable {
     @Column(name = "idMarketing_answer", nullable = false)
     private int idMarketingAnswer;
 
-
     @ManyToOne
     @JoinColumn(
             name = "associatedMarketingQuestion"
@@ -21,6 +20,19 @@ public class MarketingAnswerEntity implements Serializable {
     @JoinColumn (name = "associatedUser")
     private UserEntity user;
 
+    @Basic
+    @Column(name = "answerText", nullable = false)
+    private String answerText;
+
+    public MarketingAnswerEntity() {}
+
+    public MarketingAnswerEntity(MarketingQuestionEntity question, UserEntity user, String answerText) {
+        this.mQuestion = question;
+        this.user = user;
+        this.answerText = answerText;
+    }
+
+
 
     public int getIdMarketingAnswer() {
         return idMarketingAnswer;
@@ -30,10 +42,32 @@ public class MarketingAnswerEntity implements Serializable {
         this.idMarketingAnswer = idMarketingAnswer;
     }
 
+
+    public MarketingQuestionEntity getmQuestion() {
+        return mQuestion;
+    }
+
+    public void setmQuestion(MarketingQuestionEntity mQuestion) {
+        this.mQuestion = mQuestion;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public String getAnswerText() {
+        return answerText;
+    }
+
+    public void setAnswerText(String answerText) {
+        this.answerText = answerText;
+    }
     /*
-    private int associatedMarketingQuestion;
-    private int associatedUser;
-    private String answerText;
+
 
 
 
@@ -57,8 +91,7 @@ public class MarketingAnswerEntity implements Serializable {
         this.associatedUser = associatedUser;
     }
 
-    @Basic
-    @Column(name = "answerText", nullable = false, length = -1)
+
     public String getAnswerText() {
         return answerText;
     }

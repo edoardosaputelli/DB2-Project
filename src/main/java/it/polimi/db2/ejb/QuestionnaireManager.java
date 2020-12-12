@@ -42,13 +42,33 @@ public class QuestionnaireManager {
     //TBD
     //to be used together with UserManager's banUser!
     //returns true if the text of an answer contains one of the forbidden words
-    public boolean checkForOffensiveWords(String answerText) {
-        List<String> ansWords = Arrays.asList(answerText.split(" ").clone());
+    public boolean checkForOffensiveWords(HashMap<Integer, String> mapMarketingAnsQuest) {
+        for (String s : mapMarketingAnsQuest.values()) {
+            if( checkSingleAnswer(s) ){
+
+
+
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public List<MarketingQuestionEntity> getMarketingQuestionEntityList() {
+        return marketingQuestionEntityList;
+    }
+
+    private boolean checkSingleAnswer(String answerText) {
+
+
         int numOfForbidden = 0;
         ForbiddenWordsEntity currentForbidden = new ForbiddenWordsEntity();
 
         try {
-             numOfForbidden = em.createNamedQuery("ForbiddenWordsCount", ForbiddenWordsEntity.class).getFirstResult();
+            long l = (long) em.createQuery("SELECT count(i) from ForbiddenWordsEntity i").getSingleResult();
+            numOfForbidden = (int) l;
 
         }catch (PersistenceException e) {
             e.printStackTrace();
@@ -59,50 +79,25 @@ public class QuestionnaireManager {
         for(int i=0; i<numOfForbidden; i++){
 
             try {
-                 currentForbidden = em.createNamedQuery("ForbiddenWordN", ForbiddenWordsEntity.class)
-                 .setParameter(1, i).getSingleResult();
+                currentForbidden = em.createNamedQuery("ForbiddenWordN", ForbiddenWordsEntity.class)
+                        .setParameter(1, i).getSingleResult();
 
             }catch (PersistenceException e) {
                 e.printStackTrace();
             }
 
-            for (String s: ansWords) {
-                s.toUpperCase().equals(currentForbidden.getForbiddenWord());
+            if (answerText.contains(currentForbidden.getForbiddenWord())) {
+                return true;
             }
-
         }
-
-        /*
-        List<ForbiddenWordsEntity> fWList = null;
-
-        try {
-            fWList = em.createNamedQuery("ForbiddenWordsRetrieval", ForbiddenWordsEntity.class)
-                    .getResultList();
-
-        }catch (PersistenceException e) {
-            e.printStackTrace();
-        }
-
-        List<String> sList = convertToStringList(fWList);
-
-        for (String s: sList) {
-                if (answerText.contains(s)) {
-                    return true;
-                }
-        }
-
-         */
 
         return false;
-    }
 
-    public List<MarketingQuestionEntity> getMarketingQuestionEntityList() {
-        return marketingQuestionEntityList;
     }
 
 
     //la query sul prodotto non ha where sulla data!!!!!
-    private List<MarketingQuestionEntity> retrieveMarketingQuestions(){
+    public List<MarketingQuestionEntity> retrieveMarketingQuestions(){
 
 
         Date today = Date.valueOf(LocalDate.now());
@@ -142,7 +137,7 @@ public class QuestionnaireManager {
 
     }
 
-    private HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > retrieveStatisticalQuestions(){
+    public HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > retrieveStatisticalQuestions(){
 
         try{
 
@@ -178,10 +173,27 @@ public class QuestionnaireManager {
     }
 
 
-    //bisogna scrivere un eccezione (banale) da tirare nel caso in cui trovi offensive words
-    public void persistQuestionnaireAndCheck(int userId, HashMap<Integer, String> mapMarkAnsQuest, HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > mapStatAnsQuest){
+    public void persistQuestionnaireAnswers( List<MarketingAnswerEntity> mAnsList, List<StatisticalAnswerEntity> sAnsList, UserEntity user){
 
+        QuestionnaireEntity todaysQuestionnaire = mAnsList.get(0).getmQuestion().getQuestionnaire();
+        QuestionnaireResponseEntity completedTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, new Byte("00000000"));
 
+        try {
+            for(MarketingAnswerEntity answer: mAnsList) {
+                em.persist(answer);
+
+            }
+
+            for (StatisticalAnswerEntity answer: sAnsList) {
+                em.persist(answer);
+            }
+
+            em.persist(completedTheQuestionnaire);
+            em.flush();
+
+        }catch(PersistenceException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -193,6 +205,19 @@ public class QuestionnaireManager {
         sList = fWList.stream().map(obj -> obj.getForbiddenWord()).collect(Collectors.toList());
 
         return sList;
+    }
+
+    //when he uses offensive words
+    public void banUser (UserEntity user) {
+
+        try {
+            user= em.find(UserEntity.class, user.getIdUser());
+            user.setFlagStatus(new Byte("00000001"));
+            em.flush();
+
+        }catch(PersistenceException e) {
+            e.printStackTrace();
+        }
     }
 
 }

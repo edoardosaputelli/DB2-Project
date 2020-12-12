@@ -23,6 +23,14 @@ public class QuestionnaireResponseEntity implements Serializable {
     @JoinColumn(name ="relatedUser")
     private UserEntity user;
 
+    public QuestionnaireResponseEntity(){}
+
+    public QuestionnaireResponseEntity (QuestionnaireEntity questionnaire, UserEntity user, byte flagCancelled) {
+        this.questionnaire = questionnaire;
+        this.user = user;
+        this.flagCancelled = flagCancelled;
+    }
+
 
     public byte getFlagCancelled() {
         return flagCancelled;

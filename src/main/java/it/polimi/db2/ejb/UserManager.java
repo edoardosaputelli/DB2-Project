@@ -74,18 +74,6 @@ public class UserManager {
         return user;
     }
 
-    //TBD
-    //when he uses offensive words
-    public void banUser (UserEntity user) {
-        user.setFlagStatus(new Byte("00000001"));
 
-        try {
-            em.refresh(user);
-            em.flush();
-
-        }catch(PersistenceException e) {
-            e.printStackTrace();
-        }
-    }
 
 }

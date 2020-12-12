@@ -5,14 +5,15 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "forbidden_words", schema = "db2_project_schema")
-@NamedQueries({@NamedQuery(name = "ForbiddenWordsCount", query = "SELECT count(i) from ForbiddenWordsEntity i"),
+@NamedQueries({@NamedQuery(name = "ForbiddenWordsCount", query = "SELECT i from ForbiddenWordsEntity i"),
 @NamedQuery(name = "ForbiddenWordN", query ="SELECT i FROM ForbiddenWordsEntity i WHERE i.forbidden_id = ?1")})
 
 public class ForbiddenWordsEntity implements Serializable {
     @Id
-    @Column(name = "forbidden_id", nullable = false, length = 45)
+    @Column(name = "forbidden_id", nullable = false)
     private int forbidden_id;
 
+    @Column(name = "forbidden_word", nullable = false, length = 45)
     private String forbiddenWord;
 
     public String getForbiddenWord() {

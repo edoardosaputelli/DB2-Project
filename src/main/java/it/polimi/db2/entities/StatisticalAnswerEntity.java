@@ -30,6 +30,18 @@ public class StatisticalAnswerEntity implements Serializable {
     )
     private QuestionnaireEntity questionnaire;
 
+    @Column(name = "answerText", nullable = false)
+    private String answerText;
+
+    public StatisticalAnswerEntity() {}
+
+    public StatisticalAnswerEntity(UserEntity user, StatisticalQuestionEntity question, String answerText, QuestionnaireEntity questionnaire) {
+        this.question = question;
+        this.user = user;
+        this.answerText = answerText;
+        this.questionnaire = questionnaire;
+    }
+
 
     public StatisticalQuestionEntity getQuestion() {
         return question;
