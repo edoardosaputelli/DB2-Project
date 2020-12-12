@@ -32,6 +32,7 @@ public class QuestionnaireServlet extends HttpServlet {
 
         }
 
+        //da inserire l'annullamento dell'attributo in caso di cancellazione o invio del questionario
         request.getSession().setAttribute("mapMarketingAnsQuest", mapAnsQuest);
         request.getRequestDispatcher("successMarketingQuest.jsp").forward(request, response);
 

@@ -45,7 +45,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
         }catch(Exception ex){
 
             //deve fare tutta la robetta che si fa nel caso in cui ci siano forbidden words
-            //come ad esempio fare redirect su di una pagina di errore e resettare gli attributi nella session
+            //come ad esempio fare redirect su di una pagina di errore e resettare gli attributi nella session (non user)
 
         }
 

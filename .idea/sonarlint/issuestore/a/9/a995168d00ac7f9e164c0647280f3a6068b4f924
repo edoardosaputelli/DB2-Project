@@ -1,5 +1,5 @@
 
-M
-java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8œ“Ï™å.
 ]
 java:S1126."AReplace this if-then-else statement by a single return statement.(¹•«8œÒë¼ã.
+M
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ8œ“Ï™å.
