@@ -41,7 +41,7 @@ public class QuestionnaireManager {
     //TBD
     //to be used together with UserManager's banUser!
     //returns true if the text of an answer contains one of the forbidden words
-    private boolean checkForOffensiveWords(int userId, String answerText) {
+    public boolean checkForOffensiveWords(int userId, String answerText) {
         /*List<String> ansWords = Arrays.asList(answerText.split(" ").clone());
         int numOfForbidden = 0;
         ForbiddenWordsEntity currentForbidden;

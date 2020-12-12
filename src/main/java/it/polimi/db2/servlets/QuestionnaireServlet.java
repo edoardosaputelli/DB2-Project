@@ -41,7 +41,8 @@ public class QuestionnaireServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
+        //the QuestionnaireServlet gets the marketing questions from the Questionnaire Manager, in order to send them
+        //to the marketing questionnaire page
         List<MarketingQuestionEntity> mQuestionList = questionnaireManager.getMarketingQuestionEntityList();
 
         request.setAttribute("marketingQuestions", mQuestionList);

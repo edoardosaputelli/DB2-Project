@@ -22,10 +22,12 @@
 
     String questionsTable = "error";
 
+    //the user goes to the marketing questionnaire page for the first time: the page is initialized
     if(request.getSession().getAttribute("mapMarketingAnsQuest") == null) {
 
         questionsTable = "<form action=\"QuestionnaireServlet\" method=\"post\">";
 
+        //getting the list of marketing questions from the Questionnaire Servlet
         List<MarketingQuestionEntity> questionEntityList = (List<MarketingQuestionEntity>) request.getAttribute("marketingQuestions");
 
         int i = 0;
@@ -40,6 +42,7 @@
         questionsTable = questionsTable + "\n" + "<input type=\"submit\" value=\"Submit\">" + "</form>";
    }
 
+    //the user comes back to this page: his previous answer are loaded
     else{
 
         questionsTable = "<form action=\"QuestionnaireServlet\" method=\"post\">";

@@ -21,6 +21,43 @@
     <input type="password" placeholder="password" name="password" required> <br>
     <input type="submit" value="Login">
 
+    <%
+        String errorParameter = request.getParameter("errorString");
+
+        if(errorParameter != null){
+
+            //after login with wrong credentials
+            if (errorParameter.equals("invalidUser") )
+            {
+
+    %>
+                <br/> <br/> <font color="red">Error: the user doesn't exist.</font> <br>
+    <%
+            }
+
+            //after a registration attempt with already-used credentials
+            else if (errorParameter.equals("alreadyRegistered") )
+            {
+
+    %>
+                <br/> <br/> <font color="red">Error: the user is already registered.</font> <br>
+    <%
+            }
+
+            //after the insertion of forbidden words
+            else if (errorParameter.equals("bannedUser") )
+            {
+
+    %>
+    <br/> <br/> <font color="red">Your account has been banned because you inserted forbidden words.</font> <br>
+    <%
+            }
+
+
+
+        }
+    %>
+
 </form>
 
 

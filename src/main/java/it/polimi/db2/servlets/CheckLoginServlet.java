@@ -64,6 +64,26 @@ public class CheckLoginServlet extends HttpServlet {
 
         if (user == null) {
 
+            //the user doesn't exist: the error is printed on the login page
+            request.getSession().setAttribute("user", null);
+            response.setContentType( "text/html" );
+
+            path = getServletContext().getContextPath() + "/index.jsp?errorString=invalidUser";
+            response.sendRedirect(path);
+
+        }
+        else
+        {
+
+            //the user has been logged in: he is redirected to the home page
+            request.getSession().setAttribute("user", user);
+
+            path = getServletContext().getContextPath() + "/home.jsp";
+            response.sendRedirect(path);
+        }
+
+        /*if (user == null) {
+
 
             //AGGIUGERE NOTA PER UTENTE NON PRESENTE
 
@@ -78,7 +98,7 @@ public class CheckLoginServlet extends HttpServlet {
 
             request.getSession().setAttribute("user", user);
             request.getRequestDispatcher("home.jsp").forward(request,response);
-        }
+        }*/
 
     }
 
