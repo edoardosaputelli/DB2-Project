@@ -1,5 +1,6 @@
 <%@ page import="it.polimi.db2.entities.MarketingQuestionEntity" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.HashMap" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 11/12/2020

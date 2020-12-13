@@ -1,7 +1,9 @@
 package it.polimi.db2.servlets;
 
+import it.polimi.db2.Exceptions.AlreadyDoneException;
 import it.polimi.db2.ejb.QuestionnaireManager;
 import it.polimi.db2.entities.MarketingQuestionEntity;
+import it.polimi.db2.entities.UserEntity;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -43,6 +45,24 @@ public class QuestionnaireServlet extends HttpServlet {
 
         //the QuestionnaireServlet gets the marketing questions from the Questionnaire Manager, in order to send them
         //to the marketing questionnaire page
+        UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+
+        //Checking that the user hasn't already done the questionnaire(EDOOOOOOOOOO!!!!!)
+
+        try {
+
+            questionnaireManager.checkIfAlreadyDone(user);
+
+        } catch (AlreadyDoneException e) {
+
+            //Eduardo gestisci 'sta cosa
+            request.getRequestDispatcher("redirectQuestionnaireAlreadyDone.jsp").forward(request,response);
+
+
+
+        }
+
+
         List<MarketingQuestionEntity> mQuestionList = questionnaireManager.getMarketingQuestionEntityList();
 
         request.setAttribute("marketingQuestions", mQuestionList);

@@ -1,10 +1,13 @@
 package it.polimi.db2.ejb;
 
+import it.polimi.db2.Exceptions.AlreadyDoneException;
+import it.polimi.db2.Exceptions.BadLanguageException;
 import it.polimi.db2.entities.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.*;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -37,23 +40,17 @@ public class QuestionnaireManager {
         return statisticalQuestionEntityList;
     }
 
-
-
     //TBD
     //to be used together with UserManager's banUser!
     //returns true if the text of an answer contains one of the forbidden words
-    public boolean checkForOffensiveWords(HashMap<Integer, String> mapMarketingAnsQuest) {
+    public void checkForOffensiveWords(HashMap<Integer, String> mapMarketingAnsQuest) throws BadLanguageException {
         for (String s : mapMarketingAnsQuest.values()) {
             if( checkSingleAnswer(s) ){
 
-
-
-
-                return true;
+                throw new BadLanguageException();
             }
         }
 
-        return false;
     }
 
     public List<MarketingQuestionEntity> getMarketingQuestionEntityList() {
@@ -92,6 +89,41 @@ public class QuestionnaireManager {
         }
 
         return false;
+
+    }
+
+
+    public void checkIfAlreadyDone(UserEntity user) throws AlreadyDoneException {
+
+        boolean hasAlreadyDone = false;
+
+
+        try{
+
+
+            hasAlreadyDone = !(em.createNamedQuery("QuestionnaireResponseEntity.alreadyDidIt", QuestionnaireResponseEntity.class)
+                    .setParameter(1, user.getIdUser()).getResultList().isEmpty());
+
+
+        }catch(PersistenceException ex){
+
+            //TDB
+            ex.printStackTrace();
+
+        }
+
+
+
+        if(hasAlreadyDone){
+
+            throw new AlreadyDoneException();
+
+        }
+
+
+
+
+
 
     }
 
@@ -176,7 +208,7 @@ public class QuestionnaireManager {
     public void persistQuestionnaireAnswers( List<MarketingAnswerEntity> mAnsList, List<StatisticalAnswerEntity> sAnsList, UserEntity user){
 
         QuestionnaireEntity todaysQuestionnaire = mAnsList.get(0).getmQuestion().getQuestionnaire();
-        QuestionnaireResponseEntity completedTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, new Byte("00000000"));
+        QuestionnaireResponseEntity completedTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, false);
 
         try {
             for(MarketingAnswerEntity answer: mAnsList) {
@@ -219,5 +251,42 @@ public class QuestionnaireManager {
             e.printStackTrace();
         }
     }
+
+
+
+    public void cancelQuestionnaire(QuestionnaireEntity todaysQuestionnaire, UserEntity user){
+
+        QuestionnaireResponseEntity cancelledTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, true);
+
+        try {
+
+            em.persist(cancelledTheQuestionnaire);
+            em.flush();
+
+            //da mettere una redirect ad una pagina di errore parametrica
+        }catch(PersistenceException ex){
+
+            ex.printStackTrace();
+
+        }
+
+
+
+
+
+
+
+    }
+
+    public void setSessionMapsNull(HttpServletRequest request) {
+
+        request.getSession().setAttribute("mapStatAnsQuest", null);
+        request.getSession().setAttribute( "mapMarketingAnsQuest", null);
+
+    }
+
+
+
+
 
 }

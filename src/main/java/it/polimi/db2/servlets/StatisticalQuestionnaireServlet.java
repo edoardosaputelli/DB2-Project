@@ -49,14 +49,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
         //check, on the submitting of the questionnaire, if the user inserted forbidden words
         try {
 
-
-            if (questionnaireManager.checkForOffensiveWords(mapMarketingAnsQuest)) {
-                throw new BadLanguageException();
-            }
-            ;
-
-            //metodo del questionnaire manager per fare persist
-
+            questionnaireManager.checkForOffensiveWords(mapMarketingAnsQuest);
 
         } catch (BadLanguageException e) {
             //user is banned
@@ -69,8 +62,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
             path = getServletContext().getContextPath() + "/index.jsp?errorString=bannedUser";
             response.sendRedirect(path);
 
-
-            setSessionMapsNull(request);
+            questionnaireManager.setSessionMapsNull(request);
         }
 
 
@@ -84,13 +76,17 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
             questionnaireManager.persistQuestionnaireAnswers(mAnswers, sAnswers, currentUser);
 
             request.getRequestDispatcher("overallQuestSuccess.jsp").forward(request, response);
+
+            questionnaireManager.setSessionMapsNull(request);
+
+            //Da gestire il redirect ad una pagina di errore
         } catch (PersistenceException e) {
+
+            questionnaireManager.setSessionMapsNull(request);
             e.printStackTrace();
         }
 
     }
-
-
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -102,10 +98,6 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
 
     }
-
-
-
-
 
     private List<MarketingAnswerEntity> formatMarketingAnswers(UserEntity user, List<MarketingQuestionEntity> mList, HashMap<Integer, String> mapMarketingAnsQuest) {
         ArrayList<MarketingAnswerEntity> mAnsList = new ArrayList<>();
@@ -121,9 +113,6 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
         return mAnsList;
     }
-
-
-
 
     private List<StatisticalAnswerEntity> formatStatisticalAnswers(UserEntity user, List <StatisticalQuestionEntity> sList , HashMap<Integer, String> mapStatAnsQuest) {
         List<StatisticalAnswerEntity> sAnsList = new ArrayList<>();
@@ -143,10 +132,9 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
     }
 
 
+    protected void cancellQuestionaire(){}
 
-    private void setSessionMapsNull(HttpServletRequest request) {
-        request.getSession().setAttribute("mapStatAnsQuest", null);
-        request.getSession().setAttribute( "mapMarketingAnsQuest", null);
 
-    }
+
+
 }

@@ -5,10 +5,11 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "questionnaire_response", schema = "db2_project_schema")
+@NamedQuery(name = "QuestionnaireResponseEntity.alreadyDidIt", query = "SELECT i FROM QuestionnaireResponseEntity i WHERE i.user.idUser = ?1")
 public class QuestionnaireResponseEntity implements Serializable {
     @Basic
     @Column(name = "flagCancelled", nullable = false)
-    private byte flagCancelled;
+    private boolean flagCancelled;
 
     @Id
     @Column(name = "idBridge", nullable = false)
@@ -25,18 +26,18 @@ public class QuestionnaireResponseEntity implements Serializable {
 
     public QuestionnaireResponseEntity(){}
 
-    public QuestionnaireResponseEntity (QuestionnaireEntity questionnaire, UserEntity user, byte flagCancelled) {
+    public QuestionnaireResponseEntity (QuestionnaireEntity questionnaire, UserEntity user, boolean flagCancelled) {
         this.questionnaire = questionnaire;
         this.user = user;
         this.flagCancelled = flagCancelled;
     }
 
 
-    public byte getFlagCancelled() {
+    public boolean getFlagCancelled() {
         return flagCancelled;
     }
 
-    public void setFlagCancelled(byte flagCancelled) {
+    public void setFlagCancelled(boolean flagCancelled) {
         this.flagCancelled = flagCancelled;
     }
 
@@ -61,10 +62,5 @@ public class QuestionnaireResponseEntity implements Serializable {
         return true;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) flagCancelled;
-        result = 31 * result + idBridge;
-        return result;
-    }
+
 }

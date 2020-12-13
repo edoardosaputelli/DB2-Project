@@ -58,6 +58,13 @@
 </form>
 
 
+<form action="CancelQuestionnaireServlet" method="post">
+
+    <input type="submit" value="Cancel Questionnaire">
+
+</form>
+
+
 
 </body>
 </html>
