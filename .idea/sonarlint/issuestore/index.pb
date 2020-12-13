@@ -67,3 +67,15 @@ x
 Hsrc/main/java/it/polimi/db2/entities/StatQuestionAlternativesEntity.java,f\0\f03197f05278a50aab14adc5cf94e9d10cbfa434
 [
 +src/main/resources/META-INF/persistence.xml,3\b\3be4f79b5828b3982f3f6a62bf8fc67b3adedf58
+U
+%src/main/java/it/polimi/TestMain.java,3\a\3aa3eb388a552298a25e52e3dd614ef41646506c
+p
+@src/main/java/it/polimi/db2/Exceptions/BadLanguageException.java,d\f\dfd44cece96174c8c75c7f4fc9ca9b7d11e6b885
+p
+@src/main/java/it/polimi/db2/Exceptions/AlreadyDoneException.java,6\2\628a91dad8b52ec7ad1d21114a40020c07369f18
+t
+Dsrc/main/java/it/polimi/db2/servlets/CancelQuestionnaireServlet.java,9\e\9ed4fb6bacf68823a5c91bdb6476528a9bd6bc86
+Z
+*src/main/webapp/cancelledQuestionnaire.jsp,2\7\27f8b3c2806425988455bb47b4cdaa626fdfef1d
+d
+4src/main/webapp/redirectQuestionnaireAlreadyDone.jsp,5\d\5d058afd09c52b0cf81a9c1f04eb94f5ca997b47

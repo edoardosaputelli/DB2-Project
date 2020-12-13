@@ -29,8 +29,16 @@
 
 
 <form action="QuestionnaireServlet" method="get">
-    <button type="submit" >Go to questionnaire</button>
+    <button type="submit"> Go to questionnaire </button>
 </form>
+
+
+
+<form action="LeaderBoardServlet" method="get">
+    <button type="submit" >See leaderboard</button>
+</form>
+
+
 
 
 

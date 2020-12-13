@@ -132,8 +132,6 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
     }
 
 
-    protected void cancellQuestionaire(){}
-
 
 
 

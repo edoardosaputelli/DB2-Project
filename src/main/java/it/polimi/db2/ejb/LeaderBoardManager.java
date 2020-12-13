@@ -15,11 +15,21 @@ public class LeaderBoardManager {
 
     public LeaderBoardManager () {}
 
-    //TBD
+    //edoooooo da gestire le eccezioni
     public List<UserEntity> generateOrderedLeaderBoard() {
-        List<UserEntity> uList = null;
+
+        List<UserEntity> leaderboard = null;
+
+        try {
+
+            leaderboard = em.createNamedQuery("UserEntity.getLeaderboard", UserEntity.class).getResultList();
+
+        }catch (PersistenceException ex){
+            //TBD
+            ex.printStackTrace();
+        }
 
 
-        return null;
+        return leaderboard;
     }
 }

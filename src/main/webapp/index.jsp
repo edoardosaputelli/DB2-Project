@@ -44,6 +44,14 @@
     <%
             }
 
+            else if (errorParameter.equals("alreadyLoggedIn") )
+            {
+
+    %>
+    <br/> <br/> <font color="red">Error: the user is already logged in.</font> <br>
+    <%
+    }
+
             //after the insertion of forbidden words
             else if (errorParameter.equals("bannedUser") )
             {
