@@ -17,10 +17,7 @@
 
     List<UserEntity> resultList = (List<UserEntity>) request.getAttribute("leaderBoard");
 
-    String stringLeaderboard = "";
-    int i = 1;
-
-    stringLeaderboard = "<table style=\"width:50%\" border = \"5\">" +
+    String stringLeaderboard = "<table style=\"width:50%\" border = \"5\">" +
             "  <tr>" +
             "    <th align = \"left\">Username</th>" +
             "    <th align = \"left\">Points</th>" +

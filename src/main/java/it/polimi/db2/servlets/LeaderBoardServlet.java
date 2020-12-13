@@ -1,7 +1,6 @@
 package it.polimi.db2.servlets;
 
 import it.polimi.db2.ejb.LeaderBoardManager;
-import it.polimi.db2.ejb.UserManager;
 import it.polimi.db2.entities.UserEntity;
 
 import javax.ejb.EJB;
@@ -23,12 +22,19 @@ public class LeaderBoardServlet extends HttpServlet {
 
         List<UserEntity> leaderBoard = leaderBoardManager.generateOrderedLeaderBoard();
 
+        for(UserEntity u :leaderBoard){
+
+            System.out.println(u.getUserName() +" " +u.getPoints());
+
+
+        }
+
+
+
+
         request.setAttribute("leaderBoard", leaderBoard);
 
         request.getRequestDispatcher("leaderboard.jsp").forward(request, response);
-
-
-
 
 
     }

@@ -84,7 +84,7 @@ public class CheckSignUpServlet extends HttpServlet {
         {
             //the user has been registered: he is redirected to the successful Sign Up page
             request.getSession().setAttribute("user", user);
-            path = getServletContext().getContextPath() + "/successfulSignUp.jsp";
+            path = getServletContext().getContextPath() + "/home.jsp";
             response.sendRedirect(path);
         }
 

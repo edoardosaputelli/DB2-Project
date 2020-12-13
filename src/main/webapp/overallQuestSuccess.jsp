@@ -14,24 +14,14 @@
 </head>
 <body>
 
-<%
-    String mapMark = request.getSession().getAttribute("mapMarketingAnsQuest").toString();
-    String mapStat = request.getSession().getAttribute("mapStatAnsQuest").toString();
-
-%>
+<h1>Thank you by the db2 team!</h1>
 
 
-<h1><%=mapMark%></h1>
+<form action="home.jsp">
 
-<h2><%=mapStat%></h2>
+    <button type="submit">Return to the Homepage</button>
 
-
-
-
-
-
-
-
+</form>
 
 
 

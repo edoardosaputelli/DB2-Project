@@ -211,6 +211,7 @@ public class QuestionnaireManager {
         QuestionnaireResponseEntity completedTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, false);
 
         try {
+
             for(MarketingAnswerEntity answer: mAnsList) {
                 em.persist(answer);
 
@@ -251,8 +252,6 @@ public class QuestionnaireManager {
             e.printStackTrace();
         }
     }
-
-
 
     public void cancelQuestionnaire(QuestionnaireEntity todaysQuestionnaire, UserEntity user){
 
