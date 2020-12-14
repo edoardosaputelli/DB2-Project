@@ -22,7 +22,9 @@ public class LeaderBoardManager {
 
         try {
 
-            leaderboard = em.createNamedQuery("UserEntity.getLeaderboard", UserEntity.class).getResultList();
+            leaderboard = em.createNamedQuery("UserEntity.getLeaderboard", UserEntity.class)
+                    .setHint("javax.persistence.cache.storeMode", "REFRESH")
+                    .getResultList();
 
         }catch (PersistenceException ex){
             //TBD

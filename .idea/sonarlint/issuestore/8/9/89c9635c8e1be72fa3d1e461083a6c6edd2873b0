@@ -1,6 +1,8 @@
 
 L
 java:S1128"*Remove this unused import 'java.sql.Time'.(Üå»‰şÿÿÿÿ8Õì¤ää.
+X	java:S125*"<This block of commented-out lines of code should be removed.(¦Í©Á8Õì¤ää.
 d
-java:S1126„"AReplace this if-then-else statement by a single return statement.(èÙ±úøÿÿÿÿ8Ïıë¼ã.
-X	java:S125)"<This block of commented-out lines of code should be removed.(¦Í©Á8Õì¤ää.
+java:S1126…"AReplace this if-then-else statement by a single return statement.(èÙ±úøÿÿÿÿ8Ïıë¼ã.
+^
+java:S1710"<Remove the 'NamedQueries' wrapper from this annotation group(à¯¹ûÿÿÿÿ8…œÖèå.

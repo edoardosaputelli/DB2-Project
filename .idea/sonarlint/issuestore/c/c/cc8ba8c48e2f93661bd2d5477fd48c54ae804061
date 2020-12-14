@@ -1,18 +1,16 @@
 
+u
+java:S1989X"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8â”¤âä.
+X	java:S1256"<This block of commented-out lines of code should be removed.(’ðÐÐ8â”¤âä.
 b	java:S1122"FDefine and throw a dedicated exception instead of using a generic one.(üæÂã8â”¤âä.
 m
 java:S19897"PHandle the following exception that could be thrown by "sendError": IOException.(ÚÿéÇ8â”¤âä.
-X	java:S1256"<This block of commented-out lines of code should be removed.(’ðÐÐ8â”¤âä.
-P
-java:S1481O"3Remove this unused "servletContext" local variable.(ØÉ›ª8â”¤âä.
-_
-java:S1854O"BRemove this useless assignment to local variable "servletContext".(ØÉ›ª8â”¤âä.
+u
+java:S1989P"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8â”¤âä.
+V
+java:S1128"9Remove this unused import 'javax.servlet.ServletContext'.(á¡æÞ8’ý¦íå.
 \
 java:S1161#":Add the "@Override" annotation above this method signature(þ³‚”ûÿÿÿÿ8â”¤âä.
-u
-java:S1989W"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8â”¤âä.
-X	java:S125"<This block of commented-out lines of code should be removed.(ù‘‹ 8â”¤âä.
-u
-java:S1989Q"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8â”¤âä.
 m
 java:S1989B"PHandle the following exception that could be thrown by "sendError": IOException.(í¢ñ—8â”¤âä.
+X	java:S125"<This block of commented-out lines of code should be removed.(ù‘‹ 8â”¤âä.
