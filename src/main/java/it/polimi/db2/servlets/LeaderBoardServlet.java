@@ -22,15 +22,6 @@ public class LeaderBoardServlet extends HttpServlet {
 
         List<UserEntity> leaderBoard = leaderBoardManager.generateOrderedLeaderBoard();
 
-        for(UserEntity u :leaderBoard){
-
-            System.out.println(u.getUserName() +" " +u.getPoints());
-
-
-        }
-
-
-
 
         request.setAttribute("leaderBoard", leaderBoard);
 

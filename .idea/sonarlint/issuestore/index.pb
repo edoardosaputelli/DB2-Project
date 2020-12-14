@@ -63,8 +63,6 @@ u
 Esrc/main/java/it/polimi/db2/entities/QuestionnaireResponseEntity.java,5\3\53439120f977b98e933216cfbe3ccab1399bacd6
 x
 Hsrc/main/java/it/polimi/db2/entities/StatQuestionAlternativesEntity.java,f\0\f03197f05278a50aab14adc5cf94e9d10cbfa434
-[
-+src/main/resources/META-INF/persistence.xml,3\b\3be4f79b5828b3982f3f6a62bf8fc67b3adedf58
 p
 @src/main/java/it/polimi/db2/Exceptions/BadLanguageException.java,d\f\dfd44cece96174c8c75c7f4fc9ca9b7d11e6b885
 p
