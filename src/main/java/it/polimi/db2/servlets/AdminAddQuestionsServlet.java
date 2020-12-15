@@ -1,10 +1,10 @@
 package it.polimi.db2.servlets;
 
 import it.polimi.db2.Exceptions.DatabaseFailException;
+import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.ejb.AdminManager;
 
 import javax.ejb.EJB;
-import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,37 +12,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDate;
+import java.util.List;
 
-@WebServlet(name = "AdminDeleteServlet")
-public class AdminDeleteServlet extends HttpServlet {
+@WebServlet(name = "AdminAddQuestionsServlet")
+public class AdminAddQuestionsServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
     private AdminManager adminManager;
 
-    //this method takes from request a date and deletes the associated product, questionnaire etc. (if present)
+    //THIS SERVLET SHOULD BE CALLED ONLY AFTER ADDPRODUCTSERVLET
+    //this method takes from request a list of strings that will be transformed in questions for the product previously created
+    //the date should stay the same so that association is unique and no other parsing is needed
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String stringDate = (String) request.getAttribute("chosenDay");
         Date date = adminManager.fromStringToDate(stringDate);
-        boolean wentFine = false;
 
-        //check if the date inserted is a day already passed
-        if(!date.before(Date.valueOf(LocalDate.now()))) {
-            //there should be a redirect to the same page asking for another date
-        }
 
-        //actual deletion
-        try {
-            wentFine = adminManager.deleteQuestionnaireData(date);
-        }catch (DatabaseFailException ex) {
+        List<String> strinqQuestions = (List<String>) request.getAttribute("stringQuestions");
+
+        try{
+            adminManager.addMarketingQuestions(date, strinqQuestions);
+
+        }catch(DatabaseFailException e) {
             //add redirect to generic error page
+        }catch (NothingThatDateException ex) {
+            //shouldn't be called because of order of calling of Servlets
         }
 
-        if(wentFine) {
-            //send to a page telling that the deletion went through
-        }
-        else {
-            //there should be a redirect to the same page asking for another date
-        }
+        //TBD redirect to a page that shows a success message and sends back to the Admin home
+
+
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

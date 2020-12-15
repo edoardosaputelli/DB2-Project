@@ -32,11 +32,14 @@ public class AdminAddProductServlet extends HttpServlet {
             //there should be a redirect to the same page asking for another date
         }
 
+
         try {
             adminManager.addProduct(productName, date, img);
         }catch (DatabaseFailException ex) {
             //add redirect to fail page
         }
+
+        //TBD redirect to a page that asks for the questions to be associated with the product (with AdminAddQuestionsServlet)
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
