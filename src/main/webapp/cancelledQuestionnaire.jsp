@@ -12,7 +12,13 @@
 </head>
 <body>
 
-<h1>Cancelled questionnaire</h1>
+    <h1>You have cancelled the questionnaire.</h1>
+
+    <form action="home.jsp">
+
+        <button type="submit">Return to the Homepage</button>
+
+    </form>
 
 </body>
 </html>

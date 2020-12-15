@@ -48,7 +48,7 @@
             {
 
     %>
-    <br/> <br/> <font color="red">Error: the user is already logged in.</font> <br>
+                <br/> <br/> <font color="red">Error: the user is already logged in.</font> <br>
     <%
     }
 
@@ -57,7 +57,7 @@
             {
 
     %>
-    <br/> <br/> <font color="red">Your account has been banned because you inserted forbidden words.</font> <br>
+                <br/> <br/> <font color="red">Your account has been banned because you inserted forbidden words.</font> <br>
     <%
             }
 
