@@ -140,23 +140,27 @@ public class QuestionnaireManager {
                     .setParameter("today",today, TemporalType.DATE).getResultList();*/
 
 
-            List<ProductEntity> listOfProduct = em.createQuery("SELECT r FROM ProductEntity r")
-                    .getResultList();
+            Date currentDate = Date.valueOf(LocalDate.now());
+            ProductEntity product = em.createNamedQuery("ProductEntity.getProductOfTheDay", ProductEntity.class)
+                    .setParameter("today", currentDate , TemporalType.DATE).getSingleResult();
 
 
-            List<MarketingQuestionEntity> listMQ = listOfProduct.get(0).getQuestionnaire().getmList();
+            List<MarketingQuestionEntity> listMQ = product.getQuestionnaire().getmList();
 
 
-            if(listOfProduct.size() != 1){
+            /*if(listOfProduct.size() != 1){
                 //eccezione da tirare
             }
 
 
             else{
 
-                return listMQ;
 
-            }
+
+            }*/
+
+            return listMQ;
+
 
         }catch (PersistenceException ex){
 

@@ -11,7 +11,9 @@ import java.util.List;
 @Table(name = "user", schema = "db2_project_schema")
 @NamedQueries({@NamedQuery(name = "UserEntity.checkLogin", query = "SELECT r FROM UserEntity r  WHERE r.userName = ?1 and r.userPassword = ?2"),
 @NamedQuery(name = "UserEntity.getLeaderboard",
-        query = "SELECT i FROM UserEntity i JOIN QuestionnaireResponseEntity e WHERE i = e.user AND e.flagCancelled = false ORDER BY i.points")})
+        query = "SELECT i FROM UserEntity i JOIN QuestionnaireResponseEntity r JOIN QuestionnaireEntity q JOIN ProductEntity p " +
+                "WHERE i = r.user AND r.questionnaire = q AND q.productoftheday = p " +
+                "AND r.flagCancelled = false and p.date = :today ORDER BY i.points")})
 public class UserEntity implements Serializable {
 
     @Id
