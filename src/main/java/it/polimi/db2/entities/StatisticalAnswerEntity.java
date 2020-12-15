@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "statistical_answer", schema = "db2_project_schema")
+@NamedQuery(name = "StatisticalAnswerEntity.retrieverUserAnswers", query = "SELECT i FROM StatisticalAnswerEntity i WHERE i.user = ?1 and i.questionnaire = ?2")
 public class StatisticalAnswerEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

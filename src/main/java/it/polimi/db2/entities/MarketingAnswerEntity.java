@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "marketing_answer", schema = "db2_project_schema")
+@NamedQuery(name = "MarketingAnswerEntity.retrieverUserAnswers" , query = "SELECT i FROM MarketingAnswerEntity i JOIN MarketingQuestionEntity q " +
+        "WHERE i.mQuestion = q and i.user = ?1 AND q.questionnaire = ?2")
 public class MarketingAnswerEntity implements Serializable {
     @Id
     @Column(name = "idMarketing_answer", nullable = false)

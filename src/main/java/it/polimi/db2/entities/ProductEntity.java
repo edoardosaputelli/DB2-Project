@@ -9,7 +9,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "product", schema = "db2_project_schema")
-@NamedQuery(name = "ProductEntity.getProductOfTheDay", query = "SELECT r FROM ProductEntity r  WHERE r.date = :today ")
+@NamedQueries({
+        @NamedQuery(name = "ProductEntity.getProductOfGivenDay", query = "SELECT r FROM ProductEntity r  WHERE r.date = :givenDate ")
+})
+
 
 public class ProductEntity implements Serializable {
     @Id

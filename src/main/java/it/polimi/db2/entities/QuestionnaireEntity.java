@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "questionnaire", schema = "db2_project_schema")
+@NamedQuery(name = "QuestionnaireEntity.questOfGivenDay", query = "SELECT i FROM QuestionnaireEntity i JOIN ProductEntity p where i.productoftheday = p AND p.date = :givenDay")
 public class QuestionnaireEntity implements Serializable {
 
     @Id
@@ -21,11 +22,22 @@ public class QuestionnaireEntity implements Serializable {
     private ProductEntity productoftheday;
     @OneToMany(
             mappedBy = "questionnaire"
+            , cascade = CascadeType.ALL
+
     )
     private List<MarketingQuestionEntity> mList;
 
-    @OneToMany(mappedBy = "questionnaire")
+    @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.REMOVE)
     private List<QuestionnaireResponseEntity> qRlist;
+
+    @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<StatisticalAnswerEntity> sList;
+
+    public QuestionnaireEntity(){}
+
+    public QuestionnaireEntity(ProductEntity product){
+        this.productoftheday = product;
+    }
 
 
     public int getIdQuestionnaire() {

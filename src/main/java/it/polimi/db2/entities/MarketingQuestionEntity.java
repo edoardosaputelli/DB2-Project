@@ -18,7 +18,8 @@ public class MarketingQuestionEntity implements Serializable {
     private QuestionnaireEntity questionnaire;
 
     @OneToMany(
-            mappedBy = "mQuestion"
+            mappedBy = "mQuestion",
+            cascade = CascadeType.REMOVE
     )
     private List<MarketingAnswerEntity> mList;
 
@@ -29,6 +30,13 @@ public class MarketingQuestionEntity implements Serializable {
     @Basic
     @Column(name = "questionText", nullable = false, length = -1)
     private String questionText;
+
+    public MarketingQuestionEntity () {}
+
+    public MarketingQuestionEntity(QuestionnaireEntity questionnaire, String questionText) {
+        this.questionnaire = questionnaire;
+        this.questionText = questionText;
+    }
 
 
     public QuestionnaireEntity getQuestionnaire() {

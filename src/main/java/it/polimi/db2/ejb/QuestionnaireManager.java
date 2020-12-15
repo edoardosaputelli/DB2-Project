@@ -141,8 +141,8 @@ public class QuestionnaireManager {
 
 
             Date currentDate = Date.valueOf(LocalDate.now());
-            ProductEntity product = em.createNamedQuery("ProductEntity.getProductOfTheDay", ProductEntity.class)
-                    .setParameter("today", currentDate , TemporalType.DATE).getSingleResult();
+            ProductEntity product = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class)
+                    .setParameter("givenDate", currentDate , TemporalType.DATE).getSingleResult();
 
 
             List<MarketingQuestionEntity> listMQ = product.getQuestionnaire().getmList();

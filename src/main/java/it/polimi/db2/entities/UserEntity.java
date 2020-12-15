@@ -10,10 +10,15 @@ import java.util.List;
 @Entity
 @Table(name = "user", schema = "db2_project_schema")
 @NamedQueries({@NamedQuery(name = "UserEntity.checkLogin", query = "SELECT r FROM UserEntity r  WHERE r.userName = ?1 and r.userPassword = ?2"),
-@NamedQuery(name = "UserEntity.getLeaderboard",
+//made the leaderboard query more general so that also AdminManager can use it!
+ @NamedQuery(name = "UserEntity.getQuestionnaireTakers",
         query = "SELECT i FROM UserEntity i JOIN QuestionnaireResponseEntity r JOIN QuestionnaireEntity q JOIN ProductEntity p " +
                 "WHERE i = r.user AND r.questionnaire = q AND q.productoftheday = p " +
-                "AND r.flagCancelled = false and p.date = :today ORDER BY i.points")})
+                "AND r.flagCancelled = :flag AND p.date = :givenDate ORDER BY i.points"),
+@NamedQuery(name = "UserEntity.getUserWithName", query = "SELECT i from UserEntity i where i.userName = :name")})
+
+
+
 public class UserEntity implements Serializable {
 
     @Id

@@ -21,8 +21,10 @@ public class LeaderBoardManager {
 
         try {
             Date today = Date.valueOf(LocalDate.now());
-            leaderboard = em.createNamedQuery("UserEntity.getLeaderboard", UserEntity.class)
-                    .setParameter("today", today, TemporalType.DATE)
+            //i make the query so that flag is false and date is today
+            leaderboard = em.createNamedQuery("UserEntity.getQuestionnaireTakers", UserEntity.class)
+                    .setParameter("flag", false)
+                    .setParameter("givenDate", today, TemporalType.DATE)
                     .setHint("javax.persistence.cache.storeMode", "REFRESH")
                     .getResultList();
 
