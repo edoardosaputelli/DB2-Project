@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class AdminOverallServlet extends HttpServlet {
         String dateString = request.getParameter("chosenDate");
         Date date = adminManager.fromStringToDate(dateString);
         ProductEntity productThatDay = null;
-        List<UserEntity> onesWhoCancelledIt = null;
-        List<UserEntity> onesWhoCompletedIt = null;
+        List<UserEntity> onesWhoCancelledIt = new ArrayList<>();
+        List<UserEntity> onesWhoCompletedIt = new ArrayList<>();
 
         try {
 
@@ -43,7 +44,7 @@ public class AdminOverallServlet extends HttpServlet {
         } catch(NothingThatDateException ex) {
 
             //here it redirects back to the page where you insert the date for which you wanna know about
-            request.getRequestDispatcher("WEB-INF/adminHome.jsp?noProductThatDay").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp?noProductThatDay").forward(request, response);
 
         } catch(DatabaseFailException ex){
 
@@ -56,6 +57,8 @@ public class AdminOverallServlet extends HttpServlet {
         request.setAttribute("onesWhoCompletedIt", onesWhoCompletedIt);
         request.setAttribute("onesWhoCancelledIt", onesWhoCancelledIt);
         request.setAttribute("productThatDay", productThatDay);
+
+        request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp").forward(request, response);
 
         //is there anything else i need to do here? i don't know actually
 

@@ -6,9 +6,9 @@ import it.polimi.db2.entities.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
-import javax.xml.crypto.Data;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,30 +21,6 @@ public class AdminManager {
     private EntityManager em;
 
     public AdminManager (){}
-
-    public AdminEntity checkLogin(String username, String password) throws Exception {
-        List<AdminEntity> aList = null;
-
-        try {
-
-            aList = em.createNamedQuery("AdminEntity.checkLogin", AdminEntity.class).setParameter(1, username).setParameter(2, password)
-                    .getResultList();
-        } catch (PersistenceException e) {
-
-            e.printStackTrace();
-
-            throw new Exception("Could not verify credentials");
-        }
-        if (aList.isEmpty())
-            return null;
-
-        else if (aList.size() == 1){
-
-            AdminEntity admin= aList.get(0);
-
-            return admin;}
-        throw new NonUniqueResultException("More than one user registered with same credentials");
-    }
 
     //exact same method present for User, but the Admin will use a different Servlet and will need
     public AdminEntity checkCredentials (String username, String password) throws Exception{
@@ -93,7 +69,8 @@ public class AdminManager {
     }
 
     public ProductEntity retrieveProductFromDay(Date chosenDay) throws DatabaseFailException, NothingThatDateException{
-        ProductEntity product;
+        ProductEntity product = null;
+
         try {
             product = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class)
                     .setParameter("givenDate", chosenDay).getSingleResult();
@@ -189,7 +166,9 @@ public class AdminManager {
             ex.printStackTrace();
         }
 
+
         if(uList.isEmpty()) {
+
             throw new NothingThatDateException();
         }
 
@@ -279,15 +258,9 @@ public class AdminManager {
 
     //STRING SHOULD BE PARSED IN JSP
     public Date fromStringToDate(String dateString) {
-        Date date = null;
-        try {
-            List<String> dateParts = Arrays.asList(dateString.split("-").clone());
-            List<Integer> dateNumbers = dateParts.stream().map(Integer::parseInt).collect(Collectors.toList());
-            date = new Date(dateNumbers.get(0), dateNumbers.get(1), dateNumbers.get(2));
-        }catch (Exception ex) {
-            ex.printStackTrace();
 
-        }
+        Date date = Date.valueOf(dateString);
+
         return date;
     }
 }
