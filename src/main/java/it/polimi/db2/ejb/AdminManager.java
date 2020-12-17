@@ -22,6 +22,30 @@ public class AdminManager {
 
     public AdminManager (){}
 
+    public AdminEntity checkLogin(String username, String password) throws Exception {
+        List<AdminEntity> aList = null;
+
+        try {
+
+            aList = em.createNamedQuery("AdminEntity.checkLogin", AdminEntity.class).setParameter(1, username).setParameter(2, password)
+                    .getResultList();
+        } catch (PersistenceException e) {
+
+            e.printStackTrace();
+
+            throw new Exception("Could not verify credentials");
+        }
+        if (aList.isEmpty())
+            return null;
+
+        else if (aList.size() == 1){
+
+            AdminEntity admin= aList.get(0);
+
+            return admin;}
+        throw new NonUniqueResultException("More than one user registered with same credentials");
+    }
+
     //exact same method present for User, but the Admin will use a different Servlet and will need
     public AdminEntity checkCredentials (String username, String password) throws Exception{
         List<AdminEntity> aList = null;
