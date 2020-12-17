@@ -22,10 +22,9 @@ public class LeaderBoardServlet extends HttpServlet {
 
         List<UserEntity> leaderBoard = leaderBoardManager.generateOrderedLeaderBoard();
 
-
         request.setAttribute("leaderBoard", leaderBoard);
 
-        request.getRequestDispatcher("leaderboard.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/leaderboard.jsp").forward(request, response);
 
 
     }

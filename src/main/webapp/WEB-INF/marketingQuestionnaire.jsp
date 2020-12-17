@@ -71,10 +71,6 @@
 
     }
 
-
-
-
-
 %>
 
 <%=questionsTable%>

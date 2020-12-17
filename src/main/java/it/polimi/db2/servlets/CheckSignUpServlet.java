@@ -72,20 +72,25 @@ public class CheckSignUpServlet extends HttpServlet {
 
         String path;
 
+        //the user is already registered
         if(user==null) {
-
-            //the user is already registered: the error is printed on the login page
+            //the error is printed on the login page
             response.setContentType( "text/html" );
             path = getServletContext().getContextPath() + "/index.jsp?errorString=alreadyRegistered";
             response.sendRedirect(path);
-
         }
+
+        //the user has been registered
         else
         {
-            //the user has been registered: he is redirected to the successful Sign Up page
+            //he is redirected to the home page
+            /*request.getSession().setAttribute("user", user);
+            path = getServletContext().getContextPath() + "/WEB-INF/home.jsp";
+            response.sendRedirect(path);*/
+
             request.getSession().setAttribute("user", user);
-            path = getServletContext().getContextPath() + "/home.jsp";
-            response.sendRedirect(path);
+            request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
+
         }
 
     }

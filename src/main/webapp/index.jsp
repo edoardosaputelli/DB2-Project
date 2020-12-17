@@ -69,8 +69,18 @@
 </form>
 
 
-<a href="signUp.jsp">No account? Sign up!</a>
+<%-- signUp.jsp is in WEB-INF: it can be accessed.
+The requested is then managed by the BrokenServlet--%>
+<form action="BrokerServlet" method="get">
+    <input type="hidden" name="redirectedPage" value="signUp" />
+    <button type="submit" > No account? Sign up! </button>
+</form>
 
+<%-- button to go to the adminLogin page --%>
+<form action="BrokerServlet" method="get">
+    <input type="hidden" name="redirectedPage" value="adminLogin" />
+    <button type="submit" > Click here to login as an admin </button>
+</form>
 
 </body>
 </html>

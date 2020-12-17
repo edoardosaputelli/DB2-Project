@@ -14,10 +14,13 @@
 
     <h1>You have cancelled the questionnaire.</h1>
 
-    <form action="home.jsp">
-
+    <%-- <form action="home.jsp">
         <button type="submit">Return to the Homepage</button>
+    </form> --%>
 
+    <form action="BrokerServlet" method="get">
+        <input type="hidden" name="redirectedPage" value="home" />
+        <button type="submit" > Return to the home page </button>
     </form>
 
 </body>

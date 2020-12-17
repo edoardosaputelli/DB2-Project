@@ -29,7 +29,7 @@ public class AdminOneUserServlet extends HttpServlet {
     //SHOULD ONLY BE CALLED AFTER ADMINOVERALLSERVLET
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = (String) request.getAttribute("username");
-        Date chosenDay = (Date) request.getAttribute("chosenDay");
+        Date chosenDay = (Date) request.getAttribute("chosenDate");
 
         List<MarketingAnswerEntity> markAnswers = null;
         List<StatisticalAnswerEntity> statAnswers = null;

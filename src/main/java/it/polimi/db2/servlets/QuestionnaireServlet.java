@@ -36,7 +36,7 @@ public class QuestionnaireServlet extends HttpServlet {
 
         //da inserire l'annullamento dell'attributo in caso di cancellazione o invio del questionario
         request.getSession().setAttribute("mapMarketingAnsQuest", mapAnsQuest);
-        request.getRequestDispatcher("successMarketingQuest.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/successMarketingQuest.jsp").forward(request, response);
 
 
     }
@@ -56,9 +56,7 @@ public class QuestionnaireServlet extends HttpServlet {
         } catch (AlreadyDoneException e) {
 
             //Eduardo gestisci 'sta cosa
-            request.getRequestDispatcher("redirectQuestionnaireAlreadyDone.jsp").forward(request,response);
-
-
+            request.getRequestDispatcher("WEB-INF/redirectQuestionnaireAlreadyDone.jsp").forward(request,response);
 
         }
 
@@ -66,7 +64,7 @@ public class QuestionnaireServlet extends HttpServlet {
         List<MarketingQuestionEntity> mQuestionList = questionnaireManager.getMarketingQuestionEntityList();
 
         request.setAttribute("marketingQuestions", mQuestionList);
-        request.getRequestDispatcher("marketingQuestionnaire.jsp").forward(request,response);
+        request.getRequestDispatcher("WEB-INF/marketingQuestionnaire.jsp").forward(request,response);
 
 
 

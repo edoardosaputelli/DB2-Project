@@ -4,7 +4,6 @@ import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.ejb.AdminManager;
 
 import javax.ejb.EJB;
-import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +20,7 @@ public class AdminDeleteServlet extends HttpServlet {
 
     //this method takes from request a date and deletes the associated product, questionnaire etc. (if present)
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String stringDate = (String) request.getAttribute("chosenDay");
+        String stringDate = (String) request.getAttribute("chosenDate");
         Date date = adminManager.fromStringToDate(stringDate);
         boolean wentFine = false;
 

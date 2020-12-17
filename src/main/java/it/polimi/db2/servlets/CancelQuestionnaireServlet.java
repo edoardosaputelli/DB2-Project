@@ -27,7 +27,7 @@ public class CancelQuestionnaireServlet extends HttpServlet {
 
         questionnaireManager.cancelQuestionnaire(questionnaire, user);
 
-        request.getRequestDispatcher("cancelledQuestionnaire.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/cancelledQuestionnaire.jsp").forward(request, response);
 
         questionnaireManager.setSessionMapsNull(request);
 

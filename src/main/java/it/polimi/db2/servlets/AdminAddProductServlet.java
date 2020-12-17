@@ -13,17 +13,20 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
-@WebServlet(name = "AdminCreateServlet")
+@WebServlet(name = "AdminAddProductServlet", urlPatterns = {"/AdminAddProductServlet"})
 public class AdminAddProductServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
     private AdminManager adminManager;
 
     //this method takes from request a name, a date and an img to add a new product to the application
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String stringDate = (String) request.getAttribute("chosenDay");
-        String productName = (String) request.getAttribute("productName");
+
+        String stringDate = (String) request.getParameter("chosenDate");
+        String productName = (String) request.getParameter("productName");
         byte [] img = null;
+
         //DA RIVEDERE
+
         img = (byte []) request.getAttribute("image");
         Date date = adminManager.fromStringToDate(stringDate);
 

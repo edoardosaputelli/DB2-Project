@@ -281,7 +281,7 @@ public class AdminManager {
     public Date fromStringToDate(String dateString) {
         Date date = null;
         try {
-            List<String> dateParts = Arrays.asList(dateString.split("/").clone());
+            List<String> dateParts = Arrays.asList(dateString.split("-").clone());
             List<Integer> dateNumbers = dateParts.stream().map(Integer::parseInt).collect(Collectors.toList());
             date = new Date(dateNumbers.get(0), dateNumbers.get(1), dateNumbers.get(2));
         }catch (Exception ex) {

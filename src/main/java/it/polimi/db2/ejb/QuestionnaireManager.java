@@ -131,9 +131,6 @@ public class QuestionnaireManager {
     //la query sul prodotto non ha where sulla data!!!!!
     public List<MarketingQuestionEntity> retrieveMarketingQuestions(){
 
-
-        Date today = Date.valueOf(LocalDate.now());
-
         try{
             //da aggiungere eccezione se ritorna più prodotti
             /*List<ProductEntity> listOfProduct = em.createNamedQuery("ProductEntity.getProductOfTheDay", ProductEntity.class)
@@ -143,7 +140,6 @@ public class QuestionnaireManager {
             Date currentDate = Date.valueOf(LocalDate.now());
             ProductEntity product = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class)
                     .setParameter("givenDate", currentDate , TemporalType.DATE).getSingleResult();
-
 
             List<MarketingQuestionEntity> listMQ = product.getQuestionnaire().getmList();
 

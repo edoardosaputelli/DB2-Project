@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "product", schema = "db2_project_schema")
 @NamedQueries({
-        @NamedQuery(name = "ProductEntity.getProductOfGivenDay", query = "SELECT r FROM ProductEntity r  WHERE r.date = :givenDate ")
+        @NamedQuery(name = "ProductEntity.getProductOfGivenDay", query = "SELECT r FROM ProductEntity r WHERE r.date = :givenDate")
 })
 
 

@@ -33,9 +33,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
         HashMap<StatisticalQuestionEntity, List<StatQuestionAlternativesEntity>> statQList = questionnaireManager.getStatisticalQuestionEntityList();
 
         for (StatisticalQuestionEntity sqe : statQList.keySet()) {
-
             mapStatAnsQuest.put(sqe.getIdStatisticalQuestion(), request.getParameter(sqe.getQuestionText()));
-
         }
 
         request.getSession().setAttribute("mapStatAnsQuest", mapStatAnsQuest);
@@ -53,7 +51,6 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
         } catch (BadLanguageException e) {
             //user is banned
-            ;
             questionnaireManager.banUser(currentUser);
 
             //and redirected to an error page
@@ -75,7 +72,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
             questionnaireManager.persistQuestionnaireAnswers(mAnswers, sAnswers, currentUser);
 
-            request.getRequestDispatcher("overallQuestSuccess.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/overallQuestSuccess.jsp").forward(request, response);
 
             questionnaireManager.setSessionMapsNull(request);
 
@@ -94,7 +91,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
         HashMap<StatisticalQuestionEntity, List<StatQuestionAlternativesEntity>> statisticalQuestionEntityList = questionnaireManager.getStatisticalQuestionEntityList();
 
         request.setAttribute("statisticalQuestions", statisticalQuestionEntityList);
-        request.getRequestDispatcher("statisticalQuestionnaire.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/statisticalQuestionnaire.jsp").forward(request, response);
 
 
     }

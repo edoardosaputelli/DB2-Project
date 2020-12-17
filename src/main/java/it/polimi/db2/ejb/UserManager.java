@@ -67,7 +67,6 @@ public class UserManager {
 
         } catch(PersistenceException e) {
             e.printStackTrace();
-
             throw new Exception("Wasn't able to register new user");
         }
 

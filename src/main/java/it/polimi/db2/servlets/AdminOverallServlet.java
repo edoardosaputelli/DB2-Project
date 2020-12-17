@@ -1,7 +1,9 @@
 package it.polimi.db2.servlets;
 
+import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.ejb.AdminManager;
+import it.polimi.db2.entities.ProductEntity;
 import it.polimi.db2.entities.UserEntity;
 
 import javax.ejb.EJB;
@@ -16,34 +18,44 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet(name = "AdminOverallServlet")
+@WebServlet(name = "AdminOverallServlet", urlPatterns = "/AdminOverallServlet")
 public class AdminOverallServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
     private AdminManager adminManager;
 
     //this method gets a chosenDate parameter from session and sets as its attributes the users who completed/canceled
-    // the questionnaire for that day
+    //the questionnaire for that day
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //STRING NEEDS TO BE PARSED before arriving here!
         String dateString = request.getParameter("chosenDate");
         Date date = adminManager.fromStringToDate(dateString);
+        ProductEntity productThatDay = null;
         List<UserEntity> onesWhoCancelledIt = null;
         List<UserEntity> onesWhoCompletedIt = null;
 
         try {
+
+            productThatDay = adminManager.retrieveProductFromDay(date);
             onesWhoCompletedIt = adminManager.retrieveQuestionnaireResponders(date, false);
             onesWhoCancelledIt = adminManager.retrieveQuestionnaireResponders(date, true);
+
         } catch(NothingThatDateException ex) {
 
-            //here it should redirect back to the page where you insert the date for which you wanna know about;
+            //here it redirects back to the page where you insert the date for which you wanna know about
+            request.getRequestDispatcher("WEB-INF/adminHome.jsp?noProductThatDay").forward(request, response);
 
+        } catch(DatabaseFailException ex){
+
+            //here it redirects to generic error page
+            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
         }
 
         //the lists could be empty because there could be not a single user who did/canceled the questionnaire
         //IN THAT CASE SIMPLY PRINT A MESSAGE EXPLAINING
         request.setAttribute("onesWhoCompletedIt", onesWhoCompletedIt);
         request.setAttribute("onesWhoCancelledIt", onesWhoCancelledIt);
+        request.setAttribute("productThatDay", productThatDay);
 
         //is there anything else i need to do here? i don't know actually
 

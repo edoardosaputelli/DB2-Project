@@ -62,37 +62,44 @@ public class CheckLoginServlet extends HttpServlet {
 
         String path;
 
+        //the user doesn't exist
         if (user == null) {
 
-            //the user doesn't exist: the error is printed on the login page
+            //the error is printed on the login page
             request.getSession().setAttribute("user", null);
+
             response.setContentType( "text/html" );
             path = getServletContext().getContextPath() + "/index.jsp?errorString=invalidUser";
             response.sendRedirect(path);
 
+            /*response.setContentType( "text/html" );
+            request.getRequestDispatcher("/index.jsp?errorString=invalidUser.jsp").forward(request, response);*/
+
         }
 
+        //the user does exist
         else
         {
-
-
+            //if the attribute "user" of the session is not null, the user is already logged in
             if(request.getSession().getAttribute("user") != null){
 
                 response.setContentType( "text/html" );
                 path = getServletContext().getContextPath() + "/index.jsp?errorString=alreadyLoggedIn";
                 response.sendRedirect(path);
 
+                /*response.setContentType( "text/html" );
+                request.getRequestDispatcher("/index.jsp?errorString=alreadyLoggedIn.jsp").forward(request, response);*/
             }
 
 
+            //the user has been logged in: he is redirected to the home page
             else {
 
-
-                //the user has been logged in: he is redirected to the home page
                 request.getSession().setAttribute("user", user);
+                request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 
-                path = getServletContext().getContextPath() + "/home.jsp";
-                response.sendRedirect(path);
+                /*path = getServletContext().getContextPath() + "/home.jsp";
+                response.sendRedirect(path);*/
 
             }
 

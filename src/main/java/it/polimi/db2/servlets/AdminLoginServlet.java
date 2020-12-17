@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "AdminLoginServlet")
+@WebServlet(name = "AdminLoginServlet", urlPatterns = {"/AdminLoginServlet"})
 public class AdminLoginServlet extends HttpServlet {
 
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
@@ -54,37 +54,32 @@ public class AdminLoginServlet extends HttpServlet {
 
         String path;
 
+        //invalid login
         if (admin == null) {
 
-            //REWRITE PATHS
+            request.getSession().setAttribute("admin", null);
+
+            response.setContentType( "text/html" );
+            request.getRequestDispatcher("WEB-INF/adminLogin.jsp?errorString=invalidAdmin").forward(request, response);
 
         }
 
         else
         {
 
-
-            if(request.getSession().getAttribute("user") != null){
-
-                //REWRITE PATHS
+            //already logged in admin
+            if(request.getSession().getAttribute("admin") != null){
 
                 response.setContentType( "text/html" );
-                path = getServletContext().getContextPath() + "/index.jsp?errorString=alreadyLoggedIn";
-                response.sendRedirect(path);
+                request.getRequestDispatcher("WEB-INF/adminLogin.jsp?errorString=alreadyLoggedIn").forward(request, response);
 
             }
 
 
             else {
 
-
-                //REWRITE PATHS
-
-                //the user has been logged in: he is redirected to the home page
                 request.getSession().setAttribute("admin", admin);
-
-                path = getServletContext().getContextPath() + "/home.jsp";
-                response.sendRedirect(path);
+                request.getRequestDispatcher("WEB-INF/adminHome.jsp").forward(request, response);
 
             }
 
