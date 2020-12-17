@@ -68,19 +68,22 @@ public class AdminManager {
         return true;
     }
 
-    public ProductEntity retrieveProductFromDay(Date chosenDay) throws DatabaseFailException, NothingThatDateException{
+    public ProductEntity retrieveProductFromDay(Date chosenDay) throws DatabaseFailException, NothingThatDateException {
         ProductEntity product = null;
+        List<ProductEntity> products = null;
 
         try {
-            product = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class)
-                    .setParameter("givenDate", chosenDay).getSingleResult();
+            products = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class)
+                    .setParameter("givenDate", chosenDay).getResultList();
         }catch (PersistenceException ex ) {
             ex.printStackTrace();
             throw new DatabaseFailException();
         }
 
-        if (product == null) throw new NothingThatDateException();
+        if (products == null) throw new NothingThatDateException();
+        if(products.isEmpty()) throw new NothingThatDateException();
 
+        product = products.get(0);
         return product;
     }
 
