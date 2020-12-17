@@ -92,6 +92,21 @@ public class AdminManager {
         return true;
     }
 
+    public ProductEntity retrieveProductFromDay(Date chosenDay) throws DatabaseFailException, NothingThatDateException{
+        ProductEntity product;
+        try {
+            product = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class)
+                    .setParameter("givenDate", chosenDay).getSingleResult();
+        }catch (PersistenceException ex ) {
+            ex.printStackTrace();
+            throw new DatabaseFailException();
+        }
+
+        if (product == null) throw new NothingThatDateException();
+
+        return product;
+    }
+
     //this method adds the questionnaire entity and the set of its marketing answers
     //TO BE CALLED AFTER THE PRODUCT HAS BEEN INSERTED
     public void addMarketingQuestions(Date chosenDay, List<String> questionTextList) throws DatabaseFailException, NothingThatDateException {
