@@ -1,0 +1,25 @@
+
+O
+java:S1612ò",Replace this lambda with a method reference.(ÙÑäãùÿÿÿÿ8Åæßİå.
+
+java:S1319'"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(ß•®¯ÿÿÿÿÿ8¡€å.
+
+java:S1319."|The type of the "mapMarketingAnsQuest" object should be an interface such as "Map" rather than the implementation "HashMap".(µ¡”øÿÿÿÿ8í÷ÛÜå.
+O
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8í÷ÛÜå.
+I
+java:S1168«"+Return an empty collection instead of null.(¥¹ï8Åæßİå.
+H
+java:S1481‡"*Remove this unused "today" local variable.(ê‹¾ä8Åæßİå.
+W
+java:S1854‡"9Remove this useless assignment to local variable "today".(ê‹¾ä8Åæßİå.
+
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½œ‡¼8¡€å.
+^	java:S125Œ"<This block of commented-out lines of code should be removed.( æï‚şÿÿÿÿ8Åæßİå.
+O
+java:S1874ü",Remove this use of "Byte"; it is deprecated.(ÁË°íùÿÿÿÿ8Åæßİå.
+‹
+java:S1319°"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(§Ìì±8Åæßİå.
+{
+java:S1488”"^Immediately return this expression instead of assigning it to the temporary variable "listMQ".(öäû'8öê³¹æ.
+Y	java:S125—"<This block of commented-out lines of code should be removed.(ıÖì«8öê³¹æ.

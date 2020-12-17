@@ -1,5 +1,7 @@
 
 c
-java:S1126k"AReplace this if-then-else statement by a single return statement.(õÊüØûÿÿÿÿ8íÁêä.
+java:S1126n"AReplace this if-then-else statement by a single return statement.(õÊüØûÿÿÿÿ8íÁêä.
 K
 java:S1128"/Remove this unused import 'java.sql.Timestamp'.(èò½+8ƒÁôíä.
+^
+java:S1710"<Remove the 'NamedQueries' wrapper from this annotation group(¨‘¯¼ûÿÿÿÿ8øÁ®¹æ.

@@ -1,0 +1,21 @@
+
+>
+java:S11168"Remove this empty statement.(Åñ­õşÿÿÿÿ8¤­ÎÜå.
+\
+java:S1161[":Add the "@Override" annotation above this method signature(Ïû©Öûÿÿÿÿ8¯±Ÿİå.
+W
+java:S1161":Add the "@Override" annotation above this method signature(‹¨¯¿8¤­ÎÜå.
+V
+java:S1128":Remove this unused import 'it.polimi.db2.ejb.UserManager'.(¦Ì¾R8¤­ÎÜå.
+u
+java:S1989?"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§şÿÿÿÿ8¤­ÎÜå.
+V
+java:S2864{"4Iterate over the "entrySet" instead of the "keySet".(”†×ùÿÿÿÿ8¯±Ÿİå.
+ƒ
+java:S1989a"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(—”şÚüÿÿÿÿ8¯±Ÿİå.
+ƒ
+java:S1989N"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(„Í®‹øÿÿÿÿ8¤­ÎÜå.
+L
+java:S1128"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ8¤­ÎÜå.
+V
+java:S2864j"4Iterate over the "entrySet" instead of the "keySet".(Ó²Àãüÿÿÿÿ8¯±Ÿİå.
