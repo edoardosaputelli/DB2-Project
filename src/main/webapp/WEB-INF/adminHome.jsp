@@ -37,12 +37,12 @@
     }
             else if(stringParameter.equals("noProductThatDay")) {
     %>
-            <br/> <br/> <font color="red"> There is no valid product for that day </font> <br>
+            <br/> <br/> <font color="red"> There is no valid product for that day. </font> <br>
     <%
             }
             else if(stringParameter.equals("noFillingThatDay")) {
     %>
-            <br/> <br/> <font color="red"> There are still no answers for that day </font> <br>
+            <br/> <br/> <font color="red"> There are still no answers for that day. </font> <br>
     <%
     }
             else if(stringParameter.equals("newProductHasBeenAdded")) {

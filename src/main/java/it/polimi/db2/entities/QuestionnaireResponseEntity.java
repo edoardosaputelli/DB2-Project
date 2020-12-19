@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "questionnaire_response", schema = "db2_project_schema")
 @NamedQuery(name = "QuestionnaireResponseEntity.alreadyDidIt", query = "SELECT i FROM QuestionnaireResponseEntity i WHERE i.user.idUser = ?1" +
-        "AND i.questionnaire = ?2")
+        " AND i.questionnaire = ?2")
 public class QuestionnaireResponseEntity implements Serializable {
     @Basic
     @Column(name = "flagCancelled", nullable = false)

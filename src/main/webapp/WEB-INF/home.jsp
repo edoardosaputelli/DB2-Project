@@ -30,6 +30,23 @@
 
 <form action="QuestionnaireServlet" method="get">
     <button type="submit"> Go to questionnaire </button>
+
+        <%
+        String errorParameter = request.getParameter("errorString");
+
+        if(errorParameter != null){
+
+            //after login with wrong credentials
+            if (errorParameter.equals("noProductOfTheDay") )
+            {
+
+        %>
+                <br/> <br/> <font color="red"> We are sorry, but there is no product for today :( </font> <br>
+        <%
+            }
+        }
+        %>
+
 </form>
 
 

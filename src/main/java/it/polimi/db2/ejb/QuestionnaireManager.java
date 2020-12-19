@@ -29,13 +29,14 @@ public class QuestionnaireManager {
 
     public QuestionnaireManager () {}
 
-
     @PostConstruct
     public void init(){
-
-        this.marketingQuestionEntityList = retrieveMarketingQuestions();
-        this.statisticalQuestionEntityList = retrieveStatisticalQuestions();
-
+        try {
+            this.marketingQuestionEntityList = retrieveMarketingQuestions();
+            this.statisticalQuestionEntityList = retrieveStatisticalQuestions();
+        }catch (PersistenceException ex){
+            ex.printStackTrace();
+        }
     }
 
 

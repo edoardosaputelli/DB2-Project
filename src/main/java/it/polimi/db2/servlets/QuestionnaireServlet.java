@@ -1,6 +1,8 @@
 package it.polimi.db2.servlets;
 
 import it.polimi.db2.Exceptions.AlreadyDoneException;
+import it.polimi.db2.Exceptions.DatabaseFailException;
+import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.ejb.QuestionnaireManager;
 import it.polimi.db2.entities.MarketingQuestionEntity;
 import it.polimi.db2.entities.UserEntity;
@@ -11,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +61,11 @@ public class QuestionnaireServlet extends HttpServlet {
             //Eduardo gestisci 'sta cosa
             request.getRequestDispatcher("WEB-INF/redirectQuestionnaireAlreadyDone.jsp").forward(request,response);
 
+        } catch (DatabaseFailException ex){
+            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+
+        } catch (NothingThatDateException ex){
+            request.getRequestDispatcher("WEB-INF/home.jsp?errorString=noProductOfTheDay").forward(request, response);
         }
 
 
@@ -69,10 +77,7 @@ public class QuestionnaireServlet extends HttpServlet {
 
 
 
-
     }
-
-
 
 
 
