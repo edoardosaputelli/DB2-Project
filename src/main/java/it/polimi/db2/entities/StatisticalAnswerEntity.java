@@ -65,7 +65,8 @@ public class StatisticalAnswerEntity implements Serializable {
         return answerText;
     }
 
-/*
+
+    /*
     public int getAssociatedStatisticalQuestion() {
         return associatedStatisticalQuestion;
     }

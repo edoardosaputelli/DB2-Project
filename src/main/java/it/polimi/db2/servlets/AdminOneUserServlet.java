@@ -15,47 +15,59 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@WebServlet(name = "AdminOneUserServlet")
+@WebServlet(name = "AdminOneUserServlet", urlPatterns = {"/AdminOneUserServlet"})
 public class AdminOneUserServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
     private AdminManager adminManager;
 
     //this method takes from request a username and a date and returns the answers for that user of that questionnaire
     //the case where the date has no questionnaire should not be considered as this servlet is called after adminOverallServlet
+
     //SHOULD ONLY BE CALLED AFTER ADMINOVERALLSERVLET
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = (String) request.getAttribute("username");
-        Date chosenDay = (Date) request.getAttribute("chosenDate");
+        String username = (String) request.getParameter("username");
+        String chosenDay = (String) request.getParameter("givenDate");
 
-        List<MarketingAnswerEntity> markAnswers = null;
-        List<StatisticalAnswerEntity> statAnswers = null;
-        List<MarketingQuestionEntity> mQuestions = null;
-        List<StatisticalQuestionEntity> sQuestions = null;
+        Date date = adminManager.fromStringToDate(chosenDay);
+
+        List<MarketingAnswerEntity> markAnswers = new ArrayList<>();
+        List<StatisticalAnswerEntity> statAnswers = new ArrayList<>();
+
 
         try {
             //i call ejb method to get the answers
-            markAnswers = adminManager.retrieveMarketingAnswers(username, chosenDay);
-            statAnswers= adminManager.retrieveStatisticalAnswers(username, chosenDay);
-
-            //from those i get the corresponding questions
-            mQuestions = markAnswers.stream().map(MarketingAnswerEntity::getmQuestion).collect(Collectors.toList());
-            sQuestions = statAnswers.stream().map(x -> x.getQuestion()).collect(Collectors.toList());
+            markAnswers = adminManager.retrieveMarketingAnswers(username, date);
+            statAnswers= adminManager.retrieveStatisticalAnswers(username, date);
 
         }catch (NothingThatDateException e) {
             //shouldn't actually happen, parsing should have been done before (SEE comment before this method)
         }catch (DatabaseFailException ex) {
-            //should send to the gerenal error page
+            //redirecting to general error page
+            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
         }
 
-        //now i pass the lists obtained so that they can be printed on the page
-        request.setAttribute("markAnswers", markAnswers);
-        request.setAttribute("statAnswers", statAnswers);
-        request.setAttribute("mQuestions", mQuestions);
-        request.setAttribute("sQuestions", sQuestions);
+        //there is no user with that name
+        if(markAnswers == null || markAnswers.isEmpty()){
+
+            request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp?errorString=noExistingUser").forward(request, response);
+        }
+
+        else {
+
+            //now i pass the lists obtained so that they can be printed on the page
+            request.setAttribute("markAnswers", markAnswers);
+            request.setAttribute("statAnswers", statAnswers);
+
+            request.getRequestDispatcher("WEB-INF/adminOneUser.jsp").forward(request, response);
+
+        }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

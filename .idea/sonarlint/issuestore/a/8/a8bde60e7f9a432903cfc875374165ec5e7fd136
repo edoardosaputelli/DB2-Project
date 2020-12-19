@@ -1,21 +1,24 @@
 
-\
-java:S1161":Add the "@Override" annotation above this method signature(þ³‚”ûÿÿÿÿ8ê¦×”ã.
-u
-java:S1989S"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8´Ýªëå.
-X	java:S125+"<This block of commented-out lines of code should be removed.(’ðÐÐ8ê¦×”ã.
-b	java:S112'"FDefine and throw a dedicated exception instead of using a generic one.(üæÂã8ê¦×”ã.
-u
-java:S1989_"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8üÉ€éå.
-M
-java:S1128"0Remove this unused import 'java.io.PrintWriter'.(ÓÞÏÛ8Ó”Ö”ã.
 m
 java:S1989,"PHandle the following exception that could be thrown by "sendError": IOException.(ÚÿéÇ8ê¦×”ã.
-V
-java:S1128"9Remove this unused import 'javax.servlet.ServletContext'.(á¡æÞ8Åâšå.
 m
 java:S19898"PHandle the following exception that could be thrown by "sendError": IOException.(Þ´Å»8õíæã.
-u
-java:S1989G"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8üÉ€éå.
 i
 java:S1128"GRemove this unused import 'javax.persistence.NonUniqueResultException'.(ï¬Áðùÿÿÿÿ8©öñ”ã.
+u
+java:S1989I"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8µí‹ç.
+X	java:S125Z"<This block of commented-out lines of code should be removed.(ÕÅŸÈ8µí‹ç.
+]	java:S125e"<This block of commented-out lines of code should be removed.(«¶÷ûþÿÿÿÿ8µí‹ç.
+\
+java:S1161":Add the "@Override" annotation above this method signature(þ³‚”ûÿÿÿÿ8ê¦×”ã.
+M
+java:S1128"0Remove this unused import 'java.io.PrintWriter'.(ÓÞÏÛ8Ó”Ö”ã.
+u
+java:S1989X"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8µí‹ç.
+~
+java:S1989c"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(šòÆ™8µí‹ç.
+X	java:S125+"<This block of commented-out lines of code should be removed.(’ðÐÐ8ê¦×”ã.
+b	java:S112'"FDefine and throw a dedicated exception instead of using a generic one.(üæÂã8ê¦×”ã.
+X	java:S125K"<This block of commented-out lines of code should be removed.(ÕÅŸÈ8µí‹ç.
+V
+java:S1128"9Remove this unused import 'javax.servlet.ServletContext'.(á¡æÞ8Åâšå.

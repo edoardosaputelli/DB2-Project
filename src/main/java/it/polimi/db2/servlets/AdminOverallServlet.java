@@ -44,7 +44,7 @@ public class AdminOverallServlet extends HttpServlet {
         } catch(NothingThatDateException ex) {
 
             //here it redirects back to the page where you insert the date for which you wanna know about
-            request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp?noProductThatDay").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp?errorString=noProductThatDay").forward(request, response);
 
         } catch(DatabaseFailException ex){
 
@@ -54,9 +54,10 @@ public class AdminOverallServlet extends HttpServlet {
 
         //the lists could be empty because there could be not a single user who did/canceled the questionnaire
         //IN THAT CASE SIMPLY PRINT A MESSAGE EXPLAINING
-        request.setAttribute("onesWhoCompletedIt", onesWhoCompletedIt);
-        request.setAttribute("onesWhoCancelledIt", onesWhoCancelledIt);
-        request.setAttribute("productThatDay", productThatDay);
+        request.getSession().setAttribute("onesWhoCompletedIt", onesWhoCompletedIt);
+        request.getSession().setAttribute("onesWhoCancelledIt", onesWhoCancelledIt);
+        request.getSession().setAttribute("productThatDay", productThatDay);
+        request.getSession().setAttribute("givenDate", date);
 
         request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp").forward(request, response);
 
