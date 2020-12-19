@@ -23,8 +23,7 @@ public class AdminAddQuestionsServlet extends HttpServlet {
     //this method takes from request a list of strings that will be transformed in questions for the product previously created
     //the date should stay the same so that association is unique and no other parsing is needed
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String stringDate = (String) request.getAttribute("chosenDate");
-        Date date = adminManager.fromStringToDate(stringDate);
+        Date date = (Date) request.getSession().getAttribute("chosenDate");
 
 
         List<String> strinqQuestions = (List<String>) request.getAttribute("stringQuestions");

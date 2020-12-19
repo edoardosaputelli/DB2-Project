@@ -88,15 +88,16 @@ public class AdminManager {
     }
 
     //this method adds the questionnaire entity and the set of its marketing answers
+    //returns true if successes, false if it fails
     //TO BE CALLED AFTER THE PRODUCT HAS BEEN INSERTED
-    public void addMarketingQuestions(Date chosenDay, List<String> questionTextList) throws DatabaseFailException, NothingThatDateException {
+    public boolean addMarketingQuestions(Date chosenDay, List<String> questionTextList) throws DatabaseFailException, NothingThatDateException {
 
         // i retrieve the product for the chosen date
         List<ProductEntity> products = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class).
                 setParameter("givenDate", chosenDay, TemporalType.DATE).getResultList();
 
         ProductEntity givenProduct;
-        QuestionnaireEntity quest = new QuestionnaireEntity();
+        QuestionnaireEntity quest = null;
         MarketingQuestionEntity currentMarkQuestion;
 
         //now i check if the product is only one for the chosen date ad if yes i create the questionnaire
@@ -110,24 +111,26 @@ public class AdminManager {
             givenProduct = products.get(0);
             quest = new QuestionnaireEntity(givenProduct);
 
-        }
+            //now i persist the questionnaire, then generate the associated MarketingQuestions and persist them
+            try{
 
-        //now i persist the questionnaire, then generate the associated MarketingQuestions and persist them
-        try{
+                em.persist(quest);
 
-            em.persist(quest);
+                for (String s: questionTextList) {
+                    currentMarkQuestion = new MarketingQuestionEntity(quest, s);
+                    em.persist(currentMarkQuestion);
+                }
 
-            for (String s: questionTextList) {
-                currentMarkQuestion = new MarketingQuestionEntity(quest, s);
-                em.persist(currentMarkQuestion);
+                em.flush();
+
+            }catch (PersistenceException ex) {
+                ex.printStackTrace();
+                throw new DatabaseFailException();
             }
-
-            em.flush();
-
-        }catch (PersistenceException ex) {
-            ex.printStackTrace();
-            throw new DatabaseFailException();
+            return true;
         }
+
+       return false;
     }
 
     //method returns true if the operation went through, false if there was no data to be deleted from that day
