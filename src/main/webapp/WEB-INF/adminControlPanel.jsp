@@ -14,14 +14,14 @@
 </head>
 <body>
 
-    <%
-        String productEntity;
+<%
+        String stringProductEntity;
         String onesWhoCompletedIt;
         String onesWhoCancelledIt;
 
-        List<UserEntity> listOnesWhoCompletedIt = (List<UserEntity>) request.getAttribute("onesWhoCompletedIt");
-        List<UserEntity> listOnesWhoCancelledIt = (List<UserEntity>) request.getAttribute("onesWhoCancelledIt");
-        ProductEntity productThatDay = (ProductEntity) request.getAttribute("productThatDay");
+        List<UserEntity> listOnesWhoCompletedIt = (List<UserEntity>) request.getSession().getAttribute("onesWhoCompletedIt");
+        List<UserEntity> listOnesWhoCancelledIt = (List<UserEntity>) request.getSession().getAttribute("onesWhoCancelledIt");
+        ProductEntity productThatDay = (ProductEntity) request.getSession().getAttribute("productThatDay");
 
         String tableHeader = "<table style=\"width:50%\" border = \"5\">" +
                 "  <tr>" +
@@ -33,6 +33,8 @@
 
         onesWhoCompletedIt = tableHeader;
         onesWhoCancelledIt = tableHeader;
+
+        stringProductEntity = productThatDay.getProductName();
 
 
       if(listOnesWhoCompletedIt != null || listOnesWhoCompletedIt.size() != 0) {
@@ -74,14 +76,45 @@
           onesWhoCancelledIt = "The list of the people who cancelled the questionnaire is empty";
       }
 
+%>
 
+Product:
+<%= stringProductEntity %>
+<br>
+<br>
+List of people who submitted the questionnaire
+<%= onesWhoCompletedIt %>
+<br>
+<br>
+List of people who cancelled the questionnaire
+<%= onesWhoCancelledIt %>
+<br>
+<br>
+Look for personal answers
+<br>
+<form action="AdminOneUserServlet" method="post">
 
+    <input type="text" name="username">
+    <input type="date" name="givenDate" hidden value="<%= request.getSession().getAttribute("givenDate")%>">
+    <button type="submit">Search for this user</button>
+
+    <%
+        String errorParameter = request.getParameter("errorString");
+
+        if(errorParameter != null){
+
+            if (errorParameter.equals("noExistingUser") )
+            {
+
+    %>
+            <br/> <br/> <font color="red">Error: the user doesn't exist.</font> <br>
+    <%
+            }
+        }
     %>
 
 
-<%= onesWhoCompletedIt %>
-<%= onesWhoCancelledIt %>
-
+</form>
 
 
 

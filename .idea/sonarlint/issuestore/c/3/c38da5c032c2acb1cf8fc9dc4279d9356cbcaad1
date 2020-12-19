@@ -1,27 +1,30 @@
 
-r
-java:S1488S"]Immediately return this expression instead of assigning it to the temporary variable "uList".(õÒ€e
-x
-java:S4144R"bUpdate this method so that its implementation is not identical to "retrieveSubmitters" on line 75.(¬ßƒº
-[	java:S112""FDefine and throw a dedicated exception instead of using a generic one.(×µ‡É
-r
-java:S1488Z"]Immediately return this expression instead of assigning it to the temporary variable "mList".(ßä%
-r
-java:S1488L"]Immediately return this expression instead of assigning it to the temporary variable "uList".(õÒ€e
-C
-java:S1172_"-Remove this unused method parameter "userId".(Â‘ñ±
+l
+java:S11927"JDefine a constant instead of duplicating this literal "givenDate" 6 times.(ŒêÎ±ùÿÿÿÿ8ï“ëŒç.
+f
+java:S2259­"CA "NullPointerException" could be thrown; "uList" is nullable here.(½òÒúÿÿÿÿ8ï“ëŒç.
+R
+java:S1128"0Remove this unused import 'java.time.LocalDate'.(›‘¬èıÿÿÿÿ8èœÌç.
+z
+java:S1488‰"\Immediately return this expression instead of assigning it to the temporary variable "date".(øšËñ8úÿåç.
+M
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ8ï“ëŒç.
+…
+java:S11927"cDefine a constant instead of duplicating this literal "ProductEntity.getProductOfGivenDay" 5 times.(ŒêÎ±ùÿÿÿÿ8ï“ëŒç.
+g
+java:S1192‘"IDefine a constant instead of duplicating this literal "givenDay" 5 times.(ô¸Æ8ï“ëŒç.
+‡
+java:S1192"dDefine a constant instead of duplicating this literal "QuestionnaireEntity.questOfGivenDay" 5 times.(¬ä¥øÿÿÿÿ8ï“ëŒç.
+Z
+java:S1128"8Remove this unused import 'java.util.stream.Collectors'.(Óóº´úÿÿÿÿ8ºëìç.
 —
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¸à¢”
-B
-java:S1172Y"-Remove this unused method parameter "userId".(³˜¦
-œ
-java:S1186H"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ÌŒñøÿÿÿÿ
-s
-java:S1488`"]Immediately return this expression instead of assigning it to the temporary variable "sList".(í®…à
-`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ÆÄ¡ñşÿÿÿÿ
-g	java:S1120"FDefine and throw a dedicated exception instead of using a generic one.(ËÍÓëúÿÿÿÿ8á°àêä.
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¸à¢”
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(ÆÄ¡ñşÿÿÿÿ
+b	java:S112%"FDefine and throw a dedicated exception instead of using a generic one.(×µ‡É8ï“ëŒç.
+y
+java:S1192Ê"[Define a constant instead of duplicating this literal "UserEntity.getUserWithName" 4 times.(æÆÌß8ï“ëŒç.
 K
-java:S1128"/Remove this unused import 'java.sql.Timestamp'.(èò½+8á°àêä.
-£
-java:S1186C"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(”¥Ãùÿÿÿÿ8á°àêä.
-Z	java:S106="9Replace this use of System.out or System.err by a logger.(é ’úÿÿÿÿ8á°àêä.
+java:S1128
+"/Remove this unused import 'java.sql.Timestamp'.(èò½+8á°àêä.
+O
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8ºëìç.
