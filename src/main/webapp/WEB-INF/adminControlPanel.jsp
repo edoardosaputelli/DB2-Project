@@ -107,7 +107,7 @@ Look for personal answers
             {
 
     %>
-            <br/> <br/> <font color="red">Error: the user doesn't exist.</font> <br>
+            <br/> <br/> <font color="red">Error: the user doesn't exist or has cancelled the questionnaire.</font> <br>
     <%
             }
         }
@@ -117,6 +117,13 @@ Look for personal answers
 </form>
 
 
+<br>
+<br>
+
+<form action="BrokerServlet" method="get">
+    <input type="hidden" name="redirectedPage" value="adminHome" />
+    <button type="submit" > Back to Admin Home Page </button>
+</form>
 
 
 </body>

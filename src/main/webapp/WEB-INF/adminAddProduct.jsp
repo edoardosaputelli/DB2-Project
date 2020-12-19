@@ -17,6 +17,7 @@
 <form action="AdminAddProductServlet" method="post">
     <input type="date" name="chosenDate" required> <br>
     <input type="text" placeholder="Product Name" name="productName" required > <br>
+    <input type="file" id="file" accept=".jpg, .jpeg, .png" name="image"> <br>
     <input type="submit" value="Add for this date"/>
 
     <%

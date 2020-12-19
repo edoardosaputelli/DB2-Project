@@ -23,36 +23,36 @@ public class AdminAddProductServlet extends HttpServlet {
 
         String stringDate = (String) request.getParameter("chosenDate");
         String productName = (String) request.getParameter("productName");
-        byte [] img = null;
+        Object imgObj = request.getParameter("image");
         boolean didIt = false;
 
+        System.out.println(imgObj.getClass());
         //DA RIVEDERE
-
-        img = (byte []) request.getAttribute("image");
+        byte [] img = null ;
         Date date = adminManager.fromStringToDate(stringDate);
 
         //check if the date inserted is a day already passed
         if(date.before(Date.valueOf(LocalDate.now()))) {
             request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?errorString=invalidDate").forward(request, response);
-        }
-
-
-        try {
-            didIt = adminManager.addProduct(productName, date, img);
-        }catch (DatabaseFailException ex) {
-            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
-        }
-
-        if(didIt) {
-
-            request.getSession().setAttribute("givenDate", date);
-            //redirect to a page that asks for the questions to be associated with the product (with AdminAddQuestionsServlet)
-            request.getRequestDispatcher("WEB-INF/adminAddQuestions.jsp").forward(request, response);
-
         } else {
-            request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?errorString=alreadyOccupiedDate").forward(request, response);
-        }
 
+
+            try {
+                didIt = adminManager.addProduct(productName, date, img);
+            } catch (DatabaseFailException ex) {
+                request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+            }
+
+            if (didIt) {
+
+                request.getSession().setAttribute("givenDate", date);
+                //redirect to a page that asks for the questions to be associated with the product (with AdminAddQuestionsServlet)
+                request.getRequestDispatcher("WEB-INF/adminAddQuestions.jsp").forward(request, response);
+
+            } else {
+                request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?errorString=alreadyOccupiedDate").forward(request, response);
+            }
+        }
 
     }
 

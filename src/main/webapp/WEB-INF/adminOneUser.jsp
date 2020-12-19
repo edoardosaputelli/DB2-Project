@@ -61,5 +61,11 @@ List Statistical:
 <%= stringListQuestAnsStatistical %>
 
 
+<form action="BrokerServlet" method="get">
+    <input type="hidden" name="redirectedPage" value="adminControlPanel" />
+    <button type="submit" > Back to the list of users </button>
+</form>
+
+
 </body>
 </html>

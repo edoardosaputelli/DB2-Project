@@ -34,6 +34,12 @@ public class BrokerServlet extends HttpServlet {
             case "adminDelete":
                 request.getRequestDispatcher("WEB-INF/adminDelete.jsp").forward(request, response);
                 break;
+            case "adminHome":
+                request.getRequestDispatcher("WEB-INF/adminHome.jsp").forward(request, response);
+                break;
+            case "adminControlPanel":
+                request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp").forward(request, response);
+                break;
         }
 
     }
