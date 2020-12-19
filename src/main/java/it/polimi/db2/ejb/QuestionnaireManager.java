@@ -2,9 +2,12 @@ package it.polimi.db2.ejb;
 
 import it.polimi.db2.Exceptions.AlreadyDoneException;
 import it.polimi.db2.Exceptions.BadLanguageException;
+import it.polimi.db2.Exceptions.DatabaseFailException;
+import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.entities.*;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.servlet.http.HttpServletRequest;
@@ -93,37 +96,46 @@ public class QuestionnaireManager {
     }
 
 
-    public void checkIfAlreadyDone(UserEntity user) throws AlreadyDoneException {
+    public void checkIfAlreadyDone(UserEntity user) throws AlreadyDoneException, DatabaseFailException, NothingThatDateException {
 
         boolean hasAlreadyDone = false;
 
+        Date today = Date.valueOf(LocalDate.now());
 
+        QuestionnaireEntity todaysQuest;
+
+        //i get today's questionnaire
+        try {
+            todaysQuest = em.createNamedQuery("QuestionnaireEntity.questOfGivenDay", QuestionnaireEntity.class)
+                    .setParameter("givenDay", today).getResultList().get(0);
+        }catch(PersistenceException ex){
+
+        ex.printStackTrace();
+        throw new DatabaseFailException();
+
+        }catch (Exception ex) {throw new NothingThatDateException();}
+
+
+        //i check if the user already did/cancelled it
         try{
 
-
             hasAlreadyDone = !(em.createNamedQuery("QuestionnaireResponseEntity.alreadyDidIt", QuestionnaireResponseEntity.class)
-                    .setParameter(1, user.getIdUser()).getResultList().isEmpty());
+                    .setParameter(1, user.getIdUser()).setParameter(2, todaysQuest).getResultList().isEmpty());
 
 
         }catch(PersistenceException ex){
-
-            //TDB
             ex.printStackTrace();
+            throw new DatabaseFailException();
 
         }
 
 
-
+        //if yes i throw the associated exception
         if(hasAlreadyDone){
 
             throw new AlreadyDoneException();
 
         }
-
-
-
-
-
 
     }
 
