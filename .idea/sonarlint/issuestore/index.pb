@@ -81,3 +81,13 @@ m
 =src/main/java/it/polimi/db2/servlets/AdminOneUserServlet.java,6\e\6ef300b92b8abbc69c2d39eeebd9d8a263f4eb74
 X
 (src/main/webapp/WEB-INF/adminOneUser.jsp,3\f\3f320ecf8a0d82e9bcd71fc996a74fb2e8e1ca31
+g
+7src/main/java/it/polimi/db2/servlets/BrokerServlet.java,f\0\f01ea8cf0d9036d3dd2b7a5be43623e963b8d60a
+b
+2src/main/java/it/polimi/db2/utils/FileManager.java,2\2\22a79520c882a4e73a577e44d59847fdcabd2102
+]
+-src/main/webapp/WEB-INF/adminAddQuestions.jsp,b\d\bde592471ccd420d225304c7817d9411b59e82f8
+[
++src/main/webapp/WEB-INF/adminAddProduct.jsp,4\a\4a0a6a4c1d0147c0565e1f6a5ff61c7f271bf8b7
+p
+@src/main/java/it/polimi/db2/servlets/AdminAddProductServlet.java,a\9\a9361a6ccc0e7d0e81630633af8011f91f6c5678

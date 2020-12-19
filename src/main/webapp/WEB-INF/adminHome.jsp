@@ -21,21 +21,26 @@
     <input type="submit" value="Search for this date"/>
 
     <%
-        String errorParameter = request.getParameter("errorString");
+        String stringParameter = request.getParameter("errorString");
 
-        if(errorParameter != null){
+        if(stringParameter != null){
 
             //no one filled or cancelled the questionnaire for the chosen date
-            if (errorParameter.equals("noOneFilled") )
+            if (stringParameter.equals("noOneFilled") )
             {
 
     %>
-    <br/> <br/> <font color="red"> No user filled or cancelled the questionnaire for the chosen date </font> <br>
+            <br/> <br/> <font color="red"> No user filled or cancelled the questionnaire for the chosen date </font> <br>
     <%
     }
-    else if(errorParameter.equals("noProductThatDay")) {
+            else if(stringParameter.equals("noProductThatDay")) {
     %>
-    <br/> <br/> <font color="red"> There is no valid product for that day </font> <br>
+            <br/> <br/> <font color="red"> There is no valid product for that day </font> <br>
+    <%
+            }
+            else if(stringParameter.equals("newProductHasBeenAdded")) {
+    %>
+            <br/> <br/> <font color="green"> The product has been added for the chosen date. </font> <br>
     <%
             }
         }
@@ -44,6 +49,11 @@
 </form>
 
 
+
+<form action="BrokerServlet" method="get">
+    <input type="hidden" name="redirectedPage" value="adminAddProduct" />
+    <button type="submit" > Click here to add a product for a date </button>
+</form>
 
 
 </body>
