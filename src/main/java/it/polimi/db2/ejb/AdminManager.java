@@ -135,10 +135,11 @@ public class AdminManager {
 
     //method returns true if the operation went through, false if there was no data to be deleted from that day
     public boolean deleteQuestionnaireData (Date chosenDay) throws DatabaseFailException {
+
         ProductEntity toBeDeletedProduct;
         QuestionnaireEntity toBeDeletedQuestionnaire;
 
-        if (!em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class).setParameter("givenDate", chosenDay, TemporalType.DATE).getResultList().isEmpty()) {
+        if (em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class).setParameter("givenDate", chosenDay, TemporalType.DATE).getResultList().isEmpty()) {
             return false;
         }
 
@@ -161,7 +162,7 @@ public class AdminManager {
     }
 
     //this method retrieves the list of users who completed (flag = false) or canceled (flag = true) the questionnaire for chosen day
-    public List<UserEntity> retrieveQuestionnaireResponders (Date chosenDay, boolean flagCancelled) throws NothingThatDateException {
+    public List<UserEntity> retrieveQuestionnaireResponders (Date chosenDay, boolean flagCancelled) throws DatabaseFailException {
         List<UserEntity> uList = null;
         try {
             uList = em.createNamedQuery("UserEntity.getQuestionnaireTakers", UserEntity.class)
@@ -170,13 +171,14 @@ public class AdminManager {
                     .getResultList();
         }catch (PersistenceException ex) {
             ex.printStackTrace();
+            throw new DatabaseFailException();
         }
 
 
-        if(uList.isEmpty()) {
+        /*if(uList.isEmpty()) {
 
             throw new NothingThatDateException();
-        }
+        }*/
 
         return uList;
     }

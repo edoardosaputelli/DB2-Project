@@ -91,3 +91,13 @@ b
 +src/main/webapp/WEB-INF/adminAddProduct.jsp,4\a\4a0a6a4c1d0147c0565e1f6a5ff61c7f271bf8b7
 p
 @src/main/java/it/polimi/db2/servlets/AdminAddProductServlet.java,a\9\a9361a6ccc0e7d0e81630633af8011f91f6c5678
+b
+2src/main/webapp/WEB-INF/marketingQuestionnaire.jsp,4\5\45e2f4fba17b5f8c0209eea2242abf205a827c2d
+c
+3src/main/webapp/WEB-INF/adminQuestionsInsertion.jsp,8\a\8a7e0649ae6f2f046a4d718527aefbe88f1bc8f7
+r
+Bsrc/main/java/it/polimi/db2/servlets/AdminAddQuestionsServlet.java,2\1\216e73160e207fee3e137e0abdf9703238d489c4
+W
+'src/main/webapp/WEB-INF/adminDelete.jsp,c\0\c0878d9c1d9099a6f58ae82cfa1b90f2664b58ba
+l
+<src/main/java/it/polimi/db2/servlets/AdminDeleteServlet.java,b\7\b7fb5a8857152bfbad8b506ba72480be3cdc5aaa

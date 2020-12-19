@@ -20,6 +20,8 @@
     <input type="date" name="chosenDate" required> <br>
     <input type="submit" value="Search for this date"/>
 
+    <%-- ERRORSTRING NON CONTIENE SOLO ERRORI: VA CHIAMATA PARAMETER STRING MA ORA SMINCHIEREBBE TUTTO VA FATTO CON CALMA --%>
+
     <%
         String stringParameter = request.getParameter("errorString");
 
@@ -38,9 +40,19 @@
             <br/> <br/> <font color="red"> There is no valid product for that day </font> <br>
     <%
             }
+            else if(stringParameter.equals("noFillingThatDay")) {
+    %>
+            <br/> <br/> <font color="red"> There are still no answers for that day </font> <br>
+    <%
+    }
             else if(stringParameter.equals("newProductHasBeenAdded")) {
     %>
             <br/> <br/> <font color="green"> The product has been added for the chosen date. </font> <br>
+    <%
+            }
+            else if(stringParameter.equals("newProductHasBeenDeleted")) {
+    %>
+                <br/> <br/> <font color="green"> The product has been deleted for the chosen date. </font> <br>
     <%
             }
         }
@@ -48,11 +60,20 @@
 
 </form>
 
-
+<br>
+<br>
 
 <form action="BrokerServlet" method="get">
     <input type="hidden" name="redirectedPage" value="adminAddProduct" />
     <button type="submit" > Click here to add a product for a date </button>
+</form>
+
+<br>
+<br>
+
+<form action="BrokerServlet" method="get">
+    <input type="hidden" name="redirectedPage" value="adminDelete" />
+    <button type="submit" > Click here to delete a product for a date </button>
 </form>
 
 

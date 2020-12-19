@@ -38,18 +38,31 @@ public class AdminOverallServlet extends HttpServlet {
         try {
 
             productThatDay = adminManager.retrieveProductFromDay(date);
-            onesWhoCompletedIt = adminManager.retrieveQuestionnaireResponders(date, false);
-            onesWhoCancelledIt = adminManager.retrieveQuestionnaireResponders(date, true);
 
         } catch(NothingThatDateException ex) {
 
             //here it redirects back to the page where you insert the date for which you wanna know about
-            request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp?errorString=noProductThatDay").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminHome.jsp?errorString=noProductThatDay").forward(request, response);
 
         } catch(DatabaseFailException ex){
 
             //here it redirects to generic error page
             request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+        }
+
+        try {
+
+            onesWhoCompletedIt = adminManager.retrieveQuestionnaireResponders(date, false);
+            onesWhoCancelledIt = adminManager.retrieveQuestionnaireResponders(date, true);
+
+        } catch(DatabaseFailException ex){
+            //here it redirects to generic error page
+            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+        }
+
+
+        if(onesWhoCancelledIt.isEmpty() && onesWhoCompletedIt.isEmpty()){
+            request.getRequestDispatcher("WEB-INF/adminHome.jsp?errorString=noFillingThatDay").forward(request, response);
         }
 
         //the lists could be empty because there could be not a single user who did/canceled the questionnaire
