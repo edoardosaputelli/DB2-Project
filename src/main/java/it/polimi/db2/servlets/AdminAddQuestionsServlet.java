@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.List;
 
-@WebServlet(name = "AdminAddQuestionsServlet")
+@WebServlet(name = "AdminAddQuestionsServlet", urlPatterns = {"/AdminAddQuestionsServlet"})
 public class AdminAddQuestionsServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
     private AdminManager adminManager;
@@ -23,17 +23,19 @@ public class AdminAddQuestionsServlet extends HttpServlet {
     //this method takes from request a list of strings that will be transformed in questions for the product previously created
     //the date should stay the same so that association is unique and no other parsing is needed
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String stringDate = (String) request.getAttribute("chosenDate");
-        Date date = adminManager.fromStringToDate(stringDate);
 
+        Date date  = (Date) request.getSession().getAttribute("chosenDate");
 
         List<String> strinqQuestions = (List<String>) request.getAttribute("stringQuestions");
 
+
         try{
+
             adminManager.addMarketingQuestions(date, strinqQuestions);
 
         }catch(DatabaseFailException e) {
             //add redirect to generic error page
+            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
         }catch (NothingThatDateException ex) {
             //shouldn't be called because of order of calling of Servlets
         }
@@ -45,6 +47,20 @@ public class AdminAddQuestionsServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int numOfMarkQuest = 0;
+
+
+        try {//da gestire l'errore di parse EDOOOOOOOOOOOOOOOO
+            numOfMarkQuest  = Integer.parseInt(request.getParameter("numOfMarkQuest "));
+        }catch (Exception ex){}
+
+
+
+        request.setAttribute("numOfMarkQuest", numOfMarkQuest);
+        request.getRequestDispatcher("WEB-INF/adminQuestionsInsertion.jsp").forward(request, response);
+
+
 
     }
 }

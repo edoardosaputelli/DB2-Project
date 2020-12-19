@@ -45,6 +45,11 @@
 
 
 
+<form action="BrokerServlet" method="get">
+    <input type="hidden" name="redirectedPage" value="adminAddProduct" />
+    <button type="submit" > Click here to add a product for a date </button>
+</form>
+
 
 </body>
 </html>
