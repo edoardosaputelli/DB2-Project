@@ -24,6 +24,7 @@ public class AdminAddProductServlet extends HttpServlet {
         String stringDate = (String) request.getParameter("chosenDate");
         String productName = (String) request.getParameter("productName");
         byte [] img = null;
+        boolean didIt = false;
 
         //DA RIVEDERE
 
@@ -32,17 +33,23 @@ public class AdminAddProductServlet extends HttpServlet {
 
         //check if the date inserted is a day already passed
         if(date.before(Date.valueOf(LocalDate.now()))) {
-            //there should be a redirect to the same page asking for another date
+            //there should be a redirect to the same page asking for a future date
         }
 
 
         try {
-            adminManager.addProduct(productName, date, img);
+            didIt = adminManager.addProduct(productName, date, img);
         }catch (DatabaseFailException ex) {
             //add redirect to fail page
         }
 
-        //TBD redirect to a page that asks for the questions to be associated with the product (with AdminAddQuestionsServlet)
+        if(didIt) {
+            //redirect to a page that asks for the questions to be associated with the product (with AdminAddQuestionsServlet)
+        }else {
+            //redirect to same page asking for another date
+        }
+
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
