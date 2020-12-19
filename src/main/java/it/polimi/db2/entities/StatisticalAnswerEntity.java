@@ -61,6 +61,10 @@ public class StatisticalAnswerEntity implements Serializable {
         this.idstatisticalAnswer = idstatisticalAnswer;
     }
 
+    public String getAnswerText() {
+        return answerText;
+    }
+
 /*
     public int getAssociatedStatisticalQuestion() {
         return associatedStatisticalQuestion;
