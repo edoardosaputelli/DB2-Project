@@ -33,7 +33,7 @@ public class AdminAddProductServlet extends HttpServlet {
 
         //check if the date inserted is a day already passed
         if(date.before(Date.valueOf(LocalDate.now()))) {
-            request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?invalidDate").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?errorString=invalidDate").forward(request, response);
         }
 
 
@@ -48,8 +48,9 @@ public class AdminAddProductServlet extends HttpServlet {
             request.getSession().setAttribute("givenDate", date);
             //redirect to a page that asks for the questions to be associated with the product (with AdminAddQuestionsServlet)
             request.getRequestDispatcher("WEB-INF/adminAddQuestions.jsp").forward(request, response);
+
         } else {
-            request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?alreadyOccupiedDate").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?errorString=alreadyOccupiedDate").forward(request, response);
         }
 
 

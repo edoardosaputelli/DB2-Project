@@ -12,37 +12,8 @@
 </head>
 <body>
 
-<%
 
-    Integer numOfMarkQuest = 0;
-    String formInsertQuestions = "<form action=\"AdminAddQuestionsServlet\" method=\"post\">";
-
-    if(request.getAttribute("numOfMarkQuest") != null) {
-
-        numOfMarkQuest = (Integer) request.getAttribute("numOfMarkQuest");
-
-    }
-
-
-    for(int i = 0; i < numOfMarkQuest; i++){
-
-        formInsertQuestions = formInsertQuestions +"<br>"
-                + "<input type=\"text\"" + "name=" + "\"question" + i + "\"" + "required> <br>";
-
-    }
-
-
-    formInsertQuestions = formInsertQuestions + "<br>" + "<input type=\"submit\" value=\"Submit Questions\">" + "</form>";
-
-
-%>
-
-
-
-
-
-
-
+<%= request.getAttribute("formInsertQuestions") %>
 
 </body>
 </html>

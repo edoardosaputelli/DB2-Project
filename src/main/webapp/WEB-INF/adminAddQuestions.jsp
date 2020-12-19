@@ -17,14 +17,9 @@
 
 Insert the desired number of marketing questions:    <br>
     <input type="range" min="1" max="10" name="numOfMarkQuest" placeholder="Between 1-10">
-    <button type="button">Submit number of questions</button>
+    <button type="submit">Submit number of questions</button>
 
 </form>
-
-
-
-
-
 
 </body>
 </html>
