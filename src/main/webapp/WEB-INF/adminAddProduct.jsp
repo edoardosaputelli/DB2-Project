@@ -14,10 +14,10 @@
 
 <h3> Insert a date to add a product for that date </h3>
 
-<form action="AdminAddProductServlet" method="post">
+<form action="AdminAddProductServlet" method="post" enctype="multipart/form-data">
     <input type="date" name="chosenDate" required> <br>
     <input type="text" placeholder="Product Name" name="productName" required > <br>
-    <input type="file" id="file" accept=".jpg, .jpeg, .png" name="image"> <br>
+    <input type="file"  placeholder="Only jpg file" id="file" accept=".jpg" name="image" required> <br>
     <input type="submit" value="Add for this date"/>
 
     <%

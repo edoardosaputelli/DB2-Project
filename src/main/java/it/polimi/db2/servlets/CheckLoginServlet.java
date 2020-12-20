@@ -1,9 +1,13 @@
 package it.polimi.db2.servlets;
 
+import it.polimi.db2.Exceptions.DatabaseFailException;
+import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.ejb.UserManager;
+import it.polimi.db2.entities.ProductEntity;
 import it.polimi.db2.entities.UserEntity;
 
 import javax.ejb.EJB;
+import javax.imageio.ImageIO;
 import javax.persistence.NonUniqueResultException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,6 +15,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -94,8 +100,21 @@ public class CheckLoginServlet extends HttpServlet {
 
             //the user has been logged in: he is redirected to the home page
             else {
-
                 request.getSession().setAttribute("user", user);
+
+                ProductEntity product =null;
+                try{
+                    product = userManager.retrieveProductOfTheDay();
+                }catch (DatabaseFailException ex) {
+                    request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+                }catch (NothingThatDateException ex) {
+                    request.getRequestDispatcher("WEB-INF/home.jsp?errorString=noProductOfTheDay").forward(request, response);
+                }
+
+                BufferedImage image = createImageFromBytes(product.getProductImage());
+
+                request.setAttribute("productName", product.getProductName());
+                request.setAttribute("productImage", image);
                 request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 
                 /*path = getServletContext().getContextPath() + "/home.jsp";
@@ -105,6 +124,20 @@ public class CheckLoginServlet extends HttpServlet {
 
         }
 
+    }
+
+    protected BufferedImage createImageFromBytes (byte [] img) {
+        BufferedImage image = null;
+        ByteArrayInputStream inps = new ByteArrayInputStream(img);
+
+        try {
+            image = ImageIO.read(inps);
+        }catch(IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+        return image;
     }
 
 

@@ -5,15 +5,22 @@ import it.polimi.db2.ejb.AdminManager;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.awt.*;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Array;
 import java.sql.Date;
 import java.time.LocalDate;
 
 @WebServlet(name = "AdminAddProductServlet", urlPatterns = {"/AdminAddProductServlet"})
+@MultipartConfig
 public class AdminAddProductServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
     private AdminManager adminManager;
@@ -21,14 +28,16 @@ public class AdminAddProductServlet extends HttpServlet {
     //this method takes from request a name, a date and an img to add a new product to the application
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
+
         String stringDate = (String) request.getParameter("chosenDate");
         String productName = (String) request.getParameter("productName");
-        Object imgObj = request.getParameter("image");
-        boolean didIt = false;
+        Part part = request.getPart("image");
 
-        System.out.println(imgObj.getClass());
+
+        boolean didIt = false;
         //DA RIVEDERE
-        byte [] img = null ;
+        byte [] img = generateFromImage(part);
         Date date = adminManager.fromStringToDate(stringDate);
 
         //check if the date inserted is a day already passed
@@ -58,5 +67,22 @@ public class AdminAddProductServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    }
+
+    protected byte[] generateFromImage(Part part) throws IOException {
+        InputStream inps = null;
+
+
+        inps = part.getInputStream();
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+        int nRead;
+        byte[] data = new byte[(int) part.getSize()];
+
+        while ((nRead = inps.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+
+        return buffer.toByteArray();
     }
 }

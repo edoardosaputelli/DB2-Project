@@ -1,5 +1,8 @@
 package it.polimi.db2.ejb;
 
+import it.polimi.db2.Exceptions.DatabaseFailException;
+import it.polimi.db2.Exceptions.NothingThatDateException;
+import it.polimi.db2.entities.ProductEntity;
 import it.polimi.db2.entities.UserEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -7,7 +10,9 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
+import java.util.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Stateless
@@ -38,7 +43,7 @@ public class UserManager {
 
         else if (uList.size() == 1){
 
-            Date date = new Date();
+            java.util.Date date = new java.util.Date();
 
             Timestamp today = new Timestamp(date.getTime());
 
@@ -71,6 +76,24 @@ public class UserManager {
         }
 
         return user;
+    }
+
+    public ProductEntity retrieveProductOfTheDay() throws DatabaseFailException, NothingThatDateException {
+        ProductEntity product = null;
+        Date today = Date.valueOf(LocalDate.now());
+        if (em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class).setParameter("givenDate", today).
+                getResultList().isEmpty()) {
+            throw new NothingThatDateException();
+        }
+
+        try{
+            product = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class).
+                    setParameter("givenDate", today).getResultList().get(0);
+        }catch (PersistenceException ex) {
+            ex.printStackTrace();
+            throw new DatabaseFailException();
+        }
+        return product;
     }
 
 
