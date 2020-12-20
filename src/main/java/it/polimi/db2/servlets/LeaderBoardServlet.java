@@ -1,5 +1,6 @@
 package it.polimi.db2.servlets;
 
+import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.ejb.LeaderBoardManager;
 import it.polimi.db2.entities.UserEntity;
 
@@ -20,7 +21,12 @@ public class LeaderBoardServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<UserEntity> leaderBoard = leaderBoardManager.generateOrderedLeaderBoard();
+        List<UserEntity> leaderBoard = null;
+        try {
+            leaderBoard = leaderBoardManager.generateOrderedLeaderBoard();
+        }catch (DatabaseFailException ex) {
+            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+        }
 
         request.setAttribute("leaderBoard", leaderBoard);
 

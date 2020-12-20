@@ -83,13 +83,12 @@ public class CheckSignUpServlet extends HttpServlet {
         //the user has been registered
         else
         {
-            //he is redirected to the home page
-            /*request.getSession().setAttribute("user", user);
-            path = getServletContext().getContextPath() + "/WEB-INF/home.jsp";
-            response.sendRedirect(path);*/
 
-            request.getSession().setAttribute("user", user);
-            request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
+
+
+            //ANDIAMO A INDEX O A HOME?????
+            //request.getSession().setAttribute("user", user);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
 
         }
 

@@ -57,7 +57,7 @@
             {
 
     %>
-                <br/> <br/> <font color="red">Your account has been banned because you inserted forbidden words.</font> <br>
+                <br/> <br/> <font color="red">Your account has been banned</font> <br>
     <%
             }
 

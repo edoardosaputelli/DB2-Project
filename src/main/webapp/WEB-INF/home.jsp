@@ -89,6 +89,10 @@
 
 <% } %>
 
+<form action="LogOutServlet" method="get">
+    <button type="submit" >Logout</button>
+</form>
+
 
 
 

@@ -44,10 +44,14 @@ public class QuestionnaireManager {
         return statisticalQuestionEntityList;
     }
 
+    public List<MarketingQuestionEntity> getMarketingQuestionEntityList() {
+        return marketingQuestionEntityList;
+    }
+
     //TBD
     //to be used together with UserManager's banUser!
     //returns true if the text of an answer contains one of the forbidden words
-    public void checkForOffensiveWords(HashMap<Integer, String> mapMarketingAnsQuest) throws BadLanguageException {
+    public void checkForOffensiveWords(HashMap<Integer, String> mapMarketingAnsQuest) throws BadLanguageException, DatabaseFailException {
         for (String s : mapMarketingAnsQuest.values()) {
             if( checkSingleAnswer(s) ){
 
@@ -57,11 +61,9 @@ public class QuestionnaireManager {
 
     }
 
-    public List<MarketingQuestionEntity> getMarketingQuestionEntityList() {
-        return marketingQuestionEntityList;
-    }
 
-    private boolean checkSingleAnswer(String answerText) {
+
+    private boolean checkSingleAnswer(String answerText) throws DatabaseFailException {
 
 
         int numOfForbidden = 0;
@@ -73,6 +75,7 @@ public class QuestionnaireManager {
 
         }catch (PersistenceException e) {
             e.printStackTrace();
+
         }
 
 
@@ -85,10 +88,12 @@ public class QuestionnaireManager {
 
             }catch (PersistenceException e) {
                 e.printStackTrace();
+                throw new DatabaseFailException();
             }
 
             if (answerText.contains(currentForbidden.getForbiddenWord())) {
                 return true;
+
             }
         }
 
@@ -141,13 +146,10 @@ public class QuestionnaireManager {
     }
 
 
-    //la query sul prodotto non ha where sulla data!!!!!
     public List<MarketingQuestionEntity> retrieveMarketingQuestions(){
 
         try{
-            //da aggiungere eccezione se ritorna più prodotti
-            /*List<ProductEntity> listOfProduct = em.createNamedQuery("ProductEntity.getProductOfTheDay", ProductEntity.class)
-                    .setParameter("today",today, TemporalType.DATE).getResultList();*/
+
 
 
             Date currentDate = Date.valueOf(LocalDate.now());
@@ -157,16 +159,6 @@ public class QuestionnaireManager {
             List<MarketingQuestionEntity> listMQ = product.getQuestionnaire().getmList();
 
 
-            /*if(listOfProduct.size() != 1){
-                //eccezione da tirare
-            }
-
-
-            else{
-
-
-
-            }*/
 
             return listMQ;
 
@@ -218,7 +210,7 @@ public class QuestionnaireManager {
     }
 
 
-    public void persistQuestionnaireAnswers( List<MarketingAnswerEntity> mAnsList, List<StatisticalAnswerEntity> sAnsList, UserEntity user){
+    public void persistQuestionnaireAnswers( List<MarketingAnswerEntity> mAnsList, List<StatisticalAnswerEntity> sAnsList, UserEntity user) throws DatabaseFailException {
 
         QuestionnaireEntity todaysQuestionnaire = mAnsList.get(0).getmQuestion().getQuestionnaire();
         QuestionnaireResponseEntity completedTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, false);
@@ -239,21 +231,14 @@ public class QuestionnaireManager {
 
         }catch(PersistenceException e) {
             e.printStackTrace();
+            throw new DatabaseFailException();
         }
 
     }
 
 
-    //support method for checkForOffensiveWords
-    //probably won't be needed for all
-    public List<String> convertToStringList (List<ForbiddenWordsEntity> fWList) {
-        List<String> sList = null;
-        sList = fWList.stream().map(obj -> obj.getForbiddenWord()).collect(Collectors.toList());
 
-        return sList;
-    }
-
-    //when he uses offensive words
+    //when he uses offensive words the flag for banned is set to one
     public void banUser (UserEntity user) {
 
         try {
@@ -266,7 +251,8 @@ public class QuestionnaireManager {
         }
     }
 
-    public void cancelQuestionnaire(QuestionnaireEntity todaysQuestionnaire, UserEntity user){
+    //method to be called when the user cancels the questionnaire
+    public void cancelQuestionnaire(QuestionnaireEntity todaysQuestionnaire, UserEntity user) throws DatabaseFailException {
 
         QuestionnaireResponseEntity cancelledTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, true);
 
@@ -275,11 +261,10 @@ public class QuestionnaireManager {
             em.persist(cancelledTheQuestionnaire);
             em.flush();
 
-            //da mettere una redirect ad una pagina di errore parametrica
         }catch(PersistenceException ex){
 
             ex.printStackTrace();
-
+            throw new DatabaseFailException();
         }
 
 

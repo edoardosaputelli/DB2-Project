@@ -5,6 +5,7 @@ import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.ejb.AdminManager;
 
 import javax.ejb.EJB;
+import javax.persistence.NonUniqueResultException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +48,7 @@ public class AdminAddQuestionsServlet extends HttpServlet {
 
             didIt = adminManager.addMarketingQuestions(date, strinqQuestions);
 
-        }catch(DatabaseFailException e) {
+        }catch(DatabaseFailException ex) {
             //add redirect to generic error page
             request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
         }catch (NothingThatDateException ex) {

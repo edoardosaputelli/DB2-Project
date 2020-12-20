@@ -1,5 +1,6 @@
 package it.polimi.db2.servlets;
 
+import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.ejb.QuestionnaireManager;
 import it.polimi.db2.entities.QuestionnaireEntity;
 import it.polimi.db2.entities.UserEntity;
@@ -24,8 +25,12 @@ public class CancelQuestionnaireServlet extends HttpServlet {
 
         QuestionnaireEntity questionnaire = questionnaireManager.getMarketingQuestionEntityList().get(0).getQuestionnaire();
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
+        try {
 
-        questionnaireManager.cancelQuestionnaire(questionnaire, user);
+            questionnaireManager.cancelQuestionnaire(questionnaire, user);
+        }catch(DatabaseFailException ex) {
+            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+        }
 
         request.getRequestDispatcher("WEB-INF/cancelledQuestionnaire.jsp").forward(request, response);
 

@@ -105,7 +105,7 @@ public class AdminManager {
             throw new NothingThatDateException();
         }
         else if (products.size()>1) {
-            //altra eccezione da tirare
+            return false;
         }
         else {
             givenProduct = products.get(0);
@@ -130,7 +130,6 @@ public class AdminManager {
             return true;
         }
 
-       return false;
     }
 
     //method returns true if the operation went through, false if there was no data to be deleted from that day

@@ -24,8 +24,6 @@
 
 </form>
 
-<%-- <a href="../index.jsp">Already have an account?</a> --%>
-
 <form action="BrokerServlet" method="get">
     <input type="hidden" name="redirectedPage" value="index" />
     <button type="submit" > Already have an account? </button>

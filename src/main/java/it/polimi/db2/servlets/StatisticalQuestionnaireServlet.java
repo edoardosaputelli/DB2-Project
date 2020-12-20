@@ -1,6 +1,7 @@
 package it.polimi.db2.servlets;
 
 import it.polimi.db2.Exceptions.BadLanguageException;
+import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.ejb.QuestionnaireManager;
 import it.polimi.db2.ejb.UserManager;
 import it.polimi.db2.entities.*;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,7 +50,25 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
         try {
 
             questionnaireManager.checkForOffensiveWords(mapMarketingAnsQuest);
+            //if the user is not banned and the database does everything it needs to do
 
+            //i format the answer in order to save them
+            List<MarketingAnswerEntity> mAnswers = formatMarketingAnswers (currentUser, questionnaireManager.getMarketingQuestionEntityList(),  mapMarketingAnsQuest);
+            List<StatisticalAnswerEntity> sAnswers = formatStatisticalAnswers (currentUser, questionnaireManager.getStatisticalQuestionEntityList().keySet().stream().collect(Collectors.toList()), mapStatAnsQuest );
+
+            //persist the answers
+            try {
+                questionnaireManager.persistQuestionnaireAnswers(mAnswers, sAnswers, currentUser);
+            }catch (DatabaseFailException ex) {
+                request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+            }
+
+            //and continue
+            request.getRequestDispatcher("WEB-INF/overallQuestSuccess.jsp").forward(request, response);
+            questionnaireManager.setSessionMapsNull(request);
+
+
+            //exceptions for the checkForOffensiveWords!!
         } catch (BadLanguageException e) {
             //user is banned
             questionnaireManager.banUser(currentUser);
@@ -60,28 +80,11 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
             response.sendRedirect(path);
 
             questionnaireManager.setSessionMapsNull(request);
+        }catch (DatabaseFailException ex) {
+            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
         }
 
 
-        //if everything went fine the answers are saved and so is a QuestionnaireResponse with flag 0
-        try {
-
-            //unreadable calls of unreadable methods
-            List<MarketingAnswerEntity> mAnswers = formatMarketingAnswers (currentUser, questionnaireManager.getMarketingQuestionEntityList(),  mapMarketingAnsQuest);
-            List<StatisticalAnswerEntity> sAnswers = formatStatisticalAnswers (currentUser, questionnaireManager.getStatisticalQuestionEntityList().keySet().stream().collect(Collectors.toList()), mapStatAnsQuest );
-
-            questionnaireManager.persistQuestionnaireAnswers(mAnswers, sAnswers, currentUser);
-
-            request.getRequestDispatcher("WEB-INF/overallQuestSuccess.jsp").forward(request, response);
-
-            questionnaireManager.setSessionMapsNull(request);
-
-            //Da gestire il redirect ad una pagina di errore
-        } catch (PersistenceException e) {
-
-            questionnaireManager.setSessionMapsNull(request);
-            e.printStackTrace();
-        }
 
     }
 

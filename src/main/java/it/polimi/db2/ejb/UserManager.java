@@ -1,5 +1,6 @@
 package it.polimi.db2.ejb;
 
+import it.polimi.db2.Exceptions.BannedUserException;
 import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.entities.ProductEntity;
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
+import javax.xml.crypto.Data;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.util.*;
@@ -24,7 +26,7 @@ public class UserManager {
     public UserManager() {
     }
 
-    public UserEntity checkCredentials(String username, String password) throws Exception {
+    public UserEntity checkCredentials(String username, String password) throws DatabaseFailException, BannedUserException {
 
         List<UserEntity> uList = null;
 
@@ -36,7 +38,7 @@ public class UserManager {
 
             e.printStackTrace();
 
-            throw new Exception("Could not verify credentials");
+            throw new DatabaseFailException();
         }
         if (uList.isEmpty())
             return null;
@@ -51,17 +53,23 @@ public class UserManager {
 
             user.setDateLastLogin(today);
 
+            if(user.getFlagStatus()!=00000000) throw new BannedUserException();
+
             return user;}
         throw new NonUniqueResultException("More than one user registered with same credentials");
 
     }
 
     //TBD, don't even know if really needed
-    public UserEntity registerUser(String username, String password, String email) throws Exception {
+    public UserEntity registerUser(String username, String password, String email) throws DatabaseFailException {
 
-        //if the user is already present we return null
-        if (checkCredentials(username, password) != null) {
-            return null;
+        try {
+            //if the user is already present we return null
+            if (checkCredentials(username, password) != null) {
+                return null;
+            }
+        }catch (BannedUserException ex) {
+            //not relevant here, ignore it
         }
 
         UserEntity user = new UserEntity(username, password, email);
@@ -72,7 +80,7 @@ public class UserManager {
 
         } catch(PersistenceException e) {
             e.printStackTrace();
-            throw new Exception("Wasn't able to register new user");
+            throw new DatabaseFailException();
         }
 
         return user;

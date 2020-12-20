@@ -52,6 +52,10 @@
     <button type="submit" > Return to the home page </button>
 </form>
 
+<form action="LogOutServlet" method="get">
+    <button type="submit" >Logout</button>
+</form>
+
 
 
 </body>

@@ -26,26 +26,26 @@ public class AdminDeleteServlet extends HttpServlet {
         boolean wentFine = false;
 
         //check if the date inserted is a day already passed
-        /*if(!date.before(Date.valueOf(LocalDate.now()))) {
+        if(!date.before(Date.valueOf(LocalDate.now()))) {
             //there should be a redirect to the same page asking for another date
             request.getRequestDispatcher("WEB-INF/adminDelete.jsp?errorString=invalidDate").forward(request, response);
-        }*/
+        } else {
 
-        //actual deletion
-        try {
-            wentFine = adminManager.deleteQuestionnaireData(date);
-        }catch (DatabaseFailException ex) {
-            //add redirect to generic error page
-            request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
-        }
+            //actual deletion
+            try {
+                wentFine = adminManager.deleteQuestionnaireData(date);
+            } catch (DatabaseFailException ex) {
+                //add redirect to generic error page
+                request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
+            }
 
-        if(wentFine) {
-            //send to a page telling that the deletion went through
-            request.getRequestDispatcher("WEB-INF/adminHome.jsp?errorString=newProductHasBeenDeleted").forward(request, response);
-        }
-        else {
-            //there should be a redirect to the same page asking for another date
-            request.getRequestDispatcher("WEB-INF/adminDelete.jsp?errorString=emptyDate").forward(request, response);
+            if (wentFine) {
+                //send to a page telling that the deletion went through
+                request.getRequestDispatcher("WEB-INF/adminHome.jsp?errorString=newProductHasBeenDeleted").forward(request, response);
+            } else {
+                //there should be a redirect to the same page asking for another date
+                request.getRequestDispatcher("WEB-INF/adminDelete.jsp?errorString=emptyDate").forward(request, response);
+            }
         }
     }
 

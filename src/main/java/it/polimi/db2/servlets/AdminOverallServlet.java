@@ -7,12 +7,15 @@ import it.polimi.db2.entities.ProductEntity;
 import it.polimi.db2.entities.UserEntity;
 
 import javax.ejb.EJB;
+import javax.imageio.ImageIO;
 import javax.persistence.PersistenceContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -82,6 +85,7 @@ public class AdminOverallServlet extends HttpServlet {
 
 
     }
+
 
 
 }

@@ -1,5 +1,6 @@
 package it.polimi.db2.servlets;
 
+import it.polimi.db2.Exceptions.BannedUserException;
 import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.ejb.UserManager;
@@ -52,15 +53,17 @@ public class CheckLoginServlet extends HttpServlet {
         }
 
 
-        UserEntity user;
+        UserEntity user = null;
         try {
             // query db to authenticate for user
             user = userManager.checkCredentials(username, password);
 
-        } catch (Exception e) {
+        } catch (DatabaseFailException e) {
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
             return;
+        }catch (BannedUserException ex) {
+            request.getRequestDispatcher("index.jsp?errorString=bannedUser").forward(request, response);
         }
 
         // If the user exists, add info to the session and go to home page, otherwise

@@ -23,6 +23,8 @@
         List<UserEntity> listOnesWhoCancelledIt = (List<UserEntity>) request.getSession().getAttribute("onesWhoCancelledIt");
         ProductEntity productThatDay = (ProductEntity) request.getSession().getAttribute("productThatDay");
 
+
+
         String tableHeader = "<table style=\"width:50%\" border = \"5\">" +
                 "  <tr>" +
                 "    <th align = \"left\">Username</th>" +
