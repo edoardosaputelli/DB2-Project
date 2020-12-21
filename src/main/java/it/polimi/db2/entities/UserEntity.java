@@ -58,7 +58,7 @@ public class UserEntity implements Serializable {
     }
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<QuestionnaireResponseEntity> qRlist;
 
 

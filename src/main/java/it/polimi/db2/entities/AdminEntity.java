@@ -33,6 +33,8 @@ public class AdminEntity implements Serializable {
         this.adminPassword = adminPassword;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -20,6 +20,8 @@ public class QuestionnaireEntity implements Serializable {
             name = "associatedProduct"
     )
     private ProductEntity productoftheday;
+
+
     @OneToMany(
             mappedBy = "questionnaire"
             , cascade = CascadeType.ALL

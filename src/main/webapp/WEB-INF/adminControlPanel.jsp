@@ -109,7 +109,7 @@ Look for personal answers
             {
 
     %>
-            <br/> <br/> <font color="red">Error: the user doesn't exist or has cancelled the questionnaire.</font> <br>
+            <br/> <br/> <font color="red">Error: the user doesn't exist or has not aswered the questionnaire.</font> <br>
     <%
             }
         }

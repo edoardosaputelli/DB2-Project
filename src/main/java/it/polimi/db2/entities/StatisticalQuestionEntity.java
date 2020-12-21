@@ -17,6 +17,8 @@ public class StatisticalQuestionEntity implements Serializable {
     @Column(name = "questionText", nullable = false, length = -1)
     private String questionText;
 
+    @OneToMany(mappedBy = "statisticalQuestion")
+    private List<StatQuestionAlternativesEntity> alternativesList;
 
     public int getIdStatisticalQuestion() {
         return idStatisticalQuestion;

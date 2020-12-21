@@ -19,13 +19,10 @@ public class MarketingQuestionEntity implements Serializable {
 
     @OneToMany(
             mappedBy = "mQuestion",
-            cascade = CascadeType.REMOVE
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY
     )
     private List<MarketingAnswerEntity> mList;
-
-    /*@Basic
-    @Column(name = "associatedQuestionnaire", nullable = false)
-    private int associatedQuestionnaire;*/
 
     @Basic
     @Column(name = "questionText", nullable = false, length = -1)

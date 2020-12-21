@@ -11,6 +11,7 @@ public class ReviewEntity implements Serializable {
     @Column(name = "idreview", nullable = false)
     private int idreview;
 
+    //the other direction is not useful at all
     @ManyToOne
     @JoinColumn(
             name = "relatedProduct"

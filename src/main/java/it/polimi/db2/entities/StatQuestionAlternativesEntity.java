@@ -16,7 +16,7 @@ public class StatQuestionAlternativesEntity implements Serializable {
     private String alternativeText;
 
 
-    //da rivedere con gli altri
+    //previously was unidirectional, now there are both directions
     @ManyToOne
     @JoinColumn(name ="associatedStatQuestion")
     private StatisticalQuestionEntity statisticalQuestion;

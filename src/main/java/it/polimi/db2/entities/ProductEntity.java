@@ -11,21 +11,21 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "ProductEntity.getProductOfGivenDay", query = "SELECT r FROM ProductEntity r WHERE r.date = :givenDate")
 })
-
-
 public class ProductEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idProduct", nullable = false)
     private int idProduct;
 
+
     @OneToOne(
             mappedBy = "productoftheday"
     )
     private QuestionnaireEntity questionnaire;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY )
     private List<ReviewEntity> rList;
+
 
     @Basic
     @Column(name = "productName", nullable = false, length = 45)

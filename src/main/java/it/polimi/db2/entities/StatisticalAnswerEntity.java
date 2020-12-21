@@ -13,6 +13,10 @@ public class StatisticalAnswerEntity implements Serializable {
     private int idstatisticalAnswer;
 
 
+
+    //ALL of the following relational mapping is done unidirectionally, the other side is not necessary
+    //this type of answers need to keep memory of all the info that in the marketing case
+    //(being them associated with a single product, and not all of them ) is associated with the question
     @ManyToOne
     @JoinColumn(
             name = "associatedStatisticalQuestion"
@@ -24,6 +28,7 @@ public class StatisticalAnswerEntity implements Serializable {
             name = "targetUser"
     )
     private UserEntity user;
+
 
     @ManyToOne
     @JoinColumn(
