@@ -11,7 +11,13 @@ public class ReviewEntity implements Serializable {
     @Column(name = "idreview", nullable = false)
     private int idreview;
 
-    //the other direction is not useful at all
+    @Basic
+    @Column(name = "reviewText", nullable = false)
+    private String reviewText;
+    @Basic
+    @Column(name = "stars", nullable = false)
+    private byte stars;
+
     @ManyToOne
     @JoinColumn(
             name = "relatedProduct"
@@ -26,17 +32,6 @@ public class ReviewEntity implements Serializable {
         this.idreview = idreview;
     }
 
-    /*
-    private String reviewText;
-    private byte stars;
-    private int relatedProduct;
-
-
-
-
-
-    @Basic
-    @Column(name = "reviewText", nullable = false, length = -1)
     public String getReviewText() {
         return reviewText;
     }
@@ -45,8 +40,6 @@ public class ReviewEntity implements Serializable {
         this.reviewText = reviewText;
     }
 
-    @Basic
-    @Column(name = "stars", nullable = false)
     public byte getStars() {
         return stars;
     }
@@ -54,6 +47,8 @@ public class ReviewEntity implements Serializable {
     public void setStars(byte stars) {
         this.stars = stars;
     }
+
+    /*
 
     @Basic
     @Column(name = "relatedProduct", nullable = false)

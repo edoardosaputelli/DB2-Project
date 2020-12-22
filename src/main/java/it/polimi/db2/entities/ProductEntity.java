@@ -23,9 +23,8 @@ public class ProductEntity implements Serializable {
     )
     private QuestionnaireEntity questionnaire;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY )
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<ReviewEntity> rList;
-
 
     @Basic
     @Column(name = "productName", nullable = false, length = 45)
