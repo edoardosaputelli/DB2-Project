@@ -25,19 +25,22 @@ public class QuestionnaireServlet extends HttpServlet {
     private QuestionnaireManager questionnaireManager;
 
 
+    //method called after the user passes to the stat questions to save its marketing answers in the session
+    //in case he wants to change them (the page will print them if the user accesses the page and they're present
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HashMap<Integer, String> mapAnsQuest = new HashMap<>();
 
         List<MarketingQuestionEntity> mQuestionList = questionnaireManager.getMarketingQuestionEntityList();
 
+        //i generate a map between mark questions and their string answers
         for(int i = 0; i < mQuestionList.size(); i++){
 
             mapAnsQuest.put(mQuestionList.get(i).getIdMarketingQuestion(), request.getParameter("question" +i));
 
         }
 
-        //da inserire l'annullamento dell'attributo in caso di cancellazione o invio del questionario
+        //we set the attribute to the session and continue
         request.getSession().setAttribute("mapMarketingAnsQuest", mapAnsQuest);
         request.getRequestDispatcher("WEB-INF/successMarketingQuest.jsp").forward(request, response);
 
@@ -50,7 +53,7 @@ public class QuestionnaireServlet extends HttpServlet {
         //to the marketing questionnaire page
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
 
-        //Checking that the user hasn't already done the questionnaire(EDOOOOOOOOOO!!!!!)
+        //Checking that the user hasn't already done the questionnaire
 
         try {
 
@@ -58,7 +61,6 @@ public class QuestionnaireServlet extends HttpServlet {
 
         } catch (AlreadyDoneException e) {
 
-            //Eduardo gestisci 'sta cosa
             request.getRequestDispatcher("WEB-INF/redirectQuestionnaireAlreadyDone.jsp").forward(request,response);
 
         } catch (DatabaseFailException ex){
@@ -69,6 +71,7 @@ public class QuestionnaireServlet extends HttpServlet {
         }
 
 
+        //i get the questions to print them and let the user answer them
         List<MarketingQuestionEntity> mQuestionList = questionnaireManager.getMarketingQuestionEntityList();
 
         request.setAttribute("marketingQuestions", mQuestionList);

@@ -43,7 +43,7 @@ public class AdminDeleteServlet extends HttpServlet {
                 //send to a page telling that the deletion went through
                 request.getRequestDispatcher("WEB-INF/adminHome.jsp?errorString=newProductHasBeenDeleted").forward(request, response);
             } else {
-                //there should be a redirect to the same page asking for another date
+                // redirect to the same page asking for another date
                 request.getRequestDispatcher("WEB-INF/adminDelete.jsp?errorString=emptyDate").forward(request, response);
             }
         }

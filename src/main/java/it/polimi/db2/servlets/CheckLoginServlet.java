@@ -81,8 +81,6 @@ public class CheckLoginServlet extends HttpServlet {
             path = getServletContext().getContextPath() + "/index.jsp?errorString=invalidUser";
             response.sendRedirect(path);
 
-            /*response.setContentType( "text/html" );
-            request.getRequestDispatcher("/index.jsp?errorString=invalidUser.jsp").forward(request, response);*/
 
         }
 
@@ -96,32 +94,31 @@ public class CheckLoginServlet extends HttpServlet {
                 path = getServletContext().getContextPath() + "/index.jsp?errorString=alreadyLoggedIn";
                 response.sendRedirect(path);
 
-                /*response.setContentType( "text/html" );
-                request.getRequestDispatcher("/index.jsp?errorString=alreadyLoggedIn.jsp").forward(request, response);*/
             }
 
 
             //the user has been logged in: he is redirected to the home page
             else {
+                //i assign the user to the session
                 request.getSession().setAttribute("user", user);
 
+                //i get the product
                 ProductEntity product =null;
                 try{
                     product = userManager.retrieveProductOfTheDay();
+
                 }catch (DatabaseFailException ex) {
                     request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
                 }catch (NothingThatDateException ex) {
                     request.getRequestDispatcher("WEB-INF/home.jsp?errorString=noProductOfTheDay").forward(request, response);
                 }
 
+                //pass image and productName to the page
                 BufferedImage image = createImageFromBytes(product.getProductImage());
-
                 request.setAttribute("productName", product.getProductName());
                 request.setAttribute("productImage", image);
                 request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);
 
-                /*path = getServletContext().getContextPath() + "/home.jsp";
-                response.sendRedirect(path);*/
 
             }
 
@@ -129,6 +126,7 @@ public class CheckLoginServlet extends HttpServlet {
 
     }
 
+    //method to generate the BufferedImage from the attribute of the product which is of type byte[]
     protected BufferedImage createImageFromBytes (byte [] img) {
         BufferedImage image = null;
         ByteArrayInputStream inps = new ByteArrayInputStream(img);

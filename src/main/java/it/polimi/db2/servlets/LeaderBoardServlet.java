@@ -19,9 +19,12 @@ public class LeaderBoardServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/LeaderBoardManager")
     private LeaderBoardManager leaderBoardManager;
 
+
+    //this servlet simply recovers the list of users for the leaderboard
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         List<UserEntity> leaderBoard = null;
+
         try {
             leaderBoard = leaderBoardManager.generateOrderedLeaderBoard();
         }catch (DatabaseFailException ex) {

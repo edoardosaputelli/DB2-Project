@@ -28,8 +28,10 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
     private QuestionnaireManager questionnaireManager;
 
 
+    //method called from the SUBMIT button at the end of the questionnaire
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //here i retrieve both marketing and statistical answers
         HashMap<Integer, String> mapStatAnsQuest = new HashMap<>();
 
         HashMap<StatisticalQuestionEntity, List<StatQuestionAlternativesEntity>> statQList = questionnaireManager.getStatisticalQuestionEntityList();
@@ -40,13 +42,14 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
         request.getSession().setAttribute("mapStatAnsQuest", mapStatAnsQuest);
 
-        //TUTTO QUELLO CHE SEGUE VA MESSO IN UN RAMO IF CHE VIENE PERCORSO SOLO SE L'UTENTE SUBMITTA
+        //all of this is done only if the user clicks on submit!
 
 
         HashMap<Integer, String> mapMarketingAnsQuest = (HashMap<Integer, String>) request.getSession().getAttribute("mapMarketingAnsQuest");
         UserEntity currentUser =(UserEntity)request.getSession().getAttribute("user");
 
-        //check, on the submitting of the questionnaire, if the user inserted forbidden words
+        //check if the user inserted forbidden words
+        //big try branch because it needs to do all of this stuff only if there are no forbidden words in the answers
         try {
 
             questionnaireManager.checkForOffensiveWords(mapMarketingAnsQuest);
@@ -63,17 +66,17 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
                 request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
             }
 
-            //and continue
+            //and continue to the page that tells success in the operations
             request.getRequestDispatcher("WEB-INF/overallQuestSuccess.jsp").forward(request, response);
             questionnaireManager.setSessionMapsNull(request);
 
 
-            //exceptions for the checkForOffensiveWords!!
+            //here exceptions for the checkForOffensiveWords!!
         } catch (BadLanguageException e) {
             //user is banned
             questionnaireManager.banUser(currentUser);
 
-            //and redirected to an error page
+            //and redirected to the login page with a message explaining
             String path;
             response.setContentType("text/html");
             path = getServletContext().getContextPath() + "/index.jsp?errorString=bannedUser";
@@ -88,6 +91,8 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
     }
 
+
+    //method called when the user moves from marketing to statistical questionnaire
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
@@ -99,6 +104,11 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
     }
 
+
+
+
+
+    //two methods that generate from strings the lists Answer objects
     private List<MarketingAnswerEntity> formatMarketingAnswers(UserEntity user, List<MarketingQuestionEntity> mList, HashMap<Integer, String> mapMarketingAnsQuest) {
         ArrayList<MarketingAnswerEntity> mAnsList = new ArrayList<>();
 

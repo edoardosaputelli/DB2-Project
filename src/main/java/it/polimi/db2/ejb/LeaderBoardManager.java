@@ -15,14 +15,15 @@ public class LeaderBoardManager {
 
     public LeaderBoardManager () {}
 
-    //edoooooo da gestire le eccezioni
+    //this method simply gets the list of users who completed today's questionnaire to be printed in the leaderboard
     public List<UserEntity> generateOrderedLeaderBoard() throws DatabaseFailException {
 
         List<UserEntity> leaderboard = null;
 
         try {
             Date today = Date.valueOf(LocalDate.now());
-            //i make the query so that flag is false and date is today
+
+            //i make the query so that flagCancelled is false and date is today
             leaderboard = em.createNamedQuery("UserEntity.getQuestionnaireTakers", UserEntity.class)
                     .setParameter("flag", false)
                     .setParameter("givenDate", today, TemporalType.DATE)
@@ -30,7 +31,6 @@ public class LeaderBoardManager {
                     .getResultList();
 
         }catch (PersistenceException ex){
-            //TBD
             ex.printStackTrace();
             throw new DatabaseFailException();
         }

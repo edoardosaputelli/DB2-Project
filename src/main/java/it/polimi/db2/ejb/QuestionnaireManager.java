@@ -8,6 +8,7 @@ import it.polimi.db2.entities.*;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Local;
+import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,7 @@ public class QuestionnaireManager {
 
     @PostConstruct
     public void init(){
+        //method called right after the EJB is injected to get the list of questions for the day
         try {
             this.marketingQuestionEntityList = retrieveMarketingQuestions();
             this.statisticalQuestionEntityList = retrieveStatisticalQuestions();
@@ -48,10 +50,11 @@ public class QuestionnaireManager {
         return marketingQuestionEntityList;
     }
 
-    //TBD
+
     //to be used together with UserManager's banUser!
-    //returns true if the text of an answer contains one of the forbidden words
+    //utilizes an exception to signal the presence of a forbiddenWord in one of the answers (they're passed all together)
     public void checkForOffensiveWords(HashMap<Integer, String> mapMarketingAnsQuest) throws BadLanguageException, DatabaseFailException {
+        //simple for that calls the submethod for eache answer
         for (String s : mapMarketingAnsQuest.values()) {
             if( checkSingleAnswer(s) ){
 
@@ -63,12 +66,15 @@ public class QuestionnaireManager {
 
 
 
+    //sub method called by checkForOffensiveWords that checks the passed answer uploading each forbidden words alone
+    //returns true if the answer contains the currently uploaded forbiddenWord
     private boolean checkSingleAnswer(String answerText) throws DatabaseFailException {
 
 
         int numOfForbidden = 0;
         ForbiddenWordsEntity currentForbidden = new ForbiddenWordsEntity();
 
+        //i count the number of forbidden words
         try {
             long l = (long) em.createQuery("SELECT count(i) from ForbiddenWordsEntity i").getSingleResult();
             numOfForbidden = (int) l;
@@ -79,6 +85,7 @@ public class QuestionnaireManager {
         }
 
 
+        //i upload them in order and check if the answer contains them one by one
 
         for(int i=0; i<numOfForbidden; i++){
 
@@ -102,6 +109,7 @@ public class QuestionnaireManager {
     }
 
 
+    //method to check if the user completed/cancelled the questionnaire for today
     public void checkIfAlreadyDone(UserEntity user) throws AlreadyDoneException, DatabaseFailException, NothingThatDateException {
 
         boolean hasAlreadyDone = false;
@@ -146,6 +154,7 @@ public class QuestionnaireManager {
     }
 
 
+    //retrieves today's marketing questions
     public List<MarketingQuestionEntity> retrieveMarketingQuestions(){
 
         try{
@@ -174,6 +183,7 @@ public class QuestionnaireManager {
 
     }
 
+    //retrieves today's statistical questions and theire alternatives
     public HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > retrieveStatisticalQuestions(){
 
         try{
@@ -210,11 +220,14 @@ public class QuestionnaireManager {
     }
 
 
+    //when a user submits its questionnaire this method is called to save the asnwers and the QuestionnaireResponse in the db
     public void persistQuestionnaireAnswers( List<MarketingAnswerEntity> mAnsList, List<StatisticalAnswerEntity> sAnsList, UserEntity user) throws DatabaseFailException {
 
+        //i create the qResponse
         QuestionnaireEntity todaysQuestionnaire = mAnsList.get(0).getmQuestion().getQuestionnaire();
         QuestionnaireResponseEntity completedTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, false);
 
+        //and then persist everything
         try {
 
             for(MarketingAnswerEntity answer: mAnsList) {
@@ -254,6 +267,8 @@ public class QuestionnaireManager {
     //method to be called when the user cancels the questionnaire
     public void cancelQuestionnaire(QuestionnaireEntity todaysQuestionnaire, UserEntity user) throws DatabaseFailException {
 
+
+        //i simply generate a qResponse with cancelled equal to 1 and persist it
         QuestionnaireResponseEntity cancelledTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, true);
 
         try {
@@ -275,6 +290,7 @@ public class QuestionnaireManager {
 
     }
 
+    //method to set session attributes to null when the user completes the answering of the questionnaire
     public void setSessionMapsNull(HttpServletRequest request) {
 
         request.getSession().setAttribute("mapStatAnsQuest", null);

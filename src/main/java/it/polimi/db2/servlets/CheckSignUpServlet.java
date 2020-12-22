@@ -86,8 +86,7 @@ public class CheckSignUpServlet extends HttpServlet {
 
 
 
-            //ANDIAMO A INDEX O A HOME?????
-            //request.getSession().setAttribute("user", user);
+            //we changed this to get to index and not home due to problems with user assigned to the session and logout
             request.getRequestDispatcher("index.jsp").forward(request, response);
 
         }
