@@ -4,6 +4,7 @@ import it.polimi.db2.Exceptions.BannedUserException;
 import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.entities.ProductEntity;
+import it.polimi.db2.entities.ReviewEntity;
 import it.polimi.db2.entities.UserEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -102,6 +103,23 @@ public class UserManager {
             throw new DatabaseFailException();
         }
         return product;
+    }
+
+
+    public List<ReviewEntity> retrieveReviewsForProduct(int idProduct) throws DatabaseFailException{
+
+        List<ReviewEntity> reviews = new ArrayList<>();
+
+        try {
+            reviews = em.createNamedQuery("ReviewEntity.findReviewsProduct", ReviewEntity.class)
+                    .setParameter(1, idProduct).getResultList();
+
+        }catch(PersistenceException ex){
+            ex.printStackTrace();
+            throw new DatabaseFailException();
+        }
+
+        return reviews;
     }
 
 

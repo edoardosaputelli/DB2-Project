@@ -3,7 +3,9 @@
 <%@ page import="java.awt.image.BufferedImage" %>
 <%@ page import="java.io.ByteArrayOutputStream" %>
 <%@ page import="javax.imageio.ImageIO" %>
-<%@ page import="java.util.Base64" %><%--
+<%@ page import="java.util.Base64" %>
+<%@ page import="it.polimi.db2.entities.ReviewEntity" %>
+<%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 05/12/2020
@@ -25,7 +27,6 @@
    String username = ((UserEntity) user).getUserName();
    String productName = (String) request.getAttribute("productName");
    BufferedImage image = (BufferedImage) request.getAttribute("productImage");
-
    //code to render image in base64 string and show it on the html page
     if (image != null) {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -36,6 +37,40 @@
     String b64 = Base64.getEncoder().encodeToString(imageInByteArray);
 
 %>
+
+<%
+
+    List<ReviewEntity> reviews = (List<ReviewEntity>) request.getAttribute("listReviews");
+
+    String stringTableReview = "No reviews for this product";
+
+    if(reviews != null && (!reviews.isEmpty())) {
+
+        stringTableReview = "<table style=\"width:50%\" border = \"5\">" +
+                "  <tr>" +
+                "    <th align = \"left\">Reviews</th>" +
+                "  </tr>";
+
+
+        for (ReviewEntity r : reviews) {
+
+            stringTableReview = stringTableReview + "<tr><td>" + r.getReviewText() + "</td>"
+                    + "</tr>";
+
+        }
+
+        stringTableReview = stringTableReview +"</table>";
+
+    }
+
+%>
+
+
+
+
+
+
+
 
 <h3>Welcome: <%=username%>, let's start!</h3>
 
@@ -49,6 +84,12 @@
 
 <br>
 <br>
+
+<%=stringTableReview%>
+
+<br>
+<br>
+
 <form action="QuestionnaireServlet" method="get">
     <button type="submit"> Go to questionnaire </button>
 
@@ -80,7 +121,7 @@
         }
     } else {
 %>
-        <h4>I'm sorry you already completed the questtionnaire</h4>
+        <h4>I'm sorry you already completed the questionnaire</h4>
 
 <form action="LeaderBoardServlet" method="get">
     <button type="submit" >See leaderboard</button>

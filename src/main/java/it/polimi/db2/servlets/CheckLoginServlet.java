@@ -5,6 +5,7 @@ import it.polimi.db2.Exceptions.DatabaseFailException;
 import it.polimi.db2.Exceptions.NothingThatDateException;
 import it.polimi.db2.ejb.UserManager;
 import it.polimi.db2.entities.ProductEntity;
+import it.polimi.db2.entities.ReviewEntity;
 import it.polimi.db2.entities.UserEntity;
 
 import javax.ejb.EJB;
@@ -20,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "CheckLoginServlet", urlPatterns = {"/CheckLoginServlet"})
 
@@ -103,9 +105,12 @@ public class CheckLoginServlet extends HttpServlet {
                 request.getSession().setAttribute("user", user);
 
                 //i get the product
-                ProductEntity product =null;
+                ProductEntity product = null;
+                List<ReviewEntity> reviews = null;
                 try{
                     product = userManager.retrieveProductOfTheDay();
+
+                    if(product != null){ reviews = userManager.retrieveReviewsForProduct(product.getIdProduct());}
 
                 }catch (DatabaseFailException ex) {
                     request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
@@ -115,6 +120,7 @@ public class CheckLoginServlet extends HttpServlet {
 
                 //pass image and productName to the page
                 BufferedImage image = createImageFromBytes(product.getProductImage());
+                request.setAttribute("listReviews", reviews);
                 request.setAttribute("productName", product.getProductName());
                 request.setAttribute("productImage", image);
                 request.getRequestDispatcher("WEB-INF/home.jsp").forward(request, response);

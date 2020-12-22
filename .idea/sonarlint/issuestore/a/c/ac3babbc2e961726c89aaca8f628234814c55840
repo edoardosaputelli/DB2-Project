@@ -1,21 +1,24 @@
 
-
-java:S1319'"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(ß•®¯ÿÿÿÿÿ8¡€å.
-I
-java:S1168§"+Return an empty collection instead of null.(¥¹ï8Åæßİå.
-O
-java:S1612î",Replace this lambda with a method reference.(ÙÑäãùÿÿÿÿ8Åæßİå.
-‹
-java:S1319¬"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(§Ìì±8Åæßİå.
-O
-java:S1874ø",Remove this use of "Byte"; it is deprecated.(ÁË°íùÿÿÿÿ8Åæßİå.
-^	java:S125‰"<This block of commented-out lines of code should be removed.( æï‚şÿÿÿÿ8†î‹ç.
 {
-java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "listMQ".(öäû'8öê³¹æ.
+java:S1488"^Immediately return this expression instead of assigning it to the temporary variable "listMQ".(öäû'8öê³¹æ.
 O
-java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8í÷ÛÜå.
+java:S1128"-Remove this unused import 'java.util.Arrays'.(î–˜Éüÿÿÿÿ8ïú›Şç.
+O
+java:S1874…",Remove this use of "Byte"; it is deprecated.(ÁË°íùÿÿÿÿ8Åæßİå.
 
-java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½œ‡¼8¡€å.
-Y	java:S125“"<This block of commented-out lines of code should be removed.(ıÖì«8öê³¹æ.
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(½œ‡¼8ïú›Şç.
+O
+java:S1612û",Replace this lambda with a method reference.(ÙÑäãùÿÿÿÿ8Åæßİå.
+Y	java:S125 "<This block of commented-out lines of code should be removed.(ıÖì«8öê³¹æ.
 
-java:S1319."|The type of the "mapMarketingAnsQuest" object should be an interface such as "Map" rather than the implementation "HashMap".(µ¡”øÿÿÿÿ8í÷ÛÜå.
+java:S13192"|The type of the "mapMarketingAnsQuest" object should be an interface such as "Map" rather than the implementation "HashMap".(µ¡”øÿÿÿÿ8ïú›Şç.
+I
+java:S1128
+",Remove this unused import 'javax.ejb.Local'.(Šğ•8ïú›Şç.
+‹
+java:S1319¹"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(§Ìì±8Åæßİå.
+
+java:S1319+"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(ß•®¯ÿÿÿÿÿ8ïú›Şç.
+I
+java:S1168´"+Return an empty collection instead of null.(¥¹ï8Åæßİå.
+^	java:S125–"<This block of commented-out lines of code should be removed.( æï‚şÿÿÿÿ8†î‹ç.

@@ -21,7 +21,6 @@
             "  <tr>" +
             "    <th align = \"left\">Username</th>" +
             "    <th align = \"left\">Points</th>" +
-            "    <th align = \"left\">Date of last login</th>" +
             "  </tr>";
 
 
@@ -29,7 +28,6 @@
 
         stringLeaderboard = stringLeaderboard + "<tr><td>" +resultList.get(j).getUserName() +"</td>"
                 +"<td>" +resultList.get(j).getPoints() +"</td>"
-                +"<td>" +resultList.get(j).getDateLastLogin().toString() +"</td>"
                 +"</tr>";
 
     }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "review", schema = "db2_project_schema")
+@NamedQuery(name="ReviewEntity.findReviewsProduct", query="SELECT r FROM ReviewEntity r WHERE r.product.idProduct = ?1")
 public class ReviewEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,9 +15,6 @@ public class ReviewEntity implements Serializable {
     @Basic
     @Column(name = "reviewText", nullable = false)
     private String reviewText;
-    @Basic
-    @Column(name = "stars", nullable = false)
-    private byte stars;
 
     @ManyToOne
     @JoinColumn(
@@ -38,14 +36,6 @@ public class ReviewEntity implements Serializable {
 
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
-    }
-
-    public byte getStars() {
-        return stars;
-    }
-
-    public void setStars(byte stars) {
-        this.stars = stars;
     }
 
     /*
