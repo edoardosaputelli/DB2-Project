@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>One User</title>
+    <title> One User </title>
 </head>
 <body>
 
@@ -39,16 +39,16 @@
 
     if( ! statAnswers.isEmpty() ){
 
-    for(StatisticalAnswerEntity s : statAnswers){
+        for(StatisticalAnswerEntity s : statAnswers){
 
-        stringListQuestAnsStatistical = stringListQuestAnsStatistical +"<br>" +i +") " +s.getQuestion().getQuestionText()
-                +"<br>" +s.getAnswerText();
+            stringListQuestAnsStatistical = stringListQuestAnsStatistical +"<br>" +i +") " +s.getQuestion().getQuestionText()
+                    +"<br>" +s.getAnswerText();
 
-        i++;
+            i++;
 
-    }
+        }
 
-    }else stringListQuestAnsStatistical = "The user did not answer statistical question";
+    } else stringListQuestAnsStatistical = "The user did not answer statistical question";
 
 %>
 
@@ -60,7 +60,9 @@ List Marketing:
 List Statistical:
 <%= stringListQuestAnsStatistical %>
 
+<br>
 
+<%-- Button to go back to the list of users who completed and cancelled the questionnaire --%>
 <form action="BrokerServlet" method="get">
     <input type="hidden" name="redirectedPage" value="adminControlPanel" />
     <button type="submit" > Back to the list of users </button>

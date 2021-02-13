@@ -1,4 +1,4 @@
-<%--
+<%@ page import="it.polimi.db2.entities.UserEntity" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 13/12/2020
@@ -12,16 +12,20 @@
 </head>
 <body>
 
-
     <h1> You have already filled the questionnaire. </h1>
 
-    <%-- <form action="home.jsp">
-        <button type="submit">Return to the Homepage</button>
-    </form> --%>
+    <%
+        Object user = session.getAttribute("user");
+        String username = ((UserEntity) user).getUserName();
+        String password = ((UserEntity) user).getUserPassword();
+        request.getSession().setAttribute("user", null);
+    %>
 
-    <form action="BrokerServlet" method="get">
-        <input type="hidden" name="redirectedPage" value="home" />
-        <button type="submit" > Return to the home page </button>
+
+    <form action="CheckLoginServlet" method="post">
+        <input type="hidden" name="username" value = "<%=username%>" > <br>
+        <input type="hidden" name="password" value = "<%=password%>"> <br>
+        <input type="submit" value="Return to the home page">
     </form>
 
 </body>

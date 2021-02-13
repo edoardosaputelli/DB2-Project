@@ -21,11 +21,11 @@ public class AdminAddQuestionsServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
     private AdminManager adminManager;
 
-    //THIS SERVLET SHOULD BE CALLED ONLY AFTER ADDPRODUCTSERVLET
-    //this method takes from request a list of strings that will be transformed in questions for the product previously created
-    //the date should stay the same so that association is unique and no other parsing is needed
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    //This servlet is called only after AdminAddProductServlet
 
+    //This method takes from request a list of strings that will be transformed in questions for the product previously created.
+    //The date should stay the same so that association is unique and no other parsing is needed.
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         boolean didIt = false;
 
@@ -48,17 +48,18 @@ public class AdminAddQuestionsServlet extends HttpServlet {
 
             didIt = adminManager.addMarketingQuestions(date, strinqQuestions);
 
-        }catch(DatabaseFailException ex) {
+        } catch(DatabaseFailException ex) {
             //add redirect to generic error page
             request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
-        }catch (NothingThatDateException ex) {
+        } catch (NothingThatDateException ex) {
             //shouldn't be called because of order of calling of Servlets
         }
 
-        //TBD redirect to a page that shows a success message and sends back to the Admin home
+        //the questions have been added for the chosen product: the admin is now redirected to
+        //the adminHome, with a successful message
         if( didIt ){
 
-            request.getRequestDispatcher("WEB-INF/adminHome.jsp?errorString=newProductHasBeenAdded").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminHome.jsp?parameterString=newProductHasBeenAdded").forward(request, response);
 
         } else {
             //it shouldn't happen
@@ -72,7 +73,7 @@ public class AdminAddQuestionsServlet extends HttpServlet {
         int numOfMarkQuest = 0;
 
 
-        try {//da gestire l'errore di parse EDOOOOOOOOOOOOOOOO
+        try {//da gestire l'errore di parse
             numOfMarkQuest  = Integer.parseInt(request.getParameter("numOfMarkQuest"));
         }catch (Exception ex){}
 

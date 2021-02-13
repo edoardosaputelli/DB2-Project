@@ -30,9 +30,9 @@ public class QuestionnaireManager {
 
     public QuestionnaireManager () {}
 
+    //method called right after the EJB is injected to get the list of questions for the day
     @PostConstruct
     public void init(){
-        //method called right after the EJB is injected to get the list of questions for the day
         try {
             this.marketingQuestionEntityList = retrieveMarketingQuestions();
             this.statisticalQuestionEntityList = retrieveStatisticalQuestions();
@@ -51,20 +51,17 @@ public class QuestionnaireManager {
     }
 
 
-    //to be used together with UserManager's banUser!
+    //to be used together with banUser!
     //utilizes an exception to signal the presence of a forbiddenWord in one of the answers (they're passed all together)
     public void checkForOffensiveWords(HashMap<Integer, String> mapMarketingAnsQuest) throws BadLanguageException, DatabaseFailException {
-        //simple for that calls the submethod for eache answer
+        //simple, for that calls the sub method for each answer
         for (String s : mapMarketingAnsQuest.values()) {
             if( checkSingleAnswer(s) ){
-
                 throw new BadLanguageException();
             }
         }
 
     }
-
-
 
     //sub method called by checkForOffensiveWords that checks the passed answer uploading each forbidden words alone
     //returns true if the answer contains the currently uploaded forbiddenWord
@@ -74,33 +71,32 @@ public class QuestionnaireManager {
         int numOfForbidden = 0;
         ForbiddenWordsEntity currentForbidden = new ForbiddenWordsEntity();
 
-        //i count the number of forbidden words
+        //counting the number of forbidden words
         try {
+
             long l = (long) em.createQuery("SELECT count(i) from ForbiddenWordsEntity i").getSingleResult();
             numOfForbidden = (int) l;
 
         }catch (PersistenceException e) {
             e.printStackTrace();
-
         }
 
 
-        //i upload them in order and check if the answer contains them one by one
-
+        //uploading them in order and checking if the answer contains them one by one
         for(int i=0; i<numOfForbidden; i++){
 
             try {
+
                 currentForbidden = em.createNamedQuery("ForbiddenWordN", ForbiddenWordsEntity.class)
                         .setParameter(1, i).getSingleResult();
 
-            }catch (PersistenceException e) {
+            } catch (PersistenceException e) {
                 e.printStackTrace();
                 throw new DatabaseFailException();
             }
 
             if (answerText.contains(currentForbidden.getForbiddenWord())) {
                 return true;
-
             }
         }
 
@@ -118,26 +114,26 @@ public class QuestionnaireManager {
 
         QuestionnaireEntity todaysQuest;
 
-        //i get today's questionnaire
+        //getting today's questionnaire
         try {
             todaysQuest = em.createNamedQuery("QuestionnaireEntity.questOfGivenDay", QuestionnaireEntity.class)
                     .setParameter("givenDay", today).getResultList().get(0);
-        }catch(PersistenceException ex){
+        } catch(PersistenceException ex){
 
         ex.printStackTrace();
         throw new DatabaseFailException();
 
-        }catch (Exception ex) {throw new NothingThatDateException();}
+        } catch (Exception ex) { throw new NothingThatDateException(); }
 
 
-        //i check if the user already did/cancelled it
+        //checking if the user already did/cancelled it
         try{
 
             hasAlreadyDone = !(em.createNamedQuery("QuestionnaireResponseEntity.alreadyDidIt", QuestionnaireResponseEntity.class)
                     .setParameter(1, user.getIdUser()).setParameter(2, todaysQuest).getResultList().isEmpty());
 
+        } catch(PersistenceException ex){
 
-        }catch(PersistenceException ex){
             ex.printStackTrace();
             throw new DatabaseFailException();
 
@@ -159,31 +155,24 @@ public class QuestionnaireManager {
 
         try{
 
-
-
             Date currentDate = Date.valueOf(LocalDate.now());
             ProductEntity product = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class)
                     .setParameter("givenDate", currentDate , TemporalType.DATE).getSingleResult();
 
             List<MarketingQuestionEntity> listMQ = product.getQuestionnaire().getmList();
 
-
-
             return listMQ;
 
 
         }catch (PersistenceException ex){
-
             ex.printStackTrace();
         }
 
-
         return null;
-
 
     }
 
-    //retrieves today's statistical questions and theire alternatives
+    //retrieves today's statistical questions and their alternatives
     public HashMap< StatisticalQuestionEntity, List<StatQuestionAlternativesEntity> > retrieveStatisticalQuestions(){
 
         try{
@@ -196,13 +185,10 @@ public class QuestionnaireManager {
 
             for(StatisticalQuestionEntity sqe : listOfQuestions){
 
-
               List<StatQuestionAlternativesEntity>  listOfAlt = em.createQuery("SELECT u FROM StatQuestionAlternativesEntity u WHERE u.statisticalQuestion.idStatisticalQuestion = ?1")
                         .setParameter(1, sqe.getIdStatisticalQuestion()).getResultList();
 
-
               mapStatQuestAlternatives.put(sqe, listOfAlt);
-
 
             }
 
@@ -210,29 +196,26 @@ public class QuestionnaireManager {
 
 
         }catch (PersistenceException ex){
-
             ex.printStackTrace();
         }
-
 
         return null;
 
     }
 
 
-    //when a user submits its questionnaire this method is called to save the asnwers and the QuestionnaireResponse in the db
+    //when a user submits its questionnaire this method is called to save the answers and the QuestionnaireResponse in the db
     public void persistQuestionnaireAnswers( List<MarketingAnswerEntity> mAnsList, List<StatisticalAnswerEntity> sAnsList, UserEntity user) throws DatabaseFailException {
 
-        //i create the qResponse
+        //creating the qResponse
         QuestionnaireEntity todaysQuestionnaire = mAnsList.get(0).getmQuestion().getQuestionnaire();
         QuestionnaireResponseEntity completedTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, false);
 
-        //and then persist everything
+        //and then persisting everything
         try {
 
             for(MarketingAnswerEntity answer: mAnsList) {
                 em.persist(answer);
-
             }
 
             for (StatisticalAnswerEntity answer: sAnsList) {
@@ -250,23 +233,22 @@ public class QuestionnaireManager {
     }
 
 
-
     //when he uses offensive words the flag for banned is set to one
     public void banUser (UserEntity user) {
 
         try {
-            user= em.find(UserEntity.class, user.getIdUser());
+
+            user = em.find(UserEntity.class, user.getIdUser());
             user.setFlagStatus(new Byte("00000001"));
             em.flush();
 
-        }catch(PersistenceException e) {
+        } catch(PersistenceException e) {
             e.printStackTrace();
         }
     }
 
     //method to be called when the user cancels the questionnaire
     public void cancelQuestionnaire(QuestionnaireEntity todaysQuestionnaire, UserEntity user) throws DatabaseFailException {
-
 
         //i simply generate a qResponse with cancelled equal to 1 and persist it
         QuestionnaireResponseEntity cancelledTheQuestionnaire = new QuestionnaireResponseEntity(todaysQuestionnaire, user, true);
@@ -276,8 +258,7 @@ public class QuestionnaireManager {
             em.persist(cancelledTheQuestionnaire);
             em.flush();
 
-        }catch(PersistenceException ex){
-
+        } catch(PersistenceException ex){
             ex.printStackTrace();
             throw new DatabaseFailException();
         }
@@ -297,9 +278,5 @@ public class QuestionnaireManager {
         request.getSession().setAttribute( "mapMarketingAnsQuest", null);
 
     }
-
-
-
-
 
 }

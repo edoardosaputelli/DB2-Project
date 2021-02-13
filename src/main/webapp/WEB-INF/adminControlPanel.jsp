@@ -10,75 +10,81 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Admin Home</title>
+    <title> Admin Home </title>
 </head>
 <body>
 
 <%
-        String stringProductEntity;
-        String onesWhoCompletedIt;
-        String onesWhoCancelledIt;
 
-        List<UserEntity> listOnesWhoCompletedIt = (List<UserEntity>) request.getSession().getAttribute("onesWhoCompletedIt");
-        List<UserEntity> listOnesWhoCancelledIt = (List<UserEntity>) request.getSession().getAttribute("onesWhoCancelledIt");
-        ProductEntity productThatDay = (ProductEntity) request.getSession().getAttribute("productThatDay");
+    String stringProductEntity;
+    String onesWhoCompletedIt;
+    String onesWhoCancelledIt;
 
-
-
-        String tableHeader = "<table style=\"width:50%\" border = \"5\">" +
-                "  <tr>" +
-                "    <th align = \"left\">Username</th>" +
-                "    <th align = \"left\">Points</th>" +
-                "    <th align = \"left\">Date of last login</th>" +
-                "  </tr>";
+    List<UserEntity> listOnesWhoCompletedIt = (List<UserEntity>) request.getSession().getAttribute("onesWhoCompletedIt");
+    List<UserEntity> listOnesWhoCancelledIt = (List<UserEntity>) request.getSession().getAttribute("onesWhoCancelledIt");
+    ProductEntity productThatDay = (ProductEntity) request.getSession().getAttribute("productThatDay");
 
 
-        onesWhoCompletedIt = tableHeader;
-        onesWhoCancelledIt = tableHeader;
+    String tableHeader = "<table style=\"width:50%\" border = \"5\">" +
+            "  <tr>" +
+            "    <th align = \"left\">Username</th>" +
+            "    <th align = \"left\">Points</th>" +
+            "    <th align = \"left\">Date of last login</th>" +
+            "  </tr>";
 
-        stringProductEntity = productThatDay.getProductName();
+
+    onesWhoCompletedIt = tableHeader;
+    onesWhoCancelledIt = tableHeader;
+
+    stringProductEntity = productThatDay.getProductName();
 
 
-      if(listOnesWhoCompletedIt != null || listOnesWhoCompletedIt.size() != 0) {
+    //printing users who completed the questionnaire
+    if(listOnesWhoCompletedIt != null || listOnesWhoCompletedIt.size() != 0) {
 
-          for (UserEntity u : listOnesWhoCompletedIt) {
+        for (UserEntity u : listOnesWhoCompletedIt) {
 
-              onesWhoCompletedIt = onesWhoCompletedIt + "<tr><td>" + u.getUserName() + "</td>"
-                      + "<td>" + u.getPoints() + "</td>"
-                      + "<td>" + u.getDateLastLogin().toString() + "</td>"
-                      + "</tr>";
-          }
-
-          onesWhoCompletedIt = onesWhoCompletedIt + "</table>";
-
-      }
-
-      else{
-
-          onesWhoCompletedIt = "The list of the people who submitted the questionnaire is empty";
-
-      }
-
-      if(listOnesWhoCancelledIt != null || listOnesWhoCancelledIt.size() != 0) {
-
-            for (UserEntity u : listOnesWhoCancelledIt) {
-
-                onesWhoCancelledIt = onesWhoCancelledIt + "<tr><td>" + u.getUserName() + "</td>"
-                        + "<td>" + u.getPoints() + "</td>"
-                        + "<td>" + u.getDateLastLogin().toString() + "</td>"
-                        + "</tr>";
-            }
-
-            onesWhoCancelledIt = onesWhoCancelledIt + "</table>";
-
+            onesWhoCompletedIt = onesWhoCompletedIt + "<tr><td>" + u.getUserName() + "</td>"
+                    + "<td>" + u.getPoints() + "</td>"
+                    + "<td>" + u.getDateLastLogin().toString() + "</td>"
+                    + "</tr>";
         }
 
-      else{
+        onesWhoCompletedIt = onesWhoCompletedIt + "</table>";
 
-          onesWhoCancelledIt = "The list of the people who cancelled the questionnaire is empty";
-      }
+    }
+
+    else {
+
+        onesWhoCompletedIt = "The list of the people who submitted the questionnaire is empty";
+
+    }
+
+
+    //printing users who cancelled the questionnaire
+    if(listOnesWhoCancelledIt != null || listOnesWhoCancelledIt.size() != 0) {
+
+        for (UserEntity u : listOnesWhoCancelledIt) {
+
+            onesWhoCancelledIt = onesWhoCancelledIt + "<tr><td>" + u.getUserName() + "</td>"
+                    + "<td>" + u.getPoints() + "</td>"
+                    + "<td>" + u.getDateLastLogin().toString() + "</td>"
+                    + "</tr>";
+        }
+
+        onesWhoCancelledIt = onesWhoCancelledIt + "</table>";
+
+    }
+
+    else {
+
+        onesWhoCancelledIt = "The list of the people who cancelled the questionnaire is empty";
+
+    }
 
 %>
+
+
 
 Product:
 <%= stringProductEntity %>
@@ -94,6 +100,9 @@ List of people who cancelled the questionnaire
 <br>
 Look for personal answers
 <br>
+
+
+<%-- Form for the admin to search information about a specific user --%>
 <form action="AdminOneUserServlet" method="post">
 
     <input type="text" name="username">
@@ -107,20 +116,19 @@ Look for personal answers
 
             if (errorParameter.equals("noExistingUser") )
             {
-
     %>
-            <br/> <br/> <font color="red">Error: the user doesn't exist or has not aswered the questionnaire.</font> <br>
+                <br/> <br/> <font color="red"> Error: the user doesn't exist or has not answered the questionnaire. </font> <br>
     <%
             }
         }
     %>
-
 
 </form>
 
 
 <br>
 <br>
+
 
 <form action="BrokerServlet" method="get">
     <input type="hidden" name="redirectedPage" value="adminHome" />

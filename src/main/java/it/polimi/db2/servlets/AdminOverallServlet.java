@@ -27,16 +27,17 @@ public class AdminOverallServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/AdminManager")
     private AdminManager adminManager;
 
-    //this method gets a chosenDate parameter from session and sets as its attributes the users who completed/canceled
+    //this method gets a chosenDate parameter from session and sets as its attributes the users who completed/cancelled
     //the questionnaire for that day
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //STRING NEEDS TO BE PARSED before arriving here!
         String dateString = request.getParameter("chosenDate");
         Date date = adminManager.fromStringToDate(dateString);
+
         ProductEntity productThatDay = null;
         List<UserEntity> onesWhoCancelledIt = new ArrayList<>();
         List<UserEntity> onesWhoCompletedIt = new ArrayList<>();
+
 
         try {
 
@@ -45,7 +46,7 @@ public class AdminOverallServlet extends HttpServlet {
         } catch(NothingThatDateException ex) {
 
             //here it redirects back to the page where you insert the date for which you wanna know about
-            request.getRequestDispatcher("WEB-INF/adminHome.jsp?errorString=noProductThatDay").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminHome.jsp?parameterString=noProductThatDay").forward(request, response);
 
         } catch(DatabaseFailException ex){
 
@@ -53,8 +54,11 @@ public class AdminOverallServlet extends HttpServlet {
             request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
         }
 
+
         try {
 
+            //storing the users in two List<UserEntity> variables, depending on their choice:
+            //they could have completed the questionnaire or they could have cancelled it
             onesWhoCompletedIt = adminManager.retrieveQuestionnaireResponders(date, false);
             onesWhoCancelledIt = adminManager.retrieveQuestionnaireResponders(date, true);
 
@@ -64,20 +68,18 @@ public class AdminOverallServlet extends HttpServlet {
         }
 
 
+        //lists are both empty because there was no user who completed or cancelled the questionnaire yet
         if(onesWhoCancelledIt.isEmpty() && onesWhoCompletedIt.isEmpty()){
-            request.getRequestDispatcher("WEB-INF/adminHome.jsp?errorString=noFillingThatDay").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/adminHome.jsp?parameterString=noFillingThatDay").forward(request, response);
         }
 
-        //the lists could be empty because there could be not a single user who did/canceled the questionnaire
-        //IN THAT CASE SIMPLY PRINT A MESSAGE EXPLAINING
+
         request.getSession().setAttribute("onesWhoCompletedIt", onesWhoCompletedIt);
         request.getSession().setAttribute("onesWhoCancelledIt", onesWhoCancelledIt);
         request.getSession().setAttribute("productThatDay", productThatDay);
         request.getSession().setAttribute("givenDate", date);
 
         request.getRequestDispatcher("WEB-INF/adminControlPanel.jsp").forward(request, response);
-
-        //is there anything else i need to do here? i don't know actually
 
     }
 

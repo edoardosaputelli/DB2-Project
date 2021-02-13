@@ -14,8 +14,8 @@
 
     <h3> Admin Login </h3>
 
+    <%-- Form for the Admin login --%>
     <form action="AdminLoginServlet" method="post">
-
         <input type="text" placeholder="username" name="username" required> <br>
         <input type="password" placeholder="password" name="password" required> <br>
         <input type="submit" value="Login">
@@ -25,31 +25,27 @@
 
         if(errorParameter != null){
 
-            //after login with wrong credentials
+            //invalid credentials for an admin account
             if (errorParameter.equals("invalidAdmin") )
             {
 
     %>
-        <br/> <br/> <font color="red"> Invalid admin </font> <br>
+                <br/> <br/> <font color="red"> Invalid admin </font> <br>
     <%
             } else if (errorParameter.equals("alreadyLoggedIn")) {
 
     %>
-
-        <br/> <br/> <font color="red"> Admin already logged in </font> <br>
-
+                <br/> <br/> <font color="red"> Admin already logged in </font> <br>
     <%
-
             }
         }
     %>
-
-
-
     </form>
+
 
     <br/>
 
+    <%-- Button to return to index.jsp --%>
     <form action="BrokerServlet" method="get">
         <input type="hidden" name="redirectedPage" value="index" />
         <button type="submit" > Back to user login </button>

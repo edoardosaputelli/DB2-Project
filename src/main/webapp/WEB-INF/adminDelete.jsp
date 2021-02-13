@@ -14,6 +14,7 @@
 
 <h3> Insert a date to delete a product for that date </h3>
 
+<%-- Form to insert a date to delete the related product --%>
 <form action="AdminDeleteServlet" method="post">
     <input type="date" name="chosenDate" required> <br>
     <input type="submit" value="Delete for this date"/>
@@ -32,7 +33,7 @@
     <%
     }
 
-    else if(errorParameter.equals("emptyDate")) {
+            else if(errorParameter.equals("emptyDate")) {
     %>
             <br/> <br/> <font color="red"> The chosen date is not related to a product. </font> <br>
     <%

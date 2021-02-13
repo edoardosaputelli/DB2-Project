@@ -15,18 +15,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Home</title>
+    <title>Home Page</title>
 </head>
 <body>
 
 <h1>Home</h1>
 
 
-<% Object user = session.getAttribute("user");
+<%
+    //retrieving information about the current user (from the session)
+    //and the product of the day (from the attributes)
 
-   String username = ((UserEntity) user).getUserName();
-   String productName = (String) request.getAttribute("productName");
-   BufferedImage image = (BufferedImage) request.getAttribute("productImage");
+    Object user = session.getAttribute("user");
+
+    String username = ((UserEntity) user).getUserName();
+    String productName = (String) request.getAttribute("productName");
+    BufferedImage image = (BufferedImage) request.getAttribute("productImage");
+
    //code to render image in base64 string and show it on the html page
     if (image != null) {
     ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -39,11 +44,12 @@
 %>
 
 <%
-
+    //retrieving reviews about the product of the day
     List<ReviewEntity> reviews = (List<ReviewEntity>) request.getAttribute("listReviews");
 
     String stringTableReview = "No reviews for this product";
 
+    //printing reviews
     if(reviews != null && (!reviews.isEmpty())) {
 
         stringTableReview = "<table style=\"width:50%\" border = \"5\">" +
@@ -70,12 +76,10 @@
 
 
 
+<h3> Welcome: <%=username%>, let's start! </h3>
 
 
-<h3>Welcome: <%=username%>, let's start!</h3>
-
-
-<h1>Product of the day: <%=productName%></h1>
+<h1> Product of the day: <%=productName%> </h1>
 
 
 <div>
@@ -90,51 +94,48 @@
 <br>
 <br>
 
+<%-- Button to the marketing question page --%>
 <form action="QuestionnaireServlet" method="get">
     <button type="submit"> Go to questionnaire </button>
-
-
-
-
-
 </form>
 
+<%-- Button to the product of the day's leaderboard page --%>
 <form action="LeaderBoardServlet" method="get">
     <button type="submit" >See leaderboard</button>
 </form>
 
 
-
 <% } else { %>
+
 <%
+    //in case of errors, the jsp page receives the type of error through the url
     String errorParameter = request.getParameter("errorString");
 
     if(errorParameter != null){
 
-        //after login with wrong credentials
+        //no product of the day is retrieved for the current date
         if (errorParameter.equals("noProductOfTheDay") )
         {
 
 %>
-<br/> <br/> <font color="red"> We are sorry, but there is no product for today :( </font> <br>
+            <font color="red"> We are sorry, but there is no product for today :( </font> <br> <br>
 <%
         }
+
+    //if a user already completed the questionnaire, he can't submit it again
     } else {
 %>
-        <h4>I'm sorry you already completed the questionnaire</h4>
 
-<form action="LeaderBoardServlet" method="get">
-    <button type="submit" >See leaderboard</button>
-</form>
-<% } %>
+        <h4> You have already filled the questionnaire </h4>
 
 <% } %>
 
+<% } %>
+
+<%-- Button to logout --%>
 <form action="LogOutServlet" method="get">
     <button type="submit" >Logout</button>
 </form>
-
-
 
 
 </body>

@@ -12,12 +12,14 @@
 </head>
 <body>
 
+<%-- The admin reaches this page only if he successfully added a product for the chosen day.
+He can now choose the number and the context of the questions related to the product's questionnaire --%>
 
 <form action="AdminAddQuestionsServlet" method="get">
 
-Insert the desired number of marketing questions (between 1 and 10):    <br>
+    Insert the desired number of marketing questions (between 1 and 10):    <br>
     <input type="range" min="1" max="10" name="numOfMarkQuest" placeholder="Between 1-10">
-    <button type="submit">Submit number of questions</button>
+    <button type="submit"> Submit number of questions </button>
 
 </form>
 

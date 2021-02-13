@@ -9,14 +9,16 @@ import java.io.IOException;
 
 @WebServlet(name = "LogOutServlet", urlPatterns = {"/LogOutServlet"})
 public class LogOutServlet extends HttpServlet {
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //we just set the user of the session to null and redirect to where you login
+        //just setting the user of the session to null and redirecting to the login page
         request.getSession().setAttribute("user", null);
         request.getRequestDispatcher("index.jsp").forward(request, response);
+
     }
 }

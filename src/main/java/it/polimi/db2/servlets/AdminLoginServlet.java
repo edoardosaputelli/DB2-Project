@@ -20,10 +20,10 @@ public class AdminLoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // obtain and escape params
         String username = null;
         String password = null;
         try {
+
             username = request.getParameter("username");
             password = request.getParameter("password");
 
@@ -32,7 +32,6 @@ public class AdminLoginServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            // for debugging only e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
             return;
         }
@@ -40,7 +39,7 @@ public class AdminLoginServlet extends HttpServlet {
 
         AdminEntity admin;
         try {
-            // query db to authenticate for user
+            // query for admin authentication
             admin = adminManager.checkCredentials(username, password);
 
         } catch (Exception e) {
@@ -49,7 +48,7 @@ public class AdminLoginServlet extends HttpServlet {
             return;
         }
 
-        // If the user exists, add info to the session and go to home page, otherwise
+        // If the admin exists, add info to the session and go to home page, otherwise
         // show login page with error message
 
         String path;
@@ -64,10 +63,11 @@ public class AdminLoginServlet extends HttpServlet {
 
         }
 
+        //valid credentials for an admin
         else
         {
 
-            //already logged in admin
+            //already logged-in admin
             if(request.getSession().getAttribute("admin") != null){
 
                 response.setContentType( "text/html" );
@@ -75,7 +75,7 @@ public class AdminLoginServlet extends HttpServlet {
 
             }
 
-
+            //successful admin authentication
             else {
 
                 request.getSession().setAttribute("admin", admin);

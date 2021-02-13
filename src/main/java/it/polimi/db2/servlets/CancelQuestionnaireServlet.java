@@ -20,15 +20,15 @@ public class CancelQuestionnaireServlet extends HttpServlet {
     private QuestionnaireManager questionnaireManager;
 
 
-    //this servlet call is associated to the cancel button at the end of the questionniare
+    //this servlet call is associated to the cancel button at the end of the questionnaire
     //it tells the manager to set the response of that user for today's questionnaire to cancelled
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
         QuestionnaireEntity questionnaire = questionnaireManager.getMarketingQuestionEntityList().get(0).getQuestionnaire();
         UserEntity user = (UserEntity) request.getSession().getAttribute("user");
 
         try {
+
             questionnaireManager.cancelQuestionnaire(questionnaire, user);
 
         }catch(DatabaseFailException ex) {

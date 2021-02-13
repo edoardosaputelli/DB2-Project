@@ -35,6 +35,5 @@ public class LeaderBoardServlet extends HttpServlet {
 
         request.getRequestDispatcher("WEB-INF/leaderboard.jsp").forward(request, response);
 
-
     }
 }

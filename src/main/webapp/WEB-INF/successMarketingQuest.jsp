@@ -15,13 +15,10 @@
 <h1>Thank you!</h1>
 
 
-
+<%-- Button to pass to the second part of the questionnaire --%>
 <form action="StatisticalQuestionnaireServlet" method="get">
-
     <button type="submit" >Go to Statistical Questionnaire</button>
-
 </form>
-
 
 
 </body>

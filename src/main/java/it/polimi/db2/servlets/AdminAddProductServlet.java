@@ -28,29 +28,31 @@ public class AdminAddProductServlet extends HttpServlet {
     //this method takes from request a name, a date and an img to add a new product to the application
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
         String stringDate = (String) request.getParameter("chosenDate");
         String productName = (String) request.getParameter("productName");
         Part part = request.getPart("image");
 
-
+        //didIt will become true if the product will be added successfully, false otherwise
         boolean didIt = false;
-        //DA RIVEDERE
+
         byte [] img = generateFromImage(part);
         Date date = adminManager.fromStringToDate(stringDate);
 
         //check if the date inserted is a day already passed
         if(date.before(Date.valueOf(LocalDate.now()))) {
+
             request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?errorString=invalidDate").forward(request, response);
+
         } else {
 
-
             try {
+
                 didIt = adminManager.addProduct(productName, date, img);
+
             } catch (DatabaseFailException ex) {
                 request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
             }
+
 
             if (didIt) {
 
@@ -61,6 +63,7 @@ public class AdminAddProductServlet extends HttpServlet {
             } else {
                 request.getRequestDispatcher("WEB-INF/adminAddProduct.jsp?errorString=alreadyOccupiedDate").forward(request, response);
             }
+
         }
 
     }

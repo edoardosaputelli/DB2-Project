@@ -11,7 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Stat Questionnaire</title>
+    <title>Statistical Questionnaire</title>
 </head>
 <body>
 
@@ -40,9 +40,7 @@
 
         questionsTable = questionsTable +"<br>";
 
-
     }
-
 
     questionsTable = questionsTable + "\n" + "<input type=\"submit\" value=\"Submit\">" + "</form>";
 
@@ -51,19 +49,15 @@
 <%=questionsTable%>
 
 
+<%-- Button to go back to marketing questions, where the user will find the answers inserted before --%>
 <form action="QuestionnaireServlet" method="get">
-
     <input type="submit" value="Go Back to Marketing Questionnaire">
-
 </form>
 
-
+<%-- Button to cancel the questionnaire --%>
 <form action="CancelQuestionnaireServlet" method="post">
-
     <input type="submit" value="Cancel Questionnaire">
-
 </form>
-
 
 
 </body>

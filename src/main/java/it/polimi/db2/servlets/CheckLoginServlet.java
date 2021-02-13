@@ -25,7 +25,7 @@ import java.util.List;
 
 @WebServlet(name = "CheckLoginServlet", urlPatterns = {"/CheckLoginServlet"})
 
-
+//this servlet is called in the form of users' login
 public class CheckLoginServlet extends HttpServlet {
 
     @EJB(name = "it.polimi.db2.ejb/UserManager")
@@ -37,9 +37,10 @@ public class CheckLoginServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // obtain and escape params
+
         String username = null;
         String password = null;
+
         try {
             username = request.getParameter("username");
             password = request.getParameter("password");
@@ -49,22 +50,26 @@ public class CheckLoginServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            // for debugging only e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
             return;
         }
 
 
         UserEntity user = null;
+
         try {
-            // query db to authenticate for user
+
+            // query db for user authentication
             user = userManager.checkCredentials(username, password);
 
         } catch (DatabaseFailException e) {
+
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Could not check credentials");
             return;
-        }catch (BannedUserException ex) {
+
+        } catch (BannedUserException ex) {
+            response.setContentType( "text/html" );
             request.getRequestDispatcher("index.jsp?errorString=bannedUser").forward(request, response);
         }
 
@@ -80,9 +85,7 @@ public class CheckLoginServlet extends HttpServlet {
             request.getSession().setAttribute("user", null);
 
             response.setContentType( "text/html" );
-            path = getServletContext().getContextPath() + "/index.jsp?errorString=invalidUser";
-            response.sendRedirect(path);
-
+            request.getRequestDispatcher("index.jsp?errorString=invalidUser").forward(request, response);
 
         }
 
@@ -93,28 +96,30 @@ public class CheckLoginServlet extends HttpServlet {
             if(request.getSession().getAttribute("user") != null){
 
                 response.setContentType( "text/html" );
-                path = getServletContext().getContextPath() + "/index.jsp?errorString=alreadyLoggedIn";
-                response.sendRedirect(path);
+                request.getRequestDispatcher("index.jsp?errorString=alreadyLoggedIn").forward(request, response);
 
             }
 
 
             //the user has been logged in: he is redirected to the home page
             else {
-                //i assign the user to the session
+                //assigning the user to the session
                 request.getSession().setAttribute("user", user);
 
-                //i get the product
+                //getting the product
                 ProductEntity product = null;
                 List<ReviewEntity> reviews = null;
+
                 try{
+
                     product = userManager.retrieveProductOfTheDay();
 
-                    if(product != null){ reviews = userManager.retrieveReviewsForProduct(product.getIdProduct());}
+                    if(product != null) { reviews = userManager.retrieveReviewsForProduct(product.getIdProduct()); }
 
                 }catch (DatabaseFailException ex) {
                     request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
                 }catch (NothingThatDateException ex) {
+                    response.setContentType( "text/html" );
                     request.getRequestDispatcher("WEB-INF/home.jsp?errorString=noProductOfTheDay").forward(request, response);
                 }
 
@@ -133,7 +138,7 @@ public class CheckLoginServlet extends HttpServlet {
     }
 
     //method to generate the BufferedImage from the attribute of the product which is of type byte[]
-    protected BufferedImage createImageFromBytes (byte [] img) {
+    static protected BufferedImage createImageFromBytes (byte [] img) {
         BufferedImage image = null;
         ByteArrayInputStream inps = new ByteArrayInputStream(img);
 

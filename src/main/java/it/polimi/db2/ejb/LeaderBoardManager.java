@@ -21,9 +21,10 @@ public class LeaderBoardManager {
         List<UserEntity> leaderboard = null;
 
         try {
+
             Date today = Date.valueOf(LocalDate.now());
 
-            //i make the query so that flagCancelled is false and date is today
+            //making the query so that flagCancelled is false and date is today
             leaderboard = em.createNamedQuery("UserEntity.getQuestionnaireTakers", UserEntity.class)
                     .setParameter("flag", false)
                     .setParameter("givenDate", today, TemporalType.DATE)
@@ -35,7 +36,7 @@ public class LeaderBoardManager {
             throw new DatabaseFailException();
         }
 
-
         return leaderboard;
+
     }
 }

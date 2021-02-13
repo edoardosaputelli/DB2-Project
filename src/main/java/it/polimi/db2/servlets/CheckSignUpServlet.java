@@ -19,23 +19,9 @@ public class CheckSignUpServlet extends HttpServlet {
     @EJB(name = "it.polimi.db2.ejb/UserManager")
     private UserManager userManager;
 
-
-    /*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-
-        response.setContentType("text/plain");
-        PrintWriter pw = response.getWriter();
-        pw.println(username +"\n" +password +"\n" +email);
-        pw.close();
-    }*/
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // obtain and escape params
         String username = null;
         String password = null;
         String email = null;
@@ -51,14 +37,13 @@ public class CheckSignUpServlet extends HttpServlet {
             }
 
         } catch (Exception e) {
-            // for debugging only e.printStackTrace();
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credential value");
             return;
         }
 
         UserEntity user;
         try {
-            // query db to authenticate for user
+            // query db for user registration
             user = userManager.registerUser(username, password, email);
 
         } catch (Exception e) {
@@ -67,26 +52,20 @@ public class CheckSignUpServlet extends HttpServlet {
             return;
         }
 
-        //If the user is registered, he is redirected to a successful page, from where he can go to the login page.
-        //If the user is not registered, he was already in the database, so he is directly redirected to the login page with an error.
-
-        String path;
 
         //the user is already registered
         if(user==null) {
-            //the error is printed on the login page
+
+            //he is redirected to the index page with an error
             response.setContentType( "text/html" );
-            path = getServletContext().getContextPath() + "/index.jsp?errorString=alreadyRegistered";
-            response.sendRedirect(path);
+            request.getRequestDispatcher("index.jsp?errorString=alreadyRegistered").forward(request, response);
+
         }
 
         //the user has been registered
         else
         {
-
-
-
-            //we changed this to get to index and not home due to problems with user assigned to the session and logout
+            //he is redirected to the login page
             request.getRequestDispatcher("index.jsp").forward(request, response);
 
         }

@@ -61,21 +61,13 @@
             i++;
         }
 
-
-
         questionsTable = questionsTable + "\n" + "<input type=\"submit\" value=\"Submit\">" + "</form>";
-
-
-
-
 
     }
 
 %>
 
 <%=questionsTable%>
-
-
 
 
 </body>

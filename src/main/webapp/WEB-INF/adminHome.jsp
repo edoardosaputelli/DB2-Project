@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Admin Home</title>
+    <title> Admin Home </title>
 </head>
 <body>
 
@@ -16,38 +16,39 @@
 
 <h3> Insert a date to see the users who filled the questionnaire for that date. </h3>
 
+<%-- Form for the questionnaire research on the basis on a selected date --%>
 <form action="AdminOverallServlet" method="post">
     <input type="date" name="chosenDate" required> <br>
     <input type="submit" value="Search for this date"/>
 
-    <%-- ERRORSTRING NON CONTIENE SOLO ERRORI: VA CHIAMATA PARAMETER STRING MA ORA SMINCHIEREBBE TUTTO VA FATTO CON CALMA --%>
-
     <%
-        String stringParameter = request.getParameter("errorString");
+        String stringParameter = request.getParameter("parameterString");
 
         if(stringParameter != null){
 
-            //no one filled or cancelled the questionnaire for the chosen date
-            if (stringParameter.equals("noOneFilled") )
-            {
+            //three types of error messages (printed in red)
 
+            if (stringParameter.equals("noOneFilled") ) //maybe useless? maybe it is called noFillingThatDay
+            {
     %>
-            <br/> <br/> <font color="red"> No user filled or cancelled the questionnaire for the chosen date </font> <br>
+                <br/> <br/> <font color="red"> No user filled or cancelled the questionnaire for the chosen date </font> <br>
     <%
-    }
+            }
             else if(stringParameter.equals("noProductThatDay")) {
     %>
-            <br/> <br/> <font color="red"> There is no valid product for that day. </font> <br>
+                <br/> <br/> <font color="red"> There is no valid product for that day. </font> <br>
     <%
             }
             else if(stringParameter.equals("noFillingThatDay")) {
     %>
-            <br/> <br/> <font color="red"> There are still no answers for that day. </font> <br>
+                <br/> <br/> <font color="red"> There are still no answers for that day. </font> <br>
     <%
-    }
+            }
+            //two types of successful messages (printed in green)
+
             else if(stringParameter.equals("newProductHasBeenAdded")) {
     %>
-            <br/> <br/> <font color="green"> The product has been added for the chosen date. </font> <br>
+                <br/> <br/> <font color="green"> The product has been added for the chosen date. </font> <br>
     <%
             }
             else if(stringParameter.equals("newProductHasBeenDeleted")) {
@@ -61,16 +62,16 @@
 </form>
 
 <br>
-<br>
 
+<%-- Button for the adding product page --%>
 <form action="BrokerServlet" method="get">
     <input type="hidden" name="redirectedPage" value="adminAddProduct" />
     <button type="submit" > Click here to add a product for a date </button>
 </form>
 
 <br>
-<br>
 
+<%-- Button for the deleting product page --%>
 <form action="BrokerServlet" method="get">
     <input type="hidden" name="redirectedPage" value="adminDelete" />
     <button type="submit" > Click here to delete a product for a date </button>

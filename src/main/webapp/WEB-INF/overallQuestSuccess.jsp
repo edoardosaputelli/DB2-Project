@@ -1,6 +1,7 @@
 <%@ page import="it.polimi.db2.entities.MarketingQuestionEntity" %>
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.HashMap" %><%--
+<%@ page import="java.util.HashMap" %>
+<%@ page import="it.polimi.db2.entities.UserEntity" %><%--
   Created by IntelliJ IDEA.
   User: Simone Reale
   Date: 11/12/2020
@@ -17,14 +18,10 @@
 <h1>Thank you by the db2 team!</h1>
 
 
-<%-- <form action="home.jsp">
-    <button type="submit">Return to the Homepage</button>
-</form> --%>
-
-<form action="BrokerServlet" method="get">
-    <input type="hidden" name="redirectedPage" value="home" />
-    <button type="submit" > Return to the home page </button>
+<form action="RedirectHomeServlet" method="post">
+    <input type="submit" value="Return to the home page">
 </form>
+
 
 
 

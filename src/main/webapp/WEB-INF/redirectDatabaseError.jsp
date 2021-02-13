@@ -16,8 +16,6 @@
 
     <h2> <br/> Try again later. </h2>
 
-    <%-- <a href="../index.jsp"> Go to the login page </a> --%>
-
     <form action="BrokerServlet" method="get">
         <input type="hidden" name="redirectedPage" value="index" />
         <button type="submit" > Go to the login page </button>

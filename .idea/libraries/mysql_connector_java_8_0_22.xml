@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="mysql-connector-java-8.0.22">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../Data Bases2/apache-tomee-plume-8.0.3/lib/mysql-connector-java-8.0.22.jar!/" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES />
   </library>

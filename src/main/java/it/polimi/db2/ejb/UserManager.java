@@ -35,12 +35,14 @@ public class UserManager {
 
             uList = em.createNamedQuery("UserEntity.checkLogin", UserEntity.class).setParameter(1, username).setParameter(2, password)
                     .getResultList();
+
         } catch (PersistenceException e) {
 
             e.printStackTrace();
-
             throw new DatabaseFailException();
+
         }
+
         if (uList.isEmpty())
             return null;
 
@@ -56,12 +58,14 @@ public class UserManager {
 
             if(user.getFlagStatus()!=00000000) throw new BannedUserException();
 
-            return user;}
+            return user;
+
+        }
+
         throw new NonUniqueResultException("More than one user registered with same credentials");
 
     }
 
-    //TBD, don't even know if really needed
     public UserEntity registerUser(String username, String password, String email) throws DatabaseFailException {
 
         try {
@@ -88,23 +92,31 @@ public class UserManager {
     }
 
     public ProductEntity retrieveProductOfTheDay() throws DatabaseFailException, NothingThatDateException {
+
         ProductEntity product = null;
         Date today = Date.valueOf(LocalDate.now());
         if (em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class).setParameter("givenDate", today).
                 getResultList().isEmpty()) {
+
             throw new NothingThatDateException();
+
         }
 
         try{
+
             product = em.createNamedQuery("ProductEntity.getProductOfGivenDay", ProductEntity.class).
                     setParameter("givenDate", today).getResultList().get(0);
-        }catch (PersistenceException ex) {
+
+        } catch (PersistenceException ex) {
+
             ex.printStackTrace();
             throw new DatabaseFailException();
-        }
-        return product;
-    }
 
+        }
+
+        return product;
+
+    }
 
     public List<ReviewEntity> retrieveReviewsForProduct(int idProduct) throws DatabaseFailException{
 
@@ -114,7 +126,7 @@ public class UserManager {
             reviews = em.createNamedQuery("ReviewEntity.findReviewsProduct", ReviewEntity.class)
                     .setParameter(1, idProduct).getResultList();
 
-        }catch(PersistenceException ex){
+        } catch(PersistenceException ex){
             ex.printStackTrace();
             throw new DatabaseFailException();
         }

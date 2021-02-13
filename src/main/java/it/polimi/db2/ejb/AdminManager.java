@@ -22,7 +22,7 @@ public class AdminManager {
 
     public AdminManager (){}
 
-    //exact same method present for User, but the Admin will use a different Servlet and will need
+    //exact same method present for User, but the Admin will use a different Servlet
     public AdminEntity checkCredentials (String username, String password) throws Exception{
         List<AdminEntity> aList = null;
 
@@ -31,11 +31,8 @@ public class AdminManager {
             ).setParameter(2, password)
                     .getResultList();
         } catch (PersistenceException e) {
-
             e.printStackTrace();
-
             throw new Exception("Could not verify credentials");
-
         }
 
 
@@ -43,8 +40,7 @@ public class AdminManager {
             return null;
         else if (aList.size() == 1)
             return aList.get(0);
-        throw new NonUniqueResultException("More than one user registered with same credentials");
-
+        throw new NonUniqueResultException("More than one admin registered with same credentials");
     }
 
     //method returns false if a product is already associated to that day, true if the operation went through
@@ -57,6 +53,7 @@ public class AdminManager {
         }
 
         try {
+
             em.persist(addedProduct);
             em.flush();
 
@@ -81,7 +78,7 @@ public class AdminManager {
         }
 
         if (products == null) throw new NothingThatDateException();
-        if(products.isEmpty()) throw new NothingThatDateException();
+        if (products.isEmpty()) throw new NothingThatDateException();
 
         product = products.get(0);
         return product;
@@ -104,9 +101,11 @@ public class AdminManager {
         if (products.isEmpty()) {
             throw new NothingThatDateException();
         }
+
         else if (products.size()>1) {
             return false;
         }
+
         else {
             givenProduct = products.get(0);
             quest = new QuestionnaireEntity(givenProduct);
@@ -127,7 +126,9 @@ public class AdminManager {
                 ex.printStackTrace();
                 throw new DatabaseFailException();
             }
+
             return true;
+
         }
 
     }
@@ -147,7 +148,7 @@ public class AdminManager {
         toBeDeletedQuestionnaire = em.createNamedQuery("QuestionnaireEntity.questOfGivenDay", QuestionnaireEntity.class)
                 .setParameter("givenDay", toBeDeletedProduct.getDate(), TemporalType.DATE).getSingleResult();
 
-        //then i remove them from the persistance context, cascade options will remove marketing question/answers, statistical answers, questionnaire responses
+        //then i remove them from the persistence context, cascade options will remove marketing question/answers, statistical answers, questionnaire responses
         try {
             em.remove(toBeDeletedProduct);
             em.remove(toBeDeletedQuestionnaire);
@@ -155,7 +156,6 @@ public class AdminManager {
             ex.printStackTrace();
             throw new DatabaseFailException();
         }
-
 
         return true;
     }
@@ -262,12 +262,11 @@ public class AdminManager {
         return sList;
     }
 
-
-    //STRING SHOULD BE PARSED IN JSP
     public Date fromStringToDate(String dateString) {
 
         Date date = Date.valueOf(dateString);
-
         return date;
+
     }
+
 }

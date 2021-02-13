@@ -14,6 +14,7 @@
 
 <h3> Insert a date to add a product for that date </h3>
 
+<%-- Form to insert a product for a chosen date --%>
 <form action="AdminAddProductServlet" method="post" enctype="multipart/form-data">
     <input type="date" name="chosenDate" required> <br>
     <input type="text" placeholder="Product Name" name="productName" required > <br>
@@ -30,12 +31,13 @@
             {
 
     %>
-            <br/> <br/> <font color="red"> You can only insert a current or posterior date. </font> <br>
+                <br/> <br/> <font color="red"> You can only insert a current or posterior date. </font> <br>
     <%
             }
+            //the date is already occupied by another product
             else if(errorParameter.equals("alreadyOccupiedDate")) {
     %>
-            <br/> <br/> <font color="red"> The chosen date is already occupied by another product. </font> <br>
+                <br/> <br/> <font color="red"> The chosen date is already occupied by another product. </font> <br>
     <%
             }
         }

@@ -46,7 +46,7 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
 
         HashMap<Integer, String> mapMarketingAnsQuest = (HashMap<Integer, String>) request.getSession().getAttribute("mapMarketingAnsQuest");
-        UserEntity currentUser =(UserEntity)request.getSession().getAttribute("user");
+        UserEntity currentUser = (UserEntity)request.getSession().getAttribute("user");
 
         //check if the user inserted forbidden words
         //big try branch because it needs to do all of this stuff only if there are no forbidden words in the answers
@@ -55,11 +55,11 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
             questionnaireManager.checkForOffensiveWords(mapMarketingAnsQuest);
             //if the user is not banned and the database does everything it needs to do
 
-            //i format the answer in order to save them
+            //i format the answers in order to save them
             List<MarketingAnswerEntity> mAnswers = formatMarketingAnswers (currentUser, questionnaireManager.getMarketingQuestionEntityList(),  mapMarketingAnsQuest);
             List<StatisticalAnswerEntity> sAnswers = formatStatisticalAnswers (currentUser, questionnaireManager.getStatisticalQuestionEntityList().keySet().stream().collect(Collectors.toList()), mapStatAnsQuest );
 
-            //persist the answers
+            //persisting the answers
             try {
                 questionnaireManager.persistQuestionnaireAnswers(mAnswers, sAnswers, currentUser);
             }catch (DatabaseFailException ex) {
@@ -73,21 +73,19 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
 
             //here exceptions for the checkForOffensiveWords!!
         } catch (BadLanguageException e) {
+
             //user is banned
             questionnaireManager.banUser(currentUser);
 
             //and redirected to the login page with a message explaining
-            String path;
             response.setContentType("text/html");
-            path = getServletContext().getContextPath() + "/index.jsp?errorString=bannedUser";
-            response.sendRedirect(path);
+            request.getRequestDispatcher("index.jsp?errorString=bannedUser").forward(request, response);
 
             questionnaireManager.setSessionMapsNull(request);
+
         }catch (DatabaseFailException ex) {
             request.getRequestDispatcher("WEB-INF/redirectDatabaseError.jsp").forward(request, response);
         }
-
-
 
     }
 
@@ -95,16 +93,12 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
     //method called when the user moves from marketing to statistical questionnaire
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         HashMap<StatisticalQuestionEntity, List<StatQuestionAlternativesEntity>> statisticalQuestionEntityList = questionnaireManager.getStatisticalQuestionEntityList();
 
         request.setAttribute("statisticalQuestions", statisticalQuestionEntityList);
         request.getRequestDispatcher("WEB-INF/statisticalQuestionnaire.jsp").forward(request, response);
 
-
     }
-
-
 
 
 
@@ -120,7 +114,6 @@ public class StatisticalQuestionnaireServlet extends HttpServlet {
                 }
             }
         }
-
         return mAnsList;
     }
 

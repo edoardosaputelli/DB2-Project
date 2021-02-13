@@ -14,7 +14,7 @@
 <body>
 
 <%
-
+    //printing users from the leaderboard on the basis of the attribute received
     List<UserEntity> resultList = (List<UserEntity>) request.getAttribute("leaderBoard");
 
     String stringLeaderboard = "<table style=\"width:50%\" border = \"5\">" +
@@ -40,15 +40,10 @@
 <%=stringLeaderboard%>
 
 
-<%-- <form action="WEB-INF/home.jsp">
-    <button type="submit"> Return to the Homepage</button>
-</form><br><br> --%>
-
-
-<form action="BrokerServlet" method="get">
-    <input type="hidden" name="redirectedPage" value="home" />
-    <button type="submit" > Return to the home page </button>
+<form action="RedirectHomeServlet" method="post">
+    <input type="submit" value="Return to the home page">
 </form>
+
 
 <form action="LogOutServlet" method="get">
     <button type="submit" >Logout</button>

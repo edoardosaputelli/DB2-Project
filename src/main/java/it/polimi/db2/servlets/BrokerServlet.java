@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//this servlet manages the different redirections to the jsp pages
+//this servlet manages the different redirections to the jsp pages from other jsp pages
+//this because they can't be accessed otherwise, because they are only found in the WEB-INF folder (except for index.jsp)
 @WebServlet(name = "BrokerServlet", urlPatterns = {"/BrokerServlet"})
 public class BrokerServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //the desired page is stored in a parameter in the form where the BrokerServlet is called
         String requestedPage = request.getParameter("redirectedPage");
 
         switch (requestedPage) {
