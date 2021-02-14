@@ -105,5 +105,3 @@ t
 Dsrc/main/java/it/polimi/db2/Exceptions/NothingThatDateException.java,3\c\3c7e2e3253c4ca006ec5e06f22b4bf535d94a4fa
 P
  src/main/webapp/WEB-INF/home.jsp,1\f\1f6b8c5d7af95cac9484a6214f03231b4cfdc1a7
-K
-src/main/webapp/overall.jsp,3\f\3f8a9427b801684b3ce49efbfef560e3333b1b46

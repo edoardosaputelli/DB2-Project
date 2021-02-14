@@ -1,24 +1,36 @@
 
-\
-java:S1161":Add the "@Override" annotation above this method signature(þ³‚”ûÿÿÿÿ8ê¦×”ã.
-X	java:S125K"<This block of commented-out lines of code should be removed.(ÕÅŸÈ8µí‹ç.
-b	java:S112'"FDefine and throw a dedicated exception instead of using a generic one.(üæÂã8ê¦×”ã.
-X	java:S125Z"<This block of commented-out lines of code should be removed.(ÕÅŸÈ8µí‹ç.
-~
-java:S1989c"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(šòÆ™8µí‹ç.
-V
-java:S1128"9Remove this unused import 'javax.servlet.ServletContext'.(á¡æÞ8Åâšå.
-u
-java:S1989X"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8µí‹ç.
-m
-java:S19898"PHandle the following exception that could be thrown by "sendError": IOException.(Þ´Å»8õíæã.
-u
-java:S1989I"SHandle the following exception that could be thrown by "sendRedirect": IOException.(ÛÑé§þÿÿÿÿ8µí‹ç.
-X	java:S125+"<This block of commented-out lines of code should be removed.(’ðÐÐ8ê¦×”ã.
-]	java:S125e"<This block of commented-out lines of code should be removed.(«¶÷ûþÿÿÿÿ8µí‹ç.
 M
-java:S1128"0Remove this unused import 'java.io.PrintWriter'.(ÓÞÏÛ8Ó”Ö”ã.
+java:S1128"0Remove this unused import 'java.io.PrintWriter'.(ÓÞÏÛ8Ó”Ö”ã.
+V
+java:S1128"9Remove this unused import 'javax.servlet.ServletContext'.(á¡æÞ8Åâšå.
 i
-java:S1128"GRemove this unused import 'javax.persistence.NonUniqueResultException'.(ï¬Áðùÿÿÿÿ8©öñ”ã.
+java:S1128"GRemove this unused import 'javax.persistence.NonUniqueResultException'.(ï¬Áðùÿÿÿÿ8©öñ”ã.
+l
+java:S1192H"JDefine a constant instead of duplicating this literal "text/html" 4 times.(ïòîÀþÿÿÿÿ8çµœèù.
+b	java:S1121"FDefine and throw a dedicated exception instead of using a generic one.(üæÂã8çµœèù.
+g
+java:S2259"EA "NullPointerException" could be thrown; "product" is nullable here.(š›Å˜ýÿÿÿÿ8çµœèù.
+\
+java:S1161&":Add the "@Override" annotation above this method signature(þ³‚”ûÿÿÿÿ8çµœèù.
+t
+java:S3776&"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(þ³‚”ûÿÿÿÿ8çµœèù.
 m
-java:S1989,"PHandle the following exception that could be thrown by "sendError": IOException.(ÚÿéÇ8ê¦×”ã.
+java:S19895"PHandle the following exception that could be thrown by "sendError": IOException.(ÚÿéÇ8çµœèù.
+m
+java:S1989D"PHandle the following exception that could be thrown by "sendError": IOException.(Þ´Å»8çµœèù.
+ƒ
+java:S1989I"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(¿á²ùÿÿÿÿ8çµœèù.
+~
+java:S1989X"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(ÓÙµÜ8çµœèù.
+~
+java:S1989c"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(…†¼ò8çµœèù.
+~
+java:S1989x"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(‘­Æ8çµœèù.
+~
+java:S1989{"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(§ŽØ8çµœèù.
+
+java:S1989ƒ"aHandle the following exceptions that could be thrown by "forward": ServletException, IOException.(šòÆ™8çµœèù.
+h
+java:S1124"EReorder the modifiers to comply with the Java Language Specification.(¸¾ÚÈúÿÿÿÿ8çµœèù.
+F
+java:S1481O")Remove this unused "path" local variable.(Éã…Í8çµœèù.

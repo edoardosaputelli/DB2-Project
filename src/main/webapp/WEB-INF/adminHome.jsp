@@ -78,5 +78,12 @@
 </form>
 
 
+<%-- Button to logout --%>
+<form action="AdminLogOutServlet" method="get">
+    <button type="submit" >Logout</button>
+</form>
+
+
+
 </body>
 </html>
