@@ -30,7 +30,7 @@ public class ProductEntity implements Serializable {
     @Column(name = "productName", nullable = false, length = 45)
     private String productName;
 
-    @Basic
+    @Basic (fetch = FetchType.LAZY)
     @Column(name = "productImage", nullable = false)
     private byte[] productImage;
 
